@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MHV — Maendeleo Hospitality Ventures</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0d1e35;
+      --navy2:  #122540;
+      --gold:   #b8965a;
+      --gold2:  #d4aa6e;
+      --white:  #ffffff;
+      --off:    #f5f3ef;
+      --text:   #1a2a3a;
+      --muted:  #5a6a7a;
+      --border: #ddd8d0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 60px;
+      height: 72px;
+      background: rgba(13, 30, 53, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--gold2); }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold2); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--white) !important;
+      padding: 9px 22px;
+      border-radius: 2px;
+      letter-spacing: 0.06em !important;
+    }
+    .nav-cta:hover { background: var(--gold2); color: var(--white) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background-color: #0d1e35 !important;
+      background: #0d1e35 !important;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+    .hero-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold2);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      color: var(--white);
+      line-height: 1.18;
+      max-width: 680px;
+      font-weight: 400;
+      margin-bottom: 28px;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold2); }
+    .hero-sub {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--white);
+      padding: 14px 32px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold2); }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.7);
+      color: #ffffff;
+      padding: 14px 32px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold2); color: var(--gold2); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--gold);
+      padding: 0 60px;
+      display: flex;
+      align-items: stretch;
+    }
+    .stat-item {
+      flex: 1;
+      padding: 32px 0;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.2);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--white);
+      display: block;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 60px; }
+    section:nth-child(even) { background: var(--off); }
+
+    .section-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--navy);
+      line-height: 1.25;
+      margin-bottom: 20px;
+      max-width: 560px;
+    }
+    .section-intro {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 600px;
+      line-height: 1.75;
+      margin-bottom: 56px;
+    }
+
+    /* ── ABOUT SPLIT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-img {
+      aspect-ratio: 4/3;
+      background: #c8d4e0;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .img-placeholder {
+      color: #8a9aaa;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 20px;
+    }
+    .about-content p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-size: 0.97rem;
+    }
+    .about-content p strong { color: var(--text); font-weight: 600; }
+
+    /* ── INVESTMENT THESIS ── */
+    .thesis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+    .thesis-card {
+      border-top: 2px solid var(--gold);
+      padding-top: 28px;
+    }
+    .thesis-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .thesis-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
+
+    /* ── RETURNS ── */
+    .returns-section { background: #0d1e35 !important; }
+    .returns-section .section-tag { color: var(--gold2) !important; }
+    .returns-section .section-title { color: #ffffff !important; }
+    .returns-section .section-intro { color: rgba(255,255,255,0.7) !important; }
+    .returns-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 800px;
+    }
+    .return-card {
+      border: 1px solid rgba(255,255,255,0.2);
+      border-top: 3px solid var(--gold);
+      padding: 40px 36px;
+      background: rgba(255,255,255,0.04);
+    }
+    .return-card .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: var(--gold2);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .return-card h4 {
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .return-card p {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    /* ── COMMUNITY ── */
+    .community-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .community-img {
+      aspect-ratio: 4/3;
+      background: #d4cfc8;
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .community-img img { width: 100%; height: 100%; object-fit: cover; }
+    .community-content .section-title { max-width: 100%; }
+    .community-content p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+    .quote-block {
+      border-left: 3px solid var(--gold);
+      padding: 16px 24px;
+      background: #f0ece6;
+      margin: 32px 0;
+    }
+    .quote-block p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--navy);
+      font-style: italic;
+      margin: 0;
+    }
+
+    /* ── TEAM / PRESENCE ── */
+    .presence-section {
+      background: #122540 !important;
+      background-color: #122540 !important;
+    }
+    .presence-section .section-tag { color: var(--gold2) !important; }
+    .presence-section .section-title { color: #ffffff !important; }
+    .presence-section .section-intro { color: rgba(255,255,255,0.7) !important; }
+    .presence-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .presence-item {
+      padding: 40px 32px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .presence-item:last-child { border-right: none; }
+    .presence-item h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .presence-item p {
+      color: rgba(255,255,255,0.72);
+      font-size: 0.85rem;
+      line-height: 1.65;
+    }
+    .presence-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      background: var(--off);
+      text-align: center;
+      padding: 100px 60px;
+    }
+    .contact-section .section-title {
+      margin: 0 auto 20px;
+      text-align: center;
+      max-width: 540px;
+    }
+    .contact-section .section-intro {
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+    .contact-card {
+      display: inline-block;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
+      padding: 48px 60px;
+      text-align: left;
+      max-width: 500px;
+      width: 100%;
+    }
+    .contact-card label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+      margin-top: 24px;
+    }
+    .contact-card label:first-child { margin-top: 0; }
+    .contact-card input,
+    .contact-card textarea,
+    .contact-card select {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--white);
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .contact-card input:focus,
+    .contact-card textarea:focus,
+    .contact-card select:focus {
+      border-color: var(--gold);
+    }
+    .contact-card textarea { resize: vertical; min-height: 100px; }
+    .contact-card .submit-btn {
+      margin-top: 28px;
+      width: 100%;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      padding: 14px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .contact-card .submit-btn:hover { background: var(--gold); }
+    .contact-note {
+      margin-top: 16px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080f1a;
+      color: rgba(255,255,255,0.35);
+      padding: 48px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a {
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold2); }
+    .footer-right { text-align: right; }
+    .footer-disclaimer {
+      background: #040a12;
+      padding: 20px 60px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { gap: 20px; }
+      section { padding: 64px 24px; }
+      .hero { padding: 100px 24px 64px; }
+      .stats-bar { padding: 0 24px; flex-wrap: wrap; }
+      .stat-item { min-width: 50%; border-bottom: 1px solid rgba(255,255,255,0.15); }
+      .about-grid,
+      .community-grid { grid-template-columns: 1fr; gap: 40px; }
+      .thesis-grid { grid-template-columns: 1fr; }
+      .returns-grid { grid-template-columns: 1fr; max-width: 100%; }
+      .presence-grid { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; gap: 24px; text-align: center; }
+      .footer-right { text-align: center; }
+      .footer-disclaimer { padding: 20px 24px; }
+      .contact-section { padding: 64px 24px; }
+      .contact-card { padding: 36px 28px; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .presence-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">MHV <span>·</span> Maendeleo</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#thesis">Investment</a></li>
+      <li><a href="#returns">Returns</a></li>
+      <li><a href="#community">Impact</a></li>
+      <li><a href="#contact" class="nav-cta">Investor Enquiry</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-tag">Africa Hospitality Fund</div>
+    <h1>Investing in the Future of <em>African Hospitality</em></h1>
+    <p class="hero-sub">
+      Maendeleo Hospitality Ventures is a specialist fund targeting premium lodge
+      and camp development across East Africa — delivering fixed returns with
+      meaningful upside and lasting community impact.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Request Fund Information</a>
+      <a href="#thesis" class="btn-outline">Our Investment Approach</a>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num">8–12%</span>
+      <span class="stat-label">Fixed Annual Return</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">+</span>
+      <span class="stat-label">Performance Upside</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">Tanzania</span>
+      <span class="stat-label">Primary Operating Market</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">Proven</span>
+      <span class="stat-label">Operational Track Record</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-content">
+        <div class="section-tag">About the Fund</div>
+        <h2 class="section-title">Development-Led Hospitality. Done Right.</h2>
+        <p>
+          <strong>Maendeleo</strong> — meaning "development" in Swahili — defines
+          both our name and our philosophy. We don't just build lodges; we build
+          economies. Every property we develop creates jobs, uplifts communities,
+          and unlocks the full potential of East Africa's most extraordinary landscapes.
+        </p>
+        <p>
+          The MHV Fund offers investors a single, professionally managed vehicle
+          to access a diversified portfolio of hospitality assets across Tanzania.
+          Rather than managing individual project risk, investors participate in
+          the performance of the fund as a whole.
+        </p>
+        <p>
+          Our team has direct operational experience building and running camps in
+          Tanzania — this isn't a thesis, it's a track record. Mapito is proof.
+        </p>
+      </div>
+      <div class="about-img">
+        <!-- Replace with actual camp/lodge photo -->
+        <div class="img-placeholder">[ Camp / Lodge Photography ]<br/>Actual property imagery</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THESIS -->
+  <section id="thesis">
+    <div class="section-tag">Investment Approach</div>
+    <h2 class="section-title">Why East Africa. Why Now.</h2>
+    <p class="section-intro">
+      The African hospitality market remains dramatically underserved relative to
+      global demand. Rising international arrivals, a growing Indian and Asian
+      investor base, and a scarcity of quality supply create a rare entry point
+      for disciplined capital.
+    </p>
+    <div class="thesis-grid">
+      <div class="thesis-card">
+        <h3>Operational Expertise</h3>
+        <p>
+          We don't underwrite projections — we've lived them. Our principals have
+          built and operated camps on the ground in Tanzania. We understand the
+          permits, the partners, and the pitfalls most funds miss.
+        </p>
+      </div>
+      <div class="thesis-card">
+        <h3>Supply Scarcity</h3>
+        <p>
+          Quality lodge inventory in prime locations remains scarce. New development
+          is constrained by land access, licensing, and operational know-how —
+          exactly where we have an edge. Scarcity drives premium valuations.
+        </p>
+      </div>
+      <div class="thesis-card">
+        <h3>Community Flywheel</h3>
+        <p>
+          Lodges that lift the communities around them generate stronger guest
+          loyalty, better staff retention, and regulatory goodwill. Our community
+          development model isn't charity — it's competitive advantage.
+        </p>
+      </div>
+      <div class="thesis-card">
+        <h3>Diversified Portfolio</h3>
+        <p>
+          A single-fund structure pools capital across multiple assets, spreading
+          operational risk while maintaining the return profile of direct property
+          exposure. Investors gain diversification without the complexity.
+        </p>
+      </div>
+      <div class="thesis-card">
+        <h3>Credible Structure</h3>
+        <p>
+          The fund is being structured with full legal and regulatory rigour in
+          Tanzania. Investor protections, reporting standards, and governance are
+          built in from day one — not bolted on after the fact.
+        </p>
+      </div>
+      <div class="thesis-card">
+        <h3>Target Markets</h3>
+        <p>
+          Our primary distribution focus is India, where appetite for alternative,
+          real-asset investments with fixed-income characteristics is significant
+          and growing. Secondary access in the USA and UK.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RETURNS -->
+  <section id="returns" class="returns-section">
+    <div class="section-tag">Fund Structure</div>
+    <h2 class="section-title">Clear Returns. No Hidden Complexity.</h2>
+    <p class="section-intro">
+      The MHV Fund is structured to give investors a predictable income base
+      with meaningful participation in upside — without the operational burden
+      of direct property ownership.
+    </p>
+    <div class="returns-grid">
+      <div class="return-card">
+        <div class="num">8–12%</div>
+        <h4>Fixed Annual Interest</h4>
+        <p>
+          A fixed return component, distributed annually, providing predictable
+          income regardless of property-level performance variation.
+        </p>
+      </div>
+      <div class="return-card">
+        <div class="num">+</div>
+        <h4>Performance Participation</h4>
+        <p>
+          Beyond the fixed floor, investors participate in the upside from the
+          fund's portfolio performance — aligning our incentives directly with yours.
+        </p>
+      </div>
+      <div class="return-card">
+        <div class="num">1</div>
+        <h4>Single Investment Vehicle</h4>
+        <p>
+          One fund. Diversified across assets. No need to evaluate individual
+          projects — our team manages the portfolio so you don't have to.
+        </p>
+      </div>
+      <div class="return-card">
+        <div class="num">Pro</div>
+        <h4>Professionally Managed</h4>
+        <p>
+          Quarterly reporting, transparent financials, and dedicated investor
+          relations. You have full visibility into how your capital is deployed.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY -->
+  <section id="community">
+    <div class="community-grid">
+      <div class="community-img">
+        <!-- Replace with Hope for Girls / community photo -->
+        <div class="img-placeholder">[ Community Impact Photography ]<br/>Hope for Girls / Local Programs</div>
+      </div>
+      <div class="community-content">
+        <div class="section-tag">Community Impact</div>
+        <h2 class="section-title">When We Develop a Lodge, Thousands Benefit.</h2>
+        <p>
+          Every MHV property is engineered to uplift the community it operates
+          within. Not as a branding exercise — as a genuine operating model.
+          Local employment, supplier partnerships, and infrastructure contributions
+          are built into every development plan.
+        </p>
+        <div class="quote-block">
+          <p>"When we develop a lodge, it uplifts thousands in the area."</p>
+        </div>
+        <p>
+          One of our flagship community partnerships is with <strong>Hope for Girls</strong>,
+          a center providing education and support to young women in Tanzania.
+          Our partners have donated a full year's food supply to the center — and
+          we are currently building them a brand new facility.
+        </p>
+        <p>
+          This is the kind of impact that cannot be replicated by funds chasing
+          generic Serengeti exposure. It's built on relationships, presence,
+          and years of doing the work on the ground.
+        </p>
+        <a href="#contact" class="btn-primary" style="display:inline-block; margin-top: 12px;">Learn More About Our Impact</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESENCE -->
+  <section id="presence" class="presence-section">
+    <div class="section-tag">Presence &amp; Expertise</div>
+    <h2 class="section-title">On the Ground. In the Market.</h2>
+    <p class="section-intro">
+      Our strength is not a PowerPoint — it's operational knowledge built over
+      years of doing business in East Africa.
+    </p>
+    <div class="presence-grid">
+      <div class="presence-item">
+        <div class="presence-dot"></div>
+        <h4>Tanzania Operations</h4>
+        <p>Direct camp operations, licensing relationships, and ground-level logistics in Tanzania.</p>
+      </div>
+      <div class="presence-item">
+        <div class="presence-dot"></div>
+        <h4>India Distribution</h4>
+        <p>Primary investor relations and distribution focus serving the Indian HNI and family office market.</p>
+      </div>
+      <div class="presence-item">
+        <div class="presence-dot"></div>
+        <h4>Legal &amp; Compliance</h4>
+        <p>Fund structure being established with full Tanzanian legal and regulatory rigour — 60-day timeline.</p>
+      </div>
+      <div class="presence-item">
+        <div class="presence-dot"></div>
+        <h4>Mapito — Proven Asset</h4>
+        <p>Live, operating property demonstrating the team's ability to develop and run quality hospitality assets.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="section-tag">Investor Relations</div>
+    <h2 class="section-title">Request Fund Information</h2>
+    <p class="section-intro">
+      We work with qualified investors directly. Submit your details and our
+      team will be in touch within 48 hours.
+    </p>
+    <div class="contact-card">
+      <label>Full Name</label>
+      <input type="text" placeholder="Your name" />
+
+      <label>Email Address</label>
+      <input type="email" placeholder="you@example.com" />
+
+      <label>Country of Residence</label>
+      <select>
+        <option value="">Select country...</option>
+        <option>India</option>
+        <option>United States</option>
+        <option>United Kingdom</option>
+        <option>UAE</option>
+        <option>Other</option>
+      </select>
+
+      <label>Investment Interest</label>
+      <select>
+        <option value="">Select range...</option>
+        <option>₹50L – ₹1Cr / $50K–$100K</option>
+        <option>₹1Cr – ₹5Cr / $100K–$500K</option>
+        <option>₹5Cr+ / $500K+</option>
+        <option>Prefer to discuss</option>
+      </select>
+
+      <label>Message (optional)</label>
+      <textarea placeholder="Any questions or context you'd like to share..."></textarea>
+
+      <button class="submit-btn">Submit Enquiry</button>
+      <p class="contact-note">All enquiries are treated with strict confidentiality.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">MHV <span>·</span> Maendeleo Hospitality Ventures</div>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#thesis">Investment</a>
+      <a href="#community">Impact</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-right">
+      &copy; 2026 Maendeleo Hospitality Ventures. All rights reserved.
+    </div>
+  </footer>
+  <div class="footer-disclaimer">
+    This website is for informational purposes only and does not constitute an offer or solicitation to invest.
+    Investment in this fund involves risk, including the possible loss of principal. Past performance is not
+    indicative of future results. This fund is available to qualified investors only. Please consult your
+    financial and legal advisers before investing.
+  </div>
+
+</body>
+</html>

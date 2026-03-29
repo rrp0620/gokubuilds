@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MHV — Investor Pitch Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1e35;
+    --gold: #b8965a;
+    --sand: #e8dcc8;
+    --malachite: #2d6a4f;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: var(--navy);
+    color: var(--navy);
+  }
+
+  /* ── SLIDE BASE ── */
+  .slide {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 10vw;
+    position: relative;
+    scroll-snap-align: start;
+    overflow: hidden;
+  }
+
+  .slide--navy { background: var(--navy); color: var(--white); }
+  .slide--sand { background: var(--sand); color: var(--navy); }
+
+  /* ── ACACIA MARK ── */
+  .acacia-svg { width: 56px; height: 56px; margin-bottom: 24px; }
+
+  /* ── TYPOGRAPHY ── */
+  .slide-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .slide-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 24px;
+    max-width: 800px;
+    text-align: center;
+  }
+
+  .slide-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(16px, 2vw, 22px);
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .slide-body {
+    font-size: 16px;
+    line-height: 1.75;
+    max-width: 680px;
+    text-align: center;
+    opacity: 0.85;
+  }
+
+  .slide--navy .slide-body { color: rgba(255,255,255,0.8); }
+
+  /* ── GOLD DIVIDER ── */
+  .gold-rule {
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    margin: 20px auto;
+    border: none;
+  }
+
+  /* ── STATS GRID ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-top: 40px;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .stat-card {
+    text-align: center;
+  }
+
+  .stat-card .big-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-card .stat-desc {
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+
+  .slide--navy .stat-desc { color: rgba(255,255,255,0.65); }
+  .slide--sand .stat-desc { color: rgba(13,30,53,0.65); }
+
+  /* ── PROBLEM / BULLET LIST ── */
+  .bullet-list {
+    list-style: none;
+    max-width: 700px;
+    margin-top: 32px;
+    text-align: left;
+    width: 100%;
+  }
+
+  .bullet-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .bullet-list li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    margin-top: 8px;
+  }
+
+  .slide--navy .bullet-list li { color: rgba(255,255,255,0.85); }
+
+  .bullet-list strong { color: var(--gold); font-weight: 600; }
+
+  /* ── PIPELINE / TIMELINE ── */
+  .pipeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+    margin-top: 40px;
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .pipeline-card {
+    background: rgba(184,150,90,0.08);
+    border: 1px solid rgba(184,150,90,0.2);
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+  }
+
+  .pipeline-card .status {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    margin-bottom: 12px;
+  }
+
+  .status--live { background: var(--gold); color: var(--navy); }
+  .status--upcoming { background: rgba(184,150,90,0.2); color: var(--gold); }
+
+  .pipeline-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .slide--navy .pipeline-card h3 { color: var(--white); }
+  .slide--sand .pipeline-card h3 { color: var(--navy); }
+
+  .pipeline-card p {
+    font-size: 13px;
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+
+  /* ── EDGE / PILLAR GRID ── */
+  .edge-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+    max-width: 900px;
+    width: 100%;
+  }
+
+  .edge-item { text-align: center; }
+
+  .edge-item .edge-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 16px;
+  }
+
+  .edge-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .edge-item p {
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.75;
+  }
+
+  /* ── FUND STRUCTURE ── */
+  .fund-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 48px;
+    margin-top: 36px;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .fund-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .fund-feature .ff-dot {
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    background: var(--gold);
+    border-radius: 2px;
+    margin-top: 5px;
+  }
+
+  .fund-feature h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .fund-feature p {
+    font-size: 13px;
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+
+  /* ── INVESTOR PROFILE ── */
+  .investor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 36px;
+    max-width: 700px;
+    width: 100%;
+  }
+
+  .investor-card {
+    background: rgba(13,30,53,0.05);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+  }
+
+  .investor-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .investor-card p {
+    font-size: 13px;
+    color: rgba(13,30,53,0.65);
+    line-height: 1.5;
+  }
+
+  /* ── TEAM ── */
+  .team-block {
+    max-width: 600px;
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  .team-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .team-role {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .team-bio {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ── STEPS ── */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .step { text-align: center; }
+
+  .step-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .step h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .step p {
+    font-size: 13px;
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+
+  /* ── CONTACT SLIDE ── */
+  .contact-email {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 500;
+    color: var(--gold);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .contact-email:hover { text-decoration: underline; }
+
+  .contact-web {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+  }
+
+  .confidential {
+    position: absolute;
+    bottom: 32px;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ── SLIDE COUNTER ── */
+  .slide-num {
+    position: absolute;
+    bottom: 32px;
+    right: 10vw;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.2);
+    font-weight: 300;
+  }
+
+  .slide--sand .slide-num { color: rgba(13,30,53,0.2); }
+
+  /* ── DISCLAIMER ── */
+  .deck-disclaimer {
+    font-size: 9px;
+    color: rgba(255,255,255,0.25);
+    max-width: 600px;
+    text-align: center;
+    line-height: 1.6;
+    margin-top: 40px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .slide { padding: 60px 7vw; }
+    .stats-row, .edge-grid, .steps { grid-template-columns: 1fr; gap: 24px; }
+    .pipeline { grid-template-columns: 1fr; }
+    .fund-features, .investor-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 1 — COVER -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide--navy">
+  <svg class="acacia-svg" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+    <line x1="28" y1="54" x2="28" y2="24" stroke="#b8965a" stroke-width="3" stroke-linecap="round"/>
+    <line x1="8" y1="24" x2="48" y2="24" stroke="#b8965a" stroke-width="2" stroke-linecap="round"/>
+    <line x1="10" y1="20" x2="46" y2="20" stroke="#b8965a" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="13" y1="16" x2="43" y2="16" stroke="#b8965a" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="17" y1="12" x2="39" y2="12" stroke="#b8965a" stroke-width="1.3" stroke-linecap="round"/>
+    <line x1="21" y1="8" x2="35" y2="8" stroke="#b8965a" stroke-width="1" stroke-linecap="round"/>
+  </svg>
+  <div class="slide-title" style="color: var(--white);">
+    Maendeleo<br>Hospitality Ventures
+  </div>
+  <div class="slide-subtitle">Where Capital Meets the Continent</div>
+  <hr class="gold-rule">
+  <p style="font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-top: 12px;">
+    Confidential &nbsp;|&nbsp; 2026
+  </p>
+  <span class="slide-num">01 / 12</span>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 2 — THE AFRICA OPPORTUNITY -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide--sand">
+  <div class="slide-label">The Opportunity</div>
+  <div class="slide-title">Africa's Luxury Travel<br>Boom Is Here</div>
+  <hr class="gold-rule">
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="big-number" style="color: var(--navy);">15%</div>
+      <div class="stat-desc">YoY luxury travel growth in East Africa</div>
+    </div>
+    <div class="stat-card">
+      <div class="big-number" style="color: var(--navy);">+40%</div>
+      <div class="stat-desc">Tanzania arrivals increase since 2020</div>
+    </div>
+    <div class="stat-card">
+      <div class="big-number" style="color: var(--navy);">$2B+</div>
+      <div class="stat-desc">Annual tourism revenue in Tanzania</div>
+    </div>
+  </div>
+  <span class="slide-num">02 / 12</span>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 3 — THE PROBLEM -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide--navy">
+  <div class="slide-label">The Problem</div>
+  <div class="slide-title">Demand Is Surging.<br>Supply Can't Keep Up.</div>
+  <hr class="gold-rule">
+  <ul class="bullet-list">
+    <li><strong>Scarce Quality Supply</strong> — Tanzania has world-class destinations but a critical shortage of premium lodges and camps that meet international luxury standards.</li>
+    <li><strong>Lack of Institutional Discipline</strong> — Most operators are small, owner-run, and lack the governance, reporting, and operational rigor that institutional investors require.</li>
+    <li><strong>No Easy Investment Vehicle</strong> — High-net-worth individuals and family offices have no structured, transparent way to participate in Africa's hospitality growth story.</li>
+  </ul>
+  <span class="slide-num">03 / 12</span>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 4 — OUR SOLUTION -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide--sand">
+  <div class="slide-label">Our Solution</div>
+  <div class="slide-title">One Fund. Multiple Assets.<br>Professional Management.</div>
+  <hr class="gold-rule">
+  <p class="slide-body" style="font-size: 17px; max-width: 640px;">
+    MHV — Maendeleo Hospitality Ventures is a Tanzania-focused investment fund developing and managing premium lodges and camps across East Africa's most sought-after safari and coastal corridors. We combine institutional investment discipline with on-the-ground operational expertise to deliver exceptional returns.
+  </p>
+  <span class="slide-num">04 / 12</span>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 5 — PROOF OF CONCEPT -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide--navy">
+  <div class="slide-label">Portfolio</div>
+  <div class="slide-title">Assets in Motion</div>
+  <hr class="gold-rule">
+  <div class="pipeline">
+    <div class="pipeline-card">
+      <span class="status status--live">Live</span>
+      <h3>Mapito Tented Camp</h3>
+      <p>Open since November 2025. Generating income. Part of the Marriott portfolio.</p>
+    </div>
+    <div class="pipeline-card">
+      <span class="status status--upcoming">2025</span>
+      <h3>Zanzibar Le Méridien</h3>
+      <p>Coastal luxury expansion. Opening 2025 in partnership with Marriott.</p>
+    </div>
+    <div class="pipeline-card">
+      <span class="status status--upcoming">2027</span>
+      <h3>Ritz-Carlton Serengeti I</h3>
+      <p>Marquee ultra-luxury lodge in the Serengeti ecosystem.</p>
+    </div>
+    <div class="pipeline-card">
+      <span class="status status--upcoming">2028</span>
+      <h3>Ritz-Carlton Serengeti II</h3>
+      <p>Second Ritz-Carlton property. Completing the premium corridor.</p>
+    </div>
+  </div>
+  <span class="slide-num">05 / 12</span>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 6 — OUR EDGE -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide--sand">
+  <div class="slide-label">Our Edge</div>
+  <div class="slide-title">Why MHV Wins</div>
+  <hr class="gold-rule">
+  <div class="edge-grid">
+    <div class="edge-item">
+      <svg class="edge-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="12" width="36" height="24" rx="3" fill="none" stroke="#b8965a" stroke-width="2"/>
+        <path d="M6 20 L42 20" stroke="#0d1e35" stroke-width="2"/>
+        <circle cx="34" cy="28" r="4" fill="none" stroke="#0d1e35" stroke-width="1.5"/>
+      </svg>
+      <h3>Marriott Partnership</h3>
+      <p>Exclusive development pipeline with the world's largest hospitality company. Institutional credibility from day one.</p>
+    </div>
+    <div class="edge-item">
+      <svg class="edge-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="18" fill="none" stroke="#b8965a" stroke-width="2"/>
+        <circle cx="24" cy="18" r="5" fill="none" stroke="#0d1e35" stroke-width="1.5"/>
+        <path d="M14 36 C14 28, 34 28, 34 36" fill="none" stroke="#0d1e35" stroke-width="1.5"/>
+      </svg>
+      <h3>On-the-Ground Ops</h3>
+      <p>Full operational presence in Tanzania. Local relationships, supply chains, and regulatory navigation that outsiders can't replicate.</p>
+    </div>
+    <div class="edge-item">
+      <svg class="edge-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 6 L24 42" stroke="#b8965a" stroke-width="2" stroke-linecap="round"/>
+        <path d="M12 18 C12 12, 24 6, 24 6 C24 6, 36 12, 36 18" fill="none" stroke="#2d6a4f" stroke-width="2"/>
+        <path d="M9 26 C9 20, 24 13, 24 13 C24 13, 39 20, 39 26" fill="none" stroke="#2d6a4f" stroke-width="1.5"/>
+      </svg>
+      <h3>Community Flywheel</h3>
+      <p>Hope for Girls foundation, local employment, and conservation partnerships create goodwill that compounds over time.</p>
+    </div>
+  </div>
+  <span class="slide-num">06 / 12</span>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 7 — FUND STRUCTURE -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide--navy">
+  <div class="slide-label">Fund Structure</div>
+  <div class="slide-title" style="color: var(--gold);">8–12% Fixed Return</div>
+  <p class="slide-body" style="margin-bottom: 8px;">Plus performance-based upside tied to asset appreciation.</p>
+  <hr class="gold-rule">
+  <div class="fund-features">
+    <div class="fund-feature">
+      <div class="ff-dot"></div>
+      <div>
+        <h4 style="color: var(--white);">Single Vehicle</h4>
+        <p style="color: rgba(255,255,255,0.6);">One fund, multiple properties. Simplified investment structure.</p>
+      </div>
+    </div>
+    <div class="fund-feature">
+      <div class="ff-dot"></div>
+      <div>
+        <h4 style="color: var(--white);">Diversified Assets</h4>
+        <p style="color: rgba(255,255,255,0.6);">Exposure across safari, coastal, and urban hospitality corridors.</p>
+      </div>
+    </div>
+    <div class="fund-feature">
+      <div class="ff-dot"></div>
+      <div>
+        <h4 style="color: var(--white);">Apex Group (Global Administrator)</h4>
+        <p style="color: rgba(255,255,255,0.6);">Independent governance and audited reporting for full transparency.</p>
+      </div>
+    </div>
+    <div class="fund-feature">
+      <div class="ff-dot"></div>
+      <div>
+        <h4 style="color: var(--white);">Quarterly Reporting</h4>
+        <p style="color: rgba(255,255,255,0.6);">Institutional-grade updates on performance, operations, and pipeline.</p>
+      </div>
+    </div>
+  </div>
+  <span class="slide-num">07 / 12</span>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 8 — TARGET INVESTOR -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide--sand">
+  <div class="slide-label">Target Investor</div>
+  <div class="slide-title">Built for Serious Capital</div>
+  <hr class="gold-rule">
+  <div class="investor-grid">
+    <div class="investor-card">
+      <h4>Indian HNIs</h4>
+      <p>High-net-worth individuals seeking real-asset diversification beyond traditional markets.</p>
+    </div>
+    <div class="investor-card">
+      <h4>Family Offices</h4>
+      <p>Multi-generational wealth seeking institutional access to Africa's growth trajectory.</p>
+    </div>
+    <div class="investor-card">
+      <h4>US / UK Diaspora</h4>
+      <p>African and Indian diaspora investors looking to deploy capital with local expertise.</p>
+    </div>
+    <div class="investor-card">
+      <h4>$50K – $5M+</h4>
+      <p>Flexible check sizes. Structured to accommodate emerging and established investors.</p>
+    </div>
+  </div>
+  <span class="slide-num">08 / 12</span>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 9 — COMMUNITY IMPACT -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide--navy">
+  <div class="slide-label">Impact</div>
+  <div class="slide-title">Returns That Reach<br>Beyond the Balance Sheet</div>
+  <hr class="gold-rule">
+  <div class="edge-grid">
+    <div class="edge-item">
+      <svg class="edge-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 8 L24 16" stroke="#b8965a" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="24" cy="22" r="6" fill="none" stroke="#b8965a" stroke-width="1.5"/>
+        <path d="M18 28 C12 30, 12 40, 24 40 C36 40, 36 30, 30 28" fill="none" stroke="#b8965a" stroke-width="1.5"/>
+      </svg>
+      <h3 style="color: var(--white);">Hope for Girls</h3>
+      <p style="color: rgba(255,255,255,0.65);">Foundation providing education, mentorship, and economic opportunity to girls in Tanzanian communities surrounding MHV properties.</p>
+    </div>
+    <div class="edge-item">
+      <svg class="edge-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="20" r="5" fill="none" stroke="#b8965a" stroke-width="1.5"/>
+        <circle cx="32" cy="20" r="5" fill="none" stroke="#b8965a" stroke-width="1.5"/>
+        <circle cx="24" cy="32" r="5" fill="none" stroke="#b8965a" stroke-width="1.5"/>
+        <path d="M20 22 L28 22 M19 27 L22 30 M29 27 L26 30" stroke="#b8965a" stroke-width="1"/>
+      </svg>
+      <h3 style="color: var(--white);">Local Employment</h3>
+      <p style="color: rgba(255,255,255,0.65);">Each property creates 50–100+ jobs. Staff recruited and trained from surrounding communities, building lasting economic capacity.</p>
+    </div>
+    <div class="edge-item">
+      <svg class="edge-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 6 L24 42" stroke="#2d6a4f" stroke-width="2" stroke-linecap="round"/>
+        <path d="M12 18 C12 12, 24 6, 24 6 C24 6, 36 12, 36 18" fill="none" stroke="#2d6a4f" stroke-width="2"/>
+        <path d="M9 26 C9 20, 24 13, 24 13 C24 13, 39 20, 39 26" fill="none" stroke="#2d6a4f" stroke-width="1.5"/>
+        <path d="M7 34 C7 28, 24 20, 24 20 C24 20, 41 28, 41 34" fill="none" stroke="#2d6a4f" stroke-width="1.2"/>
+      </svg>
+      <h3 style="color: var(--white);">Conservation</h3>
+      <p style="color: rgba(255,255,255,0.65);">Partnerships with conservation bodies to protect the ecosystems that make Tanzania the world's premier safari destination.</p>
+    </div>
+  </div>
+  <span class="slide-num">09 / 12</span>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 10 — THE TEAM -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide--navy">
+  <div class="slide-label">The Team</div>
+  <div class="slide-title">Built by Operators,<br>Not Just Investors</div>
+  <hr class="gold-rule">
+  <div class="team-block">
+    <div class="team-name">Rishen Patel</div>
+    <div class="team-role">Founder & Managing Director</div>
+    <p class="team-bio">
+      Tanzanian-American hospitality veteran with a proven track record in East African lodge development. Previously led Holiday Inn and Marriott-affiliated projects in Tanzania. Deep operational expertise, local relationships, and an institutional investor's mindset — a rare combination in this market. Supported by US-based partners in finance, legal, and fund administration.
+    </p>
+  </div>
+  <span class="slide-num">10 / 12</span>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 11 — NEXT STEPS -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide--sand">
+  <div class="slide-label">Next Steps</div>
+  <div class="slide-title">Three Steps to Invest</div>
+  <hr class="gold-rule">
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">1</div>
+      <h3>Request Information</h3>
+      <p>Reach out to receive the full fund documents, projections, and legal structure.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <h3>Review & Diligence</h3>
+      <p>Review materials with your advisors. Schedule a call with Rishen for any questions.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <h3>Invest</h3>
+      <p>Complete subscription. Begin receiving quarterly reports and fixed returns.</p>
+    </div>
+  </div>
+  <span class="slide-num">11 / 12</span>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDE 12 — CONTACT -->
+<!-- ════════════════════════════════════════════ -->
+<section class="slide slide--navy">
+  <svg class="acacia-svg" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+    <line x1="28" y1="54" x2="28" y2="24" stroke="#b8965a" stroke-width="3" stroke-linecap="round"/>
+    <line x1="8" y1="24" x2="48" y2="24" stroke="#b8965a" stroke-width="2" stroke-linecap="round"/>
+    <line x1="10" y1="20" x2="46" y2="20" stroke="#b8965a" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="13" y1="16" x2="43" y2="16" stroke="#b8965a" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="17" y1="12" x2="39" y2="12" stroke="#b8965a" stroke-width="1.3" stroke-linecap="round"/>
+    <line x1="21" y1="8" x2="35" y2="8" stroke="#b8965a" stroke-width="1" stroke-linecap="round"/>
+  </svg>
+  <div class="slide-title" style="color: var(--white); font-size: clamp(24px, 4vw, 40px); margin-bottom: 8px;">
+    Maendeleo Hospitality Ventures
+  </div>
+  <div class="slide-subtitle" style="margin-bottom: 32px;">Where Capital Meets the Continent</div>
+  <hr class="gold-rule" style="margin-bottom: 32px;">
+  <a href="mailto:rishi@mhv.com" class="contact-email">rishi@mhv.com</a>
+  <a href="https://mhv.com" class="contact-web">mhv.com</a>
+
+  <p class="deck-disclaimer">
+    This document is confidential and for informational purposes only. It does not constitute an offer to sell or a solicitation of an offer to buy any securities. Past performance is not indicative of future results. All investments carry risk, including the potential loss of principal. Projected returns are estimates and are not guaranteed. Prospective investors should consult their own legal, tax, and financial advisors.
+  </p>
+
+  <span class="confidential">Confidential &nbsp;|&nbsp; MHV 2026</span>
+  <span class="slide-num">12 / 12</span>
+</section>
+
+</body>
+</html>

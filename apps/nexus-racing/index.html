@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Racing — Algorithmic Edge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-deep:#06090F;--bg-base:#0A0E18;--bg-card:#0F1420;--bg-hover:#151C2E;
+  --border:#1A2236;--border-mid:#242E45;
+  --gold:#C9A84C;--gold-dim:#8A6D2F;
+  --text-1:#F2F2F2;--text-2:#9AA0B4;--text-3:#4E5670;
+  --green:#2ECC8F;--red:#E5534B;--blue:#4B8EE5;
+}
+html{font-size:14px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg-deep);color:var(--text-1);overflow:hidden;height:100vh;display:flex;flex-direction:column}
+input,button,select{font-family:inherit}
+
+/* ── HEADER ── */
+.header{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:var(--bg-base);border-bottom:1px solid var(--gold-dim);flex-shrink:0;z-index:100}
+.header-left{display:flex;align-items:center;gap:14px}
+.logo{font-size:1.15rem;font-weight:700;letter-spacing:0.04em;white-space:nowrap}
+.logo .gold{color:var(--gold)}
+.tagline{font-size:0.65rem;color:var(--text-3);letter-spacing:0.06em;text-transform:uppercase}
+.header-right{display:flex;align-items:center;gap:16px;font-variant-numeric:tabular-nums}
+.clock{font-size:1rem;font-weight:600;color:var(--text-1)}
+.date-str{font-size:0.7rem;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em}
+.mobile-toggle{display:none;background:none;border:1px solid var(--border);color:var(--text-2);font-size:1.2rem;padding:4px 10px;border-radius:4px;cursor:pointer}
+
+/* ── LAYOUT ── */
+.app{display:flex;flex:1;overflow:hidden}
+.sidebar{width:220px;min-width:220px;background:var(--bg-base);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;flex-shrink:0}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border-mid);border-radius:2px}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+
+/* ── SIDEBAR ── */
+.sb-section{padding:16px 0 8px}
+.sb-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);padding:0 16px;margin-bottom:8px}
+.track-list{list-style:none}
+.track-item{padding:9px 16px;font-size:0.8rem;color:var(--text-2);cursor:pointer;transition:background 0.15s ease,color 0.15s ease;border-left:3px solid transparent;display:flex;align-items:center;gap:8px}
+.track-item:hover{background:var(--bg-hover);color:var(--text-1)}
+.track-item.active{border-left-color:var(--gold);background:var(--bg-hover);color:var(--text-1);font-weight:500}
+.track-dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0}
+
+.race-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:0 16px}
+.race-pill{height:30px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:500;color:var(--text-2);background:var(--bg-card);border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:all 0.15s ease}
+.race-pill:hover{background:var(--bg-hover);color:var(--text-1)}
+.race-pill.active{background:var(--gold-dim);color:var(--text-1);border-color:var(--gold);font-weight:600}
+
+.surface-toggle{display:flex;gap:4px;padding:0 16px;margin-top:4px}
+.surface-btn{flex:1;padding:6px 0;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-3);background:var(--bg-card);border:1px solid var(--border);border-radius:4px;cursor:pointer;text-align:center;transition:all 0.15s ease}
+.surface-btn:hover{color:var(--text-2)}
+.surface-btn.active{background:var(--bg-hover);color:var(--text-1);border-color:var(--border-mid)}
+
+.sb-status{padding:16px;margin-top:auto;border-top:1px solid var(--border)}
+.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px}
+.status-dot.live{background:var(--green);box-shadow:0 0 6px var(--green)}
+.status-dot.partial{background:#D4A843;box-shadow:0 0 6px #D4A843}
+.status-text{font-size:0.7rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-2)}
+
+/* ── TAB BAR ── */
+.tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--bg-base);flex-shrink:0;overflow-x:auto}
+.tab-btn{padding:12px 20px;font-size:0.78rem;font-weight:500;color:var(--text-3);background:none;border:none;cursor:pointer;position:relative;white-space:nowrap;transition:color 0.15s ease}
+.tab-btn:hover{color:var(--text-2)}
+.tab-btn.active{color:var(--text-1)}
+.tab-btn.active::after{content:'';position:absolute;bottom:0;left:12px;right:12px;height:2px;background:var(--gold);border-radius:1px}
+
+/* ── MAIN CONTENT ── */
+.tab-content{flex:1;overflow-y:auto;overflow-x:hidden;padding:20px 24px 40px}
+.tab-content::-webkit-scrollbar{width:5px}
+.tab-content::-webkit-scrollbar-thumb{background:var(--border-mid);border-radius:3px}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* ── EDGE REPORT BAR ── */
+.edge-report{display:flex;align-items:center;gap:0;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:12px 0;margin-bottom:20px;flex-wrap:wrap}
+.edge-stat{flex:1;text-align:center;padding:0 20px;min-width:160px}
+.edge-stat+.edge-stat{border-left:1px solid var(--border)}
+.edge-stat .label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:4px}
+.edge-stat .val{font-size:0.95rem;font-weight:600;color:var(--gold);font-variant-numeric:tabular-nums}
+
+/* ── PLAY CARDS ── */
+.play-card{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;margin-bottom:10px;transition:background 0.15s ease,transform 0.1s ease;cursor:pointer;overflow:hidden}
+.play-card:hover{background:var(--bg-hover);transform:translateY(-1px)}
+.play-card.top-play{border-left:3px solid var(--gold)}
+.play-head{display:flex;align-items:center;padding:14px 18px;gap:12px;flex-wrap:wrap}
+.play-badge{font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;padding:3px 8px;border-radius:3px;white-space:nowrap}
+.badge-strong{background:#0A2818;color:var(--green);border:1px solid #166534}
+.badge-value{background:#0F1F0A;color:#86EFAC;border:1px solid #166534}
+.badge-fair{background:var(--bg-hover);color:var(--text-2);border:1px solid var(--border-mid)}
+.badge-avoid{background:#1C0F0E;color:var(--red);border:1px solid #7F1D1D}
+.play-horse{font-size:1rem;font-weight:600;flex:1}
+.play-edge{font-size:1.3rem;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
+.play-edge.negative{color:var(--red)}
+.play-sub{font-size:0.72rem;color:var(--text-3);padding:0 18px;margin-top:-6px}
+.play-metrics{display:flex;align-items:center;gap:0;padding:10px 18px;flex-wrap:wrap}
+.play-metric{font-size:0.75rem;color:var(--text-2);padding-right:16px;margin-right:16px;border-right:1px solid var(--border);white-space:nowrap;font-variant-numeric:tabular-nums}
+.play-metric:last-child{border-right:none;margin-right:0}
+.play-metric .gold{color:var(--gold);font-weight:600}
+.play-metric .arrow{color:var(--text-3);margin:0 4px}
+.play-kelly{font-size:1.4rem;font-weight:700;color:var(--gold);margin-left:auto;font-variant-numeric:tabular-nums}
+.play-bar-wrap{padding:4px 18px 14px}
+.edge-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.edge-bar-fill{height:100%;background:var(--gold);border-radius:2px;transition:width 0.3s ease}
+
+.play-detail{display:none;padding:0 18px 14px;font-size:0.75rem;color:var(--text-2);border-top:1px solid var(--border);margin-top:2px}
+.play-detail.open{display:block;padding-top:12px}
+.detail-row{display:flex;gap:24px;flex-wrap:wrap}
+.detail-item .dl{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:2px}
+.detail-item .dv{font-weight:500}
+
+/* ── RACE CARD ── */
+.metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.metric-card{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:14px 16px}
+.metric-card .mc-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:6px}
+.metric-card .mc-value{font-size:1.5rem;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}
+.metric-card .mc-delta{font-size:0.72rem;color:var(--green);margin-top:2px;font-variant-numeric:tabular-nums}
+
+.race-table-wrap{overflow-x:auto;margin-bottom:24px;border:1px solid var(--border);border-radius:6px}
+.race-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:800px}
+.race-table th{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);font-weight:500;text-align:left;padding:10px 12px;border-bottom:1px solid var(--border-mid);background:var(--bg-card)}
+.race-table td{padding:10px 12px;font-size:0.8rem;color:var(--text-2);border-bottom:1px solid var(--border);vertical-align:middle}
+.race-table tr:last-child td{border-bottom:none}
+.race-table tr:hover td{background:var(--bg-hover)}
+.race-table tr.top-row td{border-left:2px solid var(--gold)}
+.race-table tr.top-row td:first-child{border-left:2px solid var(--gold)}
+.race-table .horse-name{color:var(--text-1);font-weight:600}
+.race-table .edge-pos{color:var(--gold);font-weight:600}
+.race-table .edge-neg{color:var(--red)}
+.race-table .edge-neutral{color:var(--text-2)}
+.call-pill{font-size:0.58rem;text-transform:uppercase;letter-spacing:0.04em;padding:2px 7px;border-radius:3px;font-weight:600;white-space:nowrap}
+
+/* Pace Section */
+.pace-section{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:16px 18px;margin-bottom:24px}
+.pace-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:10px}
+.pace-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.pace-chip{display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--bg-hover);border:1px solid var(--border);border-radius:4px;font-size:0.75rem}
+.pace-chip .pname{color:var(--text-1);font-weight:500}
+.pace-chip .ptype{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:600;padding:1px 5px;border-radius:2px}
+.ptype-E{background:#162B1A;color:var(--green)}
+.ptype-EP{background:#1A2518;color:#86EFAC}
+.ptype-P{background:#1A1C2E;color:var(--blue)}
+.ptype-S{background:#1C1522;color:#B494D6}
+.pace-scenario{font-size:0.85rem;font-weight:600}
+
+.chart-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:18px;height:320px;position:relative}
+.chart-wrap canvas{width:100%!important;height:100%!important}
+
+/* ── JOCKEY / TRAINER ── */
+.jt-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.jt-col-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:10px;padding-left:2px}
+.jt-card{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:8px}
+.jt-name{font-size:0.9rem;font-weight:600;color:var(--text-1)}
+.jt-horse{font-size:0.75rem;color:var(--gold);margin-top:2px}
+.jt-bar-wrap{margin:8px 0;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.jt-bar-fill{height:100%;background:var(--gold);border-radius:2px;transition:width 0.3s ease}
+.jt-stats{font-size:0.72rem;color:var(--text-2);display:flex;gap:12px;font-variant-numeric:tabular-nums}
+.jt-stats span{white-space:nowrap}
+.hot-badge{font-size:0.6rem;font-weight:600;color:#F59E0B;margin-left:8px}
+.specialty-badge{font-size:0.6rem;color:var(--text-3);margin-left:8px;border:1px solid var(--border);padding:1px 5px;border-radius:2px}
+
+/* ── KELLY CALC ── */
+.kelly-input-wrap{text-align:center;margin-bottom:28px}
+.kelly-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:10px}
+.kelly-input-row{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:14px}
+.kelly-prefix{font-size:2rem;font-weight:300;color:var(--text-3);padding-right:4px}
+.kelly-input{background:none;border:none;border-bottom:2px solid var(--border-mid);color:var(--gold);font-size:2rem;font-weight:700;width:180px;text-align:center;outline:none;font-variant-numeric:tabular-nums}
+.kelly-input:focus{border-bottom-color:var(--gold)}
+.kelly-slider{-webkit-appearance:none;appearance:none;width:300px;max-width:90%;height:4px;background:var(--border);border-radius:2px;outline:none}
+.kelly-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;background:var(--gold);border-radius:50%;cursor:pointer;box-shadow:0 0 8px rgba(201,168,76,0.3)}
+.kelly-slider::-moz-range-thumb{width:16px;height:16px;background:var(--gold);border-radius:50%;cursor:pointer;border:none}
+
+.kelly-plays{max-width:600px;margin:0 auto}
+.kelly-play{display:flex;align-items:center;padding:12px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;margin-bottom:8px;gap:12px}
+.kp-info{flex:1}
+.kp-horse{font-size:0.9rem;font-weight:600;color:var(--text-1)}
+.kp-meta{font-size:0.72rem;color:var(--text-2);margin-top:2px;font-variant-numeric:tabular-nums}
+.kp-amount{font-size:1.4rem;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
+.kp-pct{font-size:0.7rem;color:var(--text-3);text-align:right;margin-top:2px;font-variant-numeric:tabular-nums}
+.kp-bar{width:100%;height:3px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden}
+.kp-bar-fill{height:100%;background:var(--gold);border-radius:2px}
+
+.kelly-footer{max-width:600px;margin:20px auto 0;padding:14px 18px;border:1px solid var(--border-mid);border-radius:6px;text-align:center;background:var(--bg-card)}
+.kelly-footer .kf-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:4px}
+.kelly-footer .kf-value{font-size:1.1rem;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .sidebar{position:fixed;left:-260px;top:56px;bottom:0;z-index:90;transition:left 0.2s ease;width:250px;min-width:250px;box-shadow:4px 0 20px rgba(0,0,0,0.5)}
+  .sidebar.open{left:0}
+  .mobile-toggle{display:block}
+  .metric-row{grid-template-columns:repeat(2,1fr)}
+  .jt-grid{grid-template-columns:1fr}
+  .edge-report{flex-direction:column;gap:8px}
+  .edge-stat+.edge-stat{border-left:none;border-top:1px solid var(--border)}
+  .edge-stat{padding:8px 0}
+}
+@media(max-width:600px){
+  .metric-row{grid-template-columns:1fr}
+  .tab-content{padding:14px 12px 30px}
+  .header{padding:0 14px}
+  .play-head{padding:10px 12px}
+  .play-metrics{padding:8px 12px}
+  .play-bar-wrap{padding:4px 12px 10px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <button class="mobile-toggle" id="sidebarToggle">≡</button>
+    <div>
+      <div class="logo">🏇 NEXUS<span class="gold"> RACING</span></div>
+      <div class="tagline">Algorithmic Edge. Every Race.</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div>
+      <div class="clock" id="clock">--:--:-- ET</div>
+      <div class="date-str" id="dateStr">---</div>
+    </div>
+  </div>
+</header>
+
+<!-- APP -->
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-section">
+      <div class="sb-label">Today's Tracks</div>
+      <ul class="track-list" id="trackList"></ul>
+    </div>
+    <div class="sb-section">
+      <div class="sb-label">Race</div>
+      <div class="race-grid" id="raceGrid"></div>
+    </div>
+    <div class="sb-section">
+      <div class="sb-label">Surface</div>
+      <div class="surface-toggle" id="surfaceToggle">
+        <div class="surface-btn active" data-surface="Dirt">Dirt</div>
+        <div class="surface-btn" data-surface="Turf">Turf</div>
+        <div class="surface-btn" data-surface="Synth">Synth</div>
+      </div>
+    </div>
+    <div class="sb-status">
+      <span class="status-dot live"></span>
+      <span class="status-text">Live Data</span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <nav class="tab-bar" id="tabBar">
+      <button class="tab-btn active" data-tab="bestPlays">Best Plays</button>
+      <button class="tab-btn" data-tab="raceCard">Race Card</button>
+      <button class="tab-btn" data-tab="jockeyTrainer">Jockey / Trainer</button>
+      <button class="tab-btn" data-tab="kellyCalc">Kelly Calc</button>
+    </nav>
+    <div class="tab-content">
+
+      <!-- TAB 1: BEST PLAYS -->
+      <div class="tab-pane active" id="bestPlays">
+        <div class="edge-report" id="edgeReport"></div>
+        <div id="playCards"></div>
+      </div>
+
+      <!-- TAB 2: RACE CARD -->
+      <div class="tab-pane" id="raceCard">
+        <div class="metric-row" id="metricRow"></div>
+        <div class="race-table-wrap"><table class="race-table" id="raceTable"></table></div>
+        <div class="pace-section" id="paceSection"></div>
+        <div class="chart-wrap"><canvas id="scatterChart"></canvas></div>
+      </div>
+
+      <!-- TAB 3: JOCKEY / TRAINER -->
+      <div class="tab-pane" id="jockeyTrainer">
+        <div class="jt-grid" id="jtGrid"></div>
+      </div>
+
+      <!-- TAB 4: KELLY CALC -->
+      <div class="tab-pane" id="kellyCalc">
+        <div class="kelly-input-wrap">
+          <div class="kelly-label">Your Bankroll</div>
+          <div class="kelly-input-row">
+            <span class="kelly-prefix">$</span>
+            <input type="text" class="kelly-input" id="bankrollInput" value="1,000">
+          </div>
+          <input type="range" class="kelly-slider" id="bankrollSlider" min="100" max="10000" step="50" value="1000">
+        </div>
+        <div class="kelly-plays" id="kellyPlays"></div>
+        <div class="kelly-footer" id="kellyFooter"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   DATA
+   ══════════════════════════════════════════════ */
+const TRACKS = ["Gulfstream Park", "Aqueduct", "Santa Anita", "Oaklawn Park", "Tampa Bay Downs"];
+
+const RACE_DATA = {
+  track: "Gulfstream Park",
+  race: 8,
+  surface: "Dirt",
+  distance: "6f",
+  postTime: "3:45 PM ET",
+  condition: "Fast",
+  horses: [
+    { pos:1, name:"Coastal Thunder",  jockey:"I. Ortiz Jr.",  trainer:"T. Pletcher", speed:102, daysOff:14,  ml:2.8,  score:94.2, fairOdds:1.6,  edge:75, call:"STRONG VALUE", pace:"E"  },
+    { pos:2, name:"Shadow Protocol",  jockey:"J. Rosario",    trainer:"C. Brown",    speed:98,  daysOff:21,  ml:3.5,  score:88.7, fairOdds:2.1,  edge:67, call:"STRONG VALUE", pace:"EP" },
+    { pos:3, name:"Iron Meridian",    jockey:"F. Prat",       trainer:"B. Cox",      speed:94,  daysOff:28,  ml:5.0,  score:82.1, fairOdds:3.4,  edge:47, call:"VALUE",         pace:"P"  },
+    { pos:4, name:"Midnight Clause",  jockey:"L. Saez",       trainer:"S. Asmussen", speed:89,  daysOff:35,  ml:6.0,  score:76.3, fairOdds:4.8,  edge:25, call:"VALUE",         pace:"P"  },
+    { pos:5, name:"Rapid Descent",    jockey:"J. Velazquez",  trainer:"W. Mott",     speed:85,  daysOff:42,  ml:9.0,  score:68.4, fairOdds:7.2,  edge:25, call:"FAIR",          pace:"S"  },
+    { pos:6, name:"Warhorse Legacy",  jockey:"M. Smith",      trainer:"B. Baffert",  speed:82,  daysOff:60,  ml:12.0, score:58.2, fairOdds:9.8,  edge:22, call:"FAIR",          pace:"S"  },
+    { pos:7, name:"Devil's Run",      jockey:"K. Carmouche",  trainer:"L. Rice",     speed:78,  daysOff:90,  ml:20.0, score:44.1, fairOdds:15.6, edge:28, call:"FAIR",          pace:"S"  },
+    { pos:8, name:"Final Curtain",    jockey:"D. Davis",      trainer:"M. Maker",    speed:72,  daysOff:120, ml:30.0, score:31.2, fairOdds:22.0, edge:-8, call:"AVOID",         pace:"S"  }
+  ]
+};
+
+const BEST_PLAYS = [
+  { horse:"Coastal Thunder", track:"Gulfstream Park", race:8, postTime:"3:45 PM", ml:2.8,  fairOdds:1.6,  score:94.2, edge:75, call:"STRONG VALUE", kelly:187 },
+  { horse:"Shadow Protocol", track:"Gulfstream Park", race:8, postTime:"3:45 PM", ml:3.5,  fairOdds:2.1,  score:88.7, edge:67, call:"STRONG VALUE", kelly:143 },
+  { horse:"Iron Meridian",   track:"Aqueduct",        race:5, postTime:"2:10 PM", ml:5.0,  fairOdds:3.4,  score:82.1, edge:47, call:"VALUE",         kelly:98  },
+  { horse:"Night Passage",   track:"Oaklawn Park",    race:3, postTime:"1:30 PM", ml:8.0,  fairOdds:5.5,  score:76.8, edge:45, call:"VALUE",         kelly:76  },
+  { horse:"Bold Reckoning",  track:"Santa Anita",     race:6, postTime:"4:30 PM", ml:12.0, fairOdds:8.4,  score:71.2, edge:43, call:"VALUE",         kelly:54  }
+];
+
+const JOCKEY_STATS = {
+  "I. Ortiz Jr.":  { starts:312, winPct:24, roi:1.12, hot:true  },
+  "J. Rosario":    { starts:287, winPct:21, roi:0.98, hot:false },
+  "F. Prat":       { starts:241, winPct:22, roi:1.05, hot:false },
+  "L. Saez":       { starts:198, winPct:19, roi:0.91, hot:false },
+  "J. Velazquez":  { starts:334, winPct:20, roi:0.94, hot:true  },
+  "M. Smith":      { starts:289, winPct:25, roi:0.88, hot:false },
+  "K. Carmouche":  { starts:156, winPct:14, roi:1.45, hot:true  },
+  "D. Davis":      { starts:134, winPct:12, roi:0.82, hot:false }
+};
+
+const TRAINER_STATS = {
+  "T. Pletcher":  { starts:412, winPct:22, roi:0.95, specialty:"Dirt"     },
+  "C. Brown":     { starts:378, winPct:26, roi:1.18, specialty:"Turf"     },
+  "B. Cox":       { starts:301, winPct:23, roi:1.01, specialty:"2YO"      },
+  "S. Asmussen":  { starts:521, winPct:18, roi:0.87, specialty:"Claiming" },
+  "W. Mott":      { starts:289, winPct:20, roi:0.99, specialty:"Stakes"   },
+  "B. Baffert":   { starts:198, winPct:28, roi:0.82, specialty:"Stakes"   },
+  "L. Rice":      { starts:167, winPct:15, roi:1.52, specialty:"Claimers" },
+  "M. Maker":     { starts:143, winPct:16, roi:0.91, specialty:"Turf"     }
+};
+
+/* ══════════════════════════════════════════════
+   STATE
+   ══════════════════════════════════════════════ */
+let activeTrack = TRACKS[0];
+let activeRace = 8;
+let activeSurface = "Dirt";
+let bankroll = 1000;
+let scatterChart = null;
+
+/* ══════════════════════════════════════════════
+   CLOCK
+   ══════════════════════════════════════════════ */
+function updateClock() {
+  const now = new Date();
+  const et = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+  const h = String(et.getHours()).padStart(2, '0');
+  const m = String(et.getMinutes()).padStart(2, '0');
+  const s = String(et.getSeconds()).padStart(2, '0');
+  document.getElementById('clock').textContent = `${h}:${m}:${s} ET`;
+  const opts = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' };
+  document.getElementById('dateStr').textContent = et.toLocaleDateString('en-US', opts).toUpperCase();
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+/* ══════════════════════════════════════════════
+   SIDEBAR
+   ══════════════════════════════════════════════ */
+function renderTracks() {
+  const list = document.getElementById('trackList');
+  list.innerHTML = TRACKS.map(t =>
+    `<li class="track-item${t === activeTrack ? ' active' : ''}" data-track="${t}">
+      <span class="track-dot"></span>${t}
+    </li>`
+  ).join('');
+  list.querySelectorAll('.track-item').forEach(el => {
+    el.addEventListener('click', () => {
+      activeTrack = el.dataset.track;
+      renderTracks();
+      renderAll();
+    });
+  });
+}
+
+function renderRaceGrid() {
+  const grid = document.getElementById('raceGrid');
+  let html = '';
+  for (let i = 1; i <= 12; i++) {
+    html += `<div class="race-pill${i === activeRace ? ' active' : ''}" data-race="${i}">${i}</div>`;
+  }
+  grid.innerHTML = html;
+  grid.querySelectorAll('.race-pill').forEach(el => {
+    el.addEventListener('click', () => {
+      activeRace = parseInt(el.dataset.race);
+      renderRaceGrid();
+      renderAll();
+    });
+  });
+}
+
+function initSurface() {
+  document.getElementById('surfaceToggle').querySelectorAll('.surface-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.surface-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeSurface = btn.dataset.surface;
+    });
+  });
+}
+
+/* ══════════════════════════════════════════════
+   TAB BAR
+   ══════════════════════════════════════════════ */
+function initTabs() {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      if (btn.dataset.tab === 'raceCard') renderChart();
+    });
+  });
+}
+
+/* ══════════════════════════════════════════════
+   SIDEBAR MOBILE
+   ══════════════════════════════════════════════ */
+document.getElementById('sidebarToggle').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+});
+
+/* ══════════════════════════════════════════════
+   HELPERS
+   ══════════════════════════════════════════════ */
+function badgeClass(call) {
+  if (call === 'STRONG VALUE') return 'badge-strong';
+  if (call === 'VALUE') return 'badge-value';
+  if (call === 'AVOID') return 'badge-avoid';
+  return 'badge-fair';
+}
+function edgeClass(e) {
+  if (e < 0) return 'edge-neg';
+  if (e > 15) return 'edge-pos';
+  return 'edge-neutral';
+}
+function fmt$(n) { return '$' + Math.round(n).toLocaleString(); }
+
+/* ══════════════════════════════════════════════
+   TAB 1: BEST PLAYS
+   ══════════════════════════════════════════════ */
+function renderBestPlays() {
+  const valuePlays = BEST_PLAYS.filter(p => p.call !== 'AVOID' && p.call !== 'FAIR');
+  const avgEdge = Math.round(valuePlays.reduce((s, p) => s + p.edge, 0) / valuePlays.length);
+  const topPlay = valuePlays.reduce((a, b) => a.edge > b.edge ? a : b);
+
+  document.getElementById('edgeReport').innerHTML = `
+    <div class="edge-stat"><div class="label">Value Plays Found</div><div class="val">${valuePlays.length} Value Plays Found</div></div>
+    <div class="edge-stat"><div class="label">Average Edge</div><div class="val">Avg Edge: +${avgEdge}%</div></div>
+    <div class="edge-stat"><div class="label">Top Play</div><div class="val">Top: ${topPlay.horse} +${topPlay.edge}%</div></div>
+  `;
+
+  document.getElementById('playCards').innerHTML = BEST_PLAYS.map((p, i) => `
+    <div class="play-card${i === 0 ? ' top-play' : ''}" data-idx="${i}">
+      <div class="play-head">
+        <span class="play-badge ${badgeClass(p.call)}">${p.call}</span>
+        <span class="play-horse">${p.horse}</span>
+        <span class="play-edge${p.edge < 0 ? ' negative' : ''}">+${p.edge}%</span>
+      </div>
+      <div class="play-sub">${p.track} · R${p.race} · ${p.postTime}</div>
+      <div class="play-metrics">
+        <span class="play-metric">ML ${p.ml}<span class="arrow">→</span>Fair ${p.fairOdds}</span>
+        <span class="play-metric">Score <span class="gold">${p.score}</span></span>
+        <span class="play-kelly">${fmt$(p.kelly * bankroll / 1000)}</span>
+      </div>
+      <div class="play-bar-wrap"><div class="edge-bar"><div class="edge-bar-fill" style="width:${Math.max(0, Math.min(100, p.edge))}%"></div></div></div>
+      <div class="play-detail" id="detail-${i}">
+        <div class="detail-row">
+          <div class="detail-item"><div class="dl">Pace Type</div><div class="dv">${getPaceLabel(p)}</div></div>
+          <div class="detail-item"><div class="dl">Jockey</div><div class="dv">${getJockeyForPlay(p)}</div></div>
+          <div class="detail-item"><div class="dl">Trainer</div><div class="dv">${getTrainerForPlay(p)}</div></div>
+          <div class="detail-item"><div class="dl">Edge Breakdown</div><div class="dv">ML ${p.ml} vs Fair ${p.fairOdds} = +${p.edge}% overlay</div></div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  document.querySelectorAll('.play-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const detail = card.querySelector('.play-detail');
+      detail.classList.toggle('open');
+    });
+  });
+}
+
+function getPaceLabel(play) {
+  const h = RACE_DATA.horses.find(h => h.name === play.horse);
+  if (!h) return 'P';
+  const map = { E: 'Early Speed', EP: 'Early Presser', P: 'Presser', S: 'Stalker/Closer' };
+  return map[h.pace] || h.pace;
+}
+function getJockeyForPlay(play) {
+  const h = RACE_DATA.horses.find(h => h.name === play.horse);
+  return h ? h.jockey : '—';
+}
+function getTrainerForPlay(play) {
+  const h = RACE_DATA.horses.find(h => h.name === play.horse);
+  return h ? h.trainer : '—';
+}
+
+/* ══════════════════════════════════════════════
+   TAB 2: RACE CARD
+   ══════════════════════════════════════════════ */
+function renderRaceCard() {
+  const d = RACE_DATA;
+  const top = d.horses[0];
+  const valuePlays = d.horses.filter(h => h.call === 'VALUE' || h.call === 'STRONG VALUE');
+  const avgConf = Math.round(d.horses.reduce((s, h) => s + h.score, 0) / d.horses.length);
+
+  document.getElementById('metricRow').innerHTML = `
+    <div class="metric-card"><div class="mc-label">Top Pick</div><div class="mc-value">${top.name}</div><div class="mc-delta">Score ${top.score}</div></div>
+    <div class="metric-card"><div class="mc-label">Best Value</div><div class="mc-value">+${top.edge}%</div><div class="mc-delta">ML ${top.ml} → Fair ${top.fairOdds}</div></div>
+    <div class="metric-card"><div class="mc-label">Value Plays</div><div class="mc-value">${valuePlays.length}</div><div class="mc-delta">of ${d.horses.length} entries</div></div>
+    <div class="metric-card"><div class="mc-label">Avg Score</div><div class="mc-value">${avgConf}</div><div class="mc-delta">${d.track} R${d.race}</div></div>
+  `;
+
+  let thtml = `<thead><tr>
+    <th>#</th><th>Horse</th><th>Jockey</th><th>Trainer</th><th>Speed</th><th>Days</th><th>ML</th><th>Score</th><th>Fair</th><th>Edge%</th><th>Call</th>
+  </tr></thead><tbody>`;
+  d.horses.forEach((h, i) => {
+    const ec = h.edge < 0 ? 'edge-neg' : h.edge > 15 ? 'edge-pos' : 'edge-neutral';
+    thtml += `<tr class="${i === 0 ? 'top-row' : ''}">
+      <td>${h.pos}</td>
+      <td class="horse-name">${h.name}</td>
+      <td>${h.jockey}</td>
+      <td>${h.trainer}</td>
+      <td>${h.speed}</td>
+      <td>${h.daysOff}</td>
+      <td>${h.ml}</td>
+      <td style="color:var(--gold);font-weight:600">${h.score}</td>
+      <td>${h.fairOdds}</td>
+      <td class="${ec}">${h.edge > 0 ? '+' : ''}${h.edge}%</td>
+      <td><span class="call-pill ${badgeClass(h.call)}">${h.call}</span></td>
+    </tr>`;
+  });
+  thtml += '</tbody>';
+  document.getElementById('raceTable').innerHTML = thtml;
+
+  // Pace
+  const paceTypes = { E: 0, EP: 0, P: 0, S: 0 };
+  d.horses.forEach(h => { if (paceTypes[h.pace] !== undefined) paceTypes[h.pace]++; });
+  let scenario, scenarioIcon;
+  if (paceTypes.E <= 1 && paceTypes.EP <= 1) { scenario = 'LONE SPEED'; scenarioIcon = '⚡'; }
+  else if (paceTypes.E + paceTypes.EP >= 3) { scenario = 'CONTESTED'; scenarioIcon = '⚔'; }
+  else { scenario = "CLOSERS' RACE"; scenarioIcon = '🔄'; }
+  const scenarioColor = scenario === 'LONE SPEED' ? 'var(--green)' : scenario === 'CONTESTED' ? '#D4A843' : 'var(--blue)';
+
+  document.getElementById('paceSection').innerHTML = `
+    <div class="pace-label">Pace Scenario</div>
+    <div class="pace-chips">${d.horses.map(h => `
+      <div class="pace-chip"><span class="pname">${h.name}</span><span class="ptype ptype-${h.pace}">${h.pace}</span></div>
+    `).join('')}</div>
+    <div class="pace-scenario" style="color:${scenarioColor}">${scenarioIcon} ${scenario}</div>
+  `;
+}
+
+function renderChart() {
+  const ctx = document.getElementById('scatterChart');
+  if (!ctx) return;
+  if (scatterChart) { scatterChart.destroy(); scatterChart = null; }
+
+  const paceColors = { E: '#2ECC8F', EP: '#86EFAC', P: '#4B8EE5', S: '#B494D6' };
+  const data = RACE_DATA.horses.map(h => ({
+    x: h.score,
+    y: h.ml,
+    r: Math.max(4, (h.speed - 60) / 4),
+    label: h.name,
+    edge: h.edge,
+    pace: h.pace,
+    backgroundColor: paceColors[h.pace] || '#C9A84C'
+  }));
+
+  scatterChart = new Chart(ctx, {
+    type: 'bubble',
+    data: {
+      datasets: [{
+        data: data,
+        backgroundColor: data.map(d => d.backgroundColor + '99'),
+        borderColor: data.map(d => d.backgroundColor),
+        borderWidth: 1.5
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0F1420',
+          borderColor: '#242E45',
+          borderWidth: 1,
+          titleColor: '#F2F2F2',
+          bodyColor: '#9AA0B4',
+          padding: 10,
+          callbacks: {
+            title: (items) => items[0]?.raw?.label || '',
+            label: (item) => `Score: ${item.raw.x} | ML: ${item.raw.y} | Edge: +${item.raw.edge}%`
+          }
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: 'Nexus Score', color: '#4E5670', font: { size: 11, family: 'Inter' } },
+          grid: { color: '#1A2236' },
+          ticks: { color: '#4E5670', font: { family: 'Inter' } }
+        },
+        y: {
+          title: { display: true, text: 'Morning Line', color: '#4E5670', font: { size: 11, family: 'Inter' } },
+          grid: { color: '#1A2236' },
+          ticks: { color: '#4E5670', font: { family: 'Inter' } },
+          reverse: true
+        }
+      }
+    }
+  });
+}
+
+/* ══════════════════════════════════════════════
+   TAB 3: JOCKEY / TRAINER
+   ══════════════════════════════════════════════ */
+function renderJT() {
+  const horses = RACE_DATA.horses;
+  const maxWinJ = Math.max(...Object.values(JOCKEY_STATS).map(s => s.winPct));
+  const maxWinT = Math.max(...Object.values(TRAINER_STATS).map(s => s.winPct));
+
+  let jHtml = '<div><div class="jt-col-label">Top Jockeys — This Race</div>';
+  horses.forEach(h => {
+    const s = JOCKEY_STATS[h.jockey];
+    if (!s) return;
+    jHtml += `<div class="jt-card">
+      <div class="jt-name">${h.jockey}${s.hot ? '<span class="hot-badge">🔥 HOT</span>' : ''}</div>
+      <div class="jt-horse">${h.name}</div>
+      <div class="jt-bar-wrap"><div class="jt-bar-fill" style="width:${(s.winPct / maxWinJ * 100).toFixed(0)}%"></div></div>
+      <div class="jt-stats"><span>${s.starts} starts</span><span>Win ${s.winPct}%</span><span>ROI ${s.roi.toFixed(2)}</span></div>
+    </div>`;
+  });
+  jHtml += '</div>';
+
+  let tHtml = '<div><div class="jt-col-label">Top Trainers — This Race</div>';
+  horses.forEach(h => {
+    const s = TRAINER_STATS[h.trainer];
+    if (!s) return;
+    tHtml += `<div class="jt-card">
+      <div class="jt-name">${h.trainer}<span class="specialty-badge">${s.specialty}</span></div>
+      <div class="jt-horse">${h.name}</div>
+      <div class="jt-bar-wrap"><div class="jt-bar-fill" style="width:${(s.winPct / maxWinT * 100).toFixed(0)}%"></div></div>
+      <div class="jt-stats"><span>${s.starts} starts</span><span>Win ${s.winPct}%</span><span>ROI ${s.roi.toFixed(2)}</span></div>
+    </div>`;
+  });
+  tHtml += '</div>';
+
+  document.getElementById('jtGrid').innerHTML = jHtml + tHtml;
+}
+
+/* ══════════════════════════════════════════════
+   TAB 4: KELLY CALC
+   ══════════════════════════════════════════════ */
+function renderKelly() {
+  const plays = BEST_PLAYS.filter(p => p.call !== 'AVOID');
+  const baseBank = 1000;
+  let totalExposure = 0;
+
+  let html = '';
+  plays.forEach(p => {
+    const amount = p.kelly * bankroll / baseBank;
+    const pct = (amount / bankroll * 100).toFixed(1);
+    totalExposure += amount;
+    html += `<div class="kelly-play">
+      <div class="kp-info">
+        <div class="kp-horse">${p.horse}</div>
+        <div class="kp-meta">ML ${p.ml} → Fair ${p.fairOdds} | ${p.track} R${p.race}</div>
+        <div class="kp-bar"><div class="kp-bar-fill" style="width:${Math.min(100, p.edge)}%"></div></div>
+      </div>
+      <div>
+        <div class="kp-amount">${fmt$(amount)}</div>
+        <div class="kp-pct">${pct}% of bankroll</div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('kellyPlays').innerHTML = html;
+
+  const totalPct = (totalExposure / bankroll * 100).toFixed(1);
+  document.getElementById('kellyFooter').innerHTML = `
+    <div class="kf-label">Total Exposure</div>
+    <div class="kf-value">${fmt$(totalExposure)} (${totalPct}%)</div>
+  `;
+}
+
+function initKelly() {
+  const input = document.getElementById('bankrollInput');
+  const slider = document.getElementById('bankrollSlider');
+
+  function syncFromInput() {
+    const raw = input.value.replace(/[^0-9]/g, '');
+    const val = parseInt(raw) || 100;
+    bankroll = Math.max(100, Math.min(10000, val));
+    slider.value = bankroll;
+    input.value = bankroll.toLocaleString();
+    renderKelly();
+    renderBestPlays();
+  }
+
+  function syncFromSlider() {
+    bankroll = parseInt(slider.value);
+    input.value = bankroll.toLocaleString();
+    renderKelly();
+    renderBestPlays();
+  }
+
+  input.addEventListener('change', syncFromInput);
+  input.addEventListener('keyup', (e) => { if (e.key === 'Enter') syncFromInput(); });
+  slider.addEventListener('input', syncFromSlider);
+}
+
+/* ══════════════════════════════════════════════
+   RENDER ALL
+   ══════════════════════════════════════════════ */
+function renderAll() {
+  renderBestPlays();
+  renderRaceCard();
+  renderJT();
+  renderKelly();
+}
+
+/* ══════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════ */
+renderTracks();
+renderRaceGrid();
+initSurface();
+initTabs();
+initKelly();
+renderAll();
+</script>
+</body>
+</html>

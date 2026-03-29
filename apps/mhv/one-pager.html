@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MHV — Investor One-Pager</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1e35;
+    --gold: #b8965a;
+    --sand: #e8dcc8;
+    --malachite: #2d6a4f;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--navy);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--navy);
+    padding: 28px 36px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .acacia-mark {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-text .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 2px;
+  }
+
+  .logo-text .sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    color: var(--gold);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--gold);
+    text-align: right;
+  }
+
+  /* ── GOLD DIVIDER ── */
+  .gold-line {
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold) 60%, transparent);
+  }
+
+  /* ── OPPORTUNITY SECTION ── */
+  .opportunity {
+    background: var(--sand);
+    padding: 24px 36px;
+  }
+
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+
+  .body-text {
+    font-size: 11.5px;
+    line-height: 1.65;
+    color: var(--navy);
+    max-width: 100%;
+  }
+
+  /* ── TWO COLUMN SECTION ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    flex: 1;
+  }
+
+  .col-left {
+    background: var(--navy);
+    padding: 24px 30px 20px 36px;
+    color: var(--white);
+  }
+
+  .col-right {
+    background: var(--sand);
+    padding: 24px 36px 20px 30px;
+  }
+
+  .col-left .section-label { color: var(--gold); }
+  .col-left .section-title { color: var(--white); }
+  .col-left .body-text { color: rgba(255,255,255,0.88); }
+
+  .col-left .highlight {
+    display: inline-block;
+    background: rgba(184,150,90,0.15);
+    border-left: 3px solid var(--gold);
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: var(--white);
+  }
+
+  .col-right .highlight {
+    display: inline-block;
+    background: rgba(13,30,53,0.06);
+    border-left: 3px solid var(--gold);
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: var(--navy);
+  }
+
+  .pipeline-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+
+  .pipeline-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  .pipeline-label {
+    color: var(--white);
+  }
+
+  .pipeline-label strong {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 3px solid var(--gold);
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 16px 12px;
+    border-right: 1px solid rgba(184,150,90,0.2);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 3px;
+  }
+
+  .stat-label {
+    font-size: 8.5px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ── WHY MHV ── */
+  .why-section {
+    background: var(--sand);
+    padding: 20px 36px;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 10px;
+  }
+
+  .pillar {
+    text-align: center;
+  }
+
+  .pillar-icon {
+    width: 32px;
+    height: 32px;
+    margin: 0 auto 8px;
+  }
+
+  .pillar-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .pillar-desc {
+    font-size: 9.5px;
+    line-height: 1.5;
+    color: rgba(13,30,53,0.75);
+  }
+
+  /* ── CTA / FOOTER ── */
+  .cta-section {
+    background: var(--navy);
+    padding: 18px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cta-left .cta-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .cta-left .cta-sub {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .cta-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .cta-contact {
+    text-align: right;
+  }
+
+  .cta-contact a {
+    display: block;
+    font-size: 11px;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+    line-height: 1.7;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: none;
+  }
+
+  .disclaimer {
+    background: var(--navy);
+    padding: 0 36px 14px;
+    border-top: 1px solid rgba(184,150,90,0.15);
+  }
+
+  .disclaimer p {
+    font-size: 7px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.6;
+    max-width: 100%;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    html, body { margin: 0; padding: 0; }
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      page-break-after: avoid;
+      page-break-inside: avoid;
+    }
+    @page { margin: 0; size: A4; }
+  }
+
+  /* ── SCREEN RESPONSIVE ── */
+  @media screen and (max-width: 800px) {
+    .page { width: 100%; }
+    .two-col { grid-template-columns: 1fr; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .pillars { grid-template-columns: repeat(2, 1fr); }
+    .header { flex-direction: column; gap: 12px; text-align: center; }
+    .tagline { text-align: center; }
+    .cta-section { flex-direction: column; gap: 16px; text-align: center; }
+    .cta-contact { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-area">
+      <svg class="acacia-mark" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+        <line x1="22" y1="42" x2="22" y2="18" stroke="#b8965a" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="6" y1="18" x2="38" y2="18" stroke="#b8965a" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="8" y1="15" x2="36" y2="15" stroke="#b8965a" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="11" y1="12" x2="33" y2="12" stroke="#b8965a" stroke-width="1.3" stroke-linecap="round"/>
+        <line x1="14" y1="9" x2="30" y2="9" stroke="#b8965a" stroke-width="1.1" stroke-linecap="round"/>
+        <line x1="17" y1="6" x2="27" y2="6" stroke="#b8965a" stroke-width="0.9" stroke-linecap="round"/>
+      </svg>
+      <div class="logo-text">
+        <span class="name">MHV</span>
+        <span class="sub">Maendeleo Hospitality Ventures</span>
+      </div>
+    </div>
+    <div class="tagline">Where Capital Meets the Continent</div>
+  </div>
+
+  <div class="gold-line"></div>
+
+  <!-- THE OPPORTUNITY -->
+  <div class="opportunity">
+    <div class="section-label">The Opportunity</div>
+    <div class="section-title">Africa's Luxury Hospitality Market Is Underserved — and Growing Fast</div>
+    <p class="body-text">
+      East Africa's luxury travel market is expanding at 15% year-over-year, yet high-quality lodge supply remains critically scarce. Tanzania — home to the Serengeti, Ngorongoro Crater, and Zanzibar — is the continent's premier safari destination, attracting over $2 billion in annual tourism revenue. A rising wave of Indian HNIs and diaspora investors are seeking real-asset exposure to Africa's growth story, but lack an institutional-grade vehicle to participate. MHV was built to fill that gap.
+    </p>
+  </div>
+
+  <!-- TWO COLUMNS: PROOF OF CONCEPT + FUND OVERVIEW -->
+  <div class="two-col">
+    <div class="col-left">
+      <div class="section-label">Proof of Concept</div>
+      <div class="section-title">Assets in Motion</div>
+      <div class="body-text">
+        MHV is not a concept — it is a portfolio in execution. Our first property is live and generating revenue.
+      </div>
+
+      <div style="margin-top: 14px;">
+        <div class="pipeline-item">
+          <div class="pipeline-dot"></div>
+          <div class="pipeline-label"><strong>Mapito Tented Camp</strong> — Open since Nov 2025. Generating income. Part of the Marriott portfolio.</div>
+        </div>
+        <div class="pipeline-item">
+          <div class="pipeline-dot"></div>
+          <div class="pipeline-label"><strong>Zanzibar Le Méridien</strong> — Opening 2025. Coastal luxury expansion.</div>
+        </div>
+        <div class="pipeline-item">
+          <div class="pipeline-dot"></div>
+          <div class="pipeline-label"><strong>Ritz-Carlton Serengeti</strong> — Two lodges in the 2027–2028 pipeline. Marquee brand positioning.</div>
+        </div>
+      </div>
+
+      <div class="highlight">
+        Every property is developed in partnership with <strong>Marriott International</strong> — the world's largest hospitality company.
+      </div>
+    </div>
+
+    <div class="col-right">
+      <div class="section-label">Fund Overview</div>
+      <div class="section-title">Structured for Returns</div>
+      <p class="body-text">
+        MHV offers investors a single, professionally managed vehicle with diversified exposure across Tanzania's highest-value hospitality corridors.
+      </p>
+
+      <div class="highlight">
+        <strong style="color: var(--gold);">8–12% Fixed Annual Return</strong> + performance-based upside tied to asset appreciation and operational outperformance.<br><br>
+        <strong>Fund Structure:</strong> Single investment vehicle. Diversified across multiple properties. Quarterly reporting. Governed by an independent Apex Group (Global Administrator) for full transparency.
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-number">8–12%</div>
+      <div class="stat-label">Fixed Annual Return</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">Marriott</div>
+      <div class="stat-label">Global Partnership</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">Tanzania</div>
+      <div class="stat-label">Premier Destination</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">Proven</div>
+      <div class="stat-label">Track Record</div>
+    </div>
+  </div>
+
+  <!-- WHY MHV -->
+  <div class="why-section">
+    <div class="section-label">Why MHV</div>
+    <div class="section-title">Our Competitive Advantage</div>
+    <div class="pillars">
+      <div class="pillar">
+        <svg class="pillar-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="14" fill="none" stroke="#b8965a" stroke-width="1.5"/>
+          <path d="M10 16 L14 20 L22 12" fill="none" stroke="#0d1e35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="pillar-title">On-the-Ground Expertise</div>
+        <div class="pillar-desc">Operational presence in Tanzania with deep local knowledge and relationships.</div>
+      </div>
+      <div class="pillar">
+        <svg class="pillar-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="8" width="24" height="16" rx="2" fill="none" stroke="#b8965a" stroke-width="1.5"/>
+          <path d="M4 14 L28 14" stroke="#0d1e35" stroke-width="1.5"/>
+          <circle cx="22" cy="20" r="2.5" fill="none" stroke="#0d1e35" stroke-width="1.2"/>
+        </svg>
+        <div class="pillar-title">Marriott Partnership</div>
+        <div class="pillar-desc">Exclusive development pipeline with the world's largest hotel company.</div>
+      </div>
+      <div class="pillar">
+        <svg class="pillar-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 4 L16 28" stroke="#b8965a" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M8 12 C8 8, 16 4, 16 4 C16 4, 24 8, 24 12" fill="none" stroke="#2d6a4f" stroke-width="1.5"/>
+          <path d="M6 18 C6 14, 16 9, 16 9 C16 9, 26 14, 26 18" fill="none" stroke="#2d6a4f" stroke-width="1.3"/>
+        </svg>
+        <div class="pillar-title">Community Impact</div>
+        <div class="pillar-desc">Hope for Girls foundation and local employment create a lasting social flywheel.</div>
+      </div>
+      <div class="pillar">
+        <svg class="pillar-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="6" width="20" height="20" rx="2" fill="none" stroke="#b8965a" stroke-width="1.5"/>
+          <path d="M6 12 L26 12" stroke="#0d1e35" stroke-width="1.2"/>
+          <path d="M12 12 L12 26" stroke="#0d1e35" stroke-width="1.2"/>
+        </svg>
+        <div class="pillar-title">Institutional Structure</div>
+        <div class="pillar-desc">Independent Apex Group (Global Administrator), audited reporting, and professional governance.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-left">
+      <div class="cta-heading">Ready to Invest in Africa's Future?</div>
+      <div class="cta-sub">Request the full fund information package. Minimum check sizes from $50K.</div>
+    </div>
+    <div class="cta-right">
+      <div class="cta-contact">
+        <a href="mailto:rishi@mhv.com">rishi@mhv.com</a>
+        <a href="https://mhv.com">mhv.com</a>
+      </div>
+      <a href="mailto:rishi@mhv.com?subject=MHV%20Fund%20Information%20Request" class="cta-button">Request Fund Info</a>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <p>
+      This document is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities. Past performance is not indicative of future results. All investments carry risk, including the potential loss of principal. Projected returns are estimates and are not guaranteed. Prospective investors should consult their own legal, tax, and financial advisors before making any investment decision. MHV — Maendeleo Hospitality Ventures is a private investment vehicle and is not registered with any securities regulatory authority. This material is confidential and intended solely for the recipient.
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>
