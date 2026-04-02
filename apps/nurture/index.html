@@ -1987,37 +1987,54 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
     <div class="pricing-header fade-in">
       <span class="section-label">Simple pricing</span>
       <h2 class="section-title">Less than a coffee.<br>For 30 free days.</h2>
-      <p class="section-sub" style="margin:0 auto;">Try everything free. No credit card. No pressure. Because you have enough to worry about.</p>
+      <p class="section-sub" style="margin:0 auto;">Start free. Upgrade when you're ready. Because you have enough to worry about.</p>
     </div>
-    <div class="pricing-grid">
+    <div class="pricing-grid" style="grid-template-columns:repeat(3,1fr);gap:20px;">
       <div class="pricing-card fade-in fade-in-delay-1">
         <div class="pricing-name">Free</div>
         <div class="pricing-price">$0</div>
-        <div class="pricing-period">forever, with limits</div>
+        <div class="pricing-period">forever</div>
         <ul class="pricing-features">
-          <li><span class="check">✓</span> 30 days full access</li>
           <li><span class="check">✓</span> Feed, sleep & diaper logs</li>
-          <li><span class="check">✓</span> Basic reminders</li>
+          <li><span class="check">✓</span> 7-day history</li>
+          <li><span class="check">✓</span> Basic next feed estimate</li>
+          <li><span class="check">✓</span> Night mode</li>
           <li><span class="dash">–</span> Partner sync</li>
-          <li><span class="dash">–</span> Pediatrician reports</li>
-          <li><span class="dash">–</span> Growth percentile curves</li>
+          <li><span class="dash">–</span> Unlimited history</li>
+          <li><span class="dash">–</span> AI suggestions</li>
         </ul>
-        <button class="pricing-btn secondary" onclick="alert('Opening App Store...')">Start Free</button>
+        <button class="pricing-btn secondary" onclick="alert('Opening App Store...')">Download Free</button>
       </div>
       <div class="pricing-card featured fade-in fade-in-delay-2">
         <div class="pricing-badge">Most Popular</div>
         <div class="pricing-name">Pro</div>
-        <div class="pricing-price">$2<span>.99/mo</span></div>
-        <div class="pricing-period">after 30-day free trial</div>
+        <div class="pricing-price">$5<span>.99/mo</span></div>
+        <div class="pricing-period">everything parents need</div>
         <ul class="pricing-features">
           <li><span class="check">✓</span> Everything in Free</li>
           <li><span class="check">✓</span> Unlimited history</li>
-          <li><span class="check">✓</span> Partner sync (unlimited)</li>
+          <li><span class="check">✓</span> Real-time partner sync</li>
+          <li><span class="check">✓</span> Multiple babies</li>
           <li><span class="check">✓</span> Pediatrician PDF reports</li>
           <li><span class="check">✓</span> Growth percentile curves</li>
-          <li><span class="check">✓</span> Smart predictions & insights</li>
+          <li><span class="dash">–</span> AI sleep & feed suggestions</li>
         </ul>
-        <button class="pricing-btn primary" onclick="alert('Opening App Store...')">Try 30 Days Free</button>
+        <button class="pricing-btn primary" onclick="alert('Opening App Store...')">Try Free → $5.99/mo</button>
+      </div>
+      <div class="pricing-card fade-in fade-in-delay-3">
+        <div class="pricing-badge" style="background:linear-gradient(135deg,#7B61FF,#FF61DC);">Max</div>
+        <div class="pricing-name">Max</div>
+        <div class="pricing-price">$9<span>.99/mo</span></div>
+        <div class="pricing-period">for power parents</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Everything in Pro</li>
+          <li><span class="check">✓</span> AI sleep schedule suggestions</li>
+          <li><span class="check">✓</span> AI feeding pattern analysis</li>
+          <li><span class="check">✓</span> Personalized daily insights</li>
+          <li><span class="check">✓</span> Early problem detection</li>
+          <li><span class="check">✓</span> Priority support</li>
+        </ul>
+        <button class="pricing-btn primary" style="background:linear-gradient(135deg,#7B61FF,#FF61DC);" onclick="alert('Opening App Store...')">Get Max</button>
       </div>
     </div>
     <p style="text-align:center; margin-top:24px; font-size:13px; color:var(--text-light);">Cancel anytime. No contract. No hard feelings. 💛</p>
@@ -2044,7 +2061,7 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
           Do both parents need a subscription?
           <span class="faq-arrow">+</span>
         </div>
-        <div class="faq-answer">Nope. One Pro subscription covers your entire family — up to 5 connected caregivers. Mom, Dad, and even Grandma can all log feeds and see the same live data. One price, the whole village.</div>
+        <div class="faq-answer">Nope. One Pro or Max subscription covers your whole family — both parents share access with one subscription. Just share a 6-character invite code and your partner is synced in seconds.</div>
       </div>
       <div class="faq-item fade-in fade-in-delay-2">
         <div class="faq-question" onclick="toggleFaq(this)">
