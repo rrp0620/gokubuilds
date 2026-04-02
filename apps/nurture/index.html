@@ -1,0 +1,2230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nurture: Baby Tracker — Every Feed. Every Dream. Together.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --warm-white: #FDFAF6;
+    --blush: #F5E6E0;
+    --blush-deep: #EECFC4;
+    --sand: #F0E8DB;
+    --navy: #1A2440;
+    --navy-light: #2E3D5E;
+    --sage: #8BAD8C;
+    --sage-light: #C8DEC8;
+    --peach: #E8886A;
+    --peach-light: #F2A98A;
+    --gold: #C9956A;
+    --text-dark: #2C2C2C;
+    --text-mid: #5A5A6A;
+    --text-light: #9090A0;
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 32px;
+    --shadow-soft: 0 4px 24px rgba(26,36,64,0.07);
+    --shadow-card: 0 8px 40px rgba(26,36,64,0.10);
+    --shadow-float: 0 20px 60px rgba(26,36,64,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text-dark);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(253,250,246,0.90);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--navy);
+    letter-spacing: -0.3px;
+  }
+
+  .nav-logo-icon {
+    width: 34px;
+    height: 34px;
+    background: linear-gradient(135deg, var(--peach), var(--peach-light));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-mid);
+    font-size: 15px;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--navy); }
+
+  .nav-cta {
+    background: var(--navy);
+    color: white !important;
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+
+  .nav-cta:hover { background: var(--navy-light) !important; transform: translateY(-1px); }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+  }
+
+  /* ─── HERO ────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    padding: 80px 24px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, var(--warm-white) 0%, var(--blush) 50%, var(--sand) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Soft bokeh circles */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(232,136,106,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(139,173,140,0.10) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-time-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(26,36,64,0.08);
+    border: 1px solid rgba(26,36,64,0.10);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: var(--navy);
+    font-weight: 500;
+    margin-bottom: 24px;
+    width: fit-content;
+  }
+
+  .time-dot {
+    width: 7px; height: 7px;
+    background: var(--peach);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(38px, 5vw, 58px);
+    line-height: 1.15;
+    color: var(--navy);
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--peach);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--text-mid);
+    line-height: 1.6;
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--navy);
+    color: white;
+    text-decoration: none;
+    padding: 16px 28px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 24px rgba(26,36,64,0.25);
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(26,36,64,0.30); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    opacity: 0.75;
+    transition: opacity 0.2s;
+  }
+
+  .btn-ghost:hover { opacity: 1; }
+
+  .hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .trust-avatars {
+    display: flex;
+  }
+
+  .trust-avatars span {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-left: -8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .trust-avatars span:first-child { margin-left: 0; }
+
+  .trust-text { font-size: 13px; color: var(--text-mid); }
+  .trust-text strong { color: var(--navy); font-weight: 600; }
+
+  /* ─── HERO PHONE MOCKUP ───────────────────────── */
+  .hero-phone-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .phone-glow {
+    position: absolute;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(232,136,106,0.20) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .phone-frame {
+    width: 280px;
+    background: var(--navy);
+    border-radius: 44px;
+    padding: 12px;
+    box-shadow: var(--shadow-float), 0 0 0 1px rgba(255,255,255,0.1);
+    position: relative;
+    z-index: 1;
+  }
+
+  .phone-inner {
+    background: #0F1829;
+    border-radius: 34px;
+    overflow: hidden;
+    padding: 20px 16px;
+  }
+
+  .phone-statusbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 4px;
+  }
+
+  .phone-time {
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .phone-icons { display: flex; gap: 6px; align-items: center; }
+
+  .phone-icons span {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .phone-greeting {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .phone-greeting-top {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+  }
+
+  .phone-greeting-name {
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+  }
+
+  .phone-greeting-name strong {
+    color: #F2A98A;
+  }
+
+  /* Dashboard cards on phone */
+  .dash-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .dash-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 12px;
+  }
+
+  .dash-card-icon {
+    font-size: 20px;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .dash-card-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 2px;
+  }
+
+  .dash-card-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.5px;
+  }
+
+  .dash-card-sub {
+    font-size: 9px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 2px;
+  }
+
+  .dash-wide {
+    grid-column: span 2;
+  }
+
+  /* Mini sleep bar in phone */
+  .mini-sleep-chart {
+    height: 36px;
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    padding-top: 4px;
+  }
+
+  .mini-bar {
+    flex: 1;
+    background: rgba(139,173,140,0.3);
+    border-radius: 3px 3px 0 0;
+    transition: all 0.3s;
+  }
+
+  .mini-bar.active {
+    background: linear-gradient(180deg, #8BAD8C, #6A9E6B);
+  }
+
+  .next-feed {
+    background: linear-gradient(135deg, rgba(232,136,106,0.15), rgba(242,169,138,0.10));
+    border: 1px solid rgba(232,136,106,0.25);
+    border-radius: 16px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .next-feed-label { font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 2px; }
+  .next-feed-time { font-size: 16px; font-weight: 700; color: #F2A98A; }
+  .next-feed-badge {
+    background: var(--peach);
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 860px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .hero-time-badge { margin: 0 auto 24px; }
+    .hero-actions { justify-content: center; }
+    .hero-trust { justify-content: center; }
+    .hero-phone-wrap { order: -1; }
+    .phone-frame { width: 240px; }
+  }
+
+  /* ─── SECTION COMMON ──────────────────────────── */
+  section {
+    padding: 100px 24px;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--peach);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    color: var(--navy);
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 18px;
+    color: var(--text-mid);
+    line-height: 1.6;
+    font-weight: 300;
+    max-width: 520px;
+  }
+
+  /* fade-in on scroll */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-delay-1 { transition-delay: 0.1s; }
+  .fade-in-delay-2 { transition-delay: 0.2s; }
+  .fade-in-delay-3 { transition-delay: 0.3s; }
+  .fade-in-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── EMPATHY SECTION ─────────────────────────── */
+  .empathy {
+    background: var(--navy);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .empathy::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(232,136,106,0.10) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .empathy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .empathy-label { color: var(--peach-light); }
+
+  .empathy-title {
+    color: white;
+    margin-bottom: 24px;
+  }
+
+  .empathy-body {
+    color: rgba(255,255,255,0.65);
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+
+  .empathy-body strong {
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+  }
+
+  .empathy-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-md);
+    padding: 24px;
+  }
+
+  .stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    color: var(--peach-light);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.4;
+  }
+
+  .moon-art {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .moon-circle {
+    width: 280px;
+    height: 280px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    position: relative;
+  }
+
+  .moon-circle::before {
+    content: '🌙';
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .moon-quote {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: white;
+    line-height: 1.3;
+    font-style: italic;
+  }
+
+  .moon-quote em {
+    color: var(--peach-light);
+  }
+
+  .clock-ring {
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255,255,255,0.08);
+  }
+
+  @media (max-width: 760px) {
+    .empathy-grid { grid-template-columns: 1fr; gap: 48px; }
+    .moon-art { display: none; }
+  }
+
+  /* ─── TRACKING CARDS ──────────────────────────── */
+  .track {
+    background: var(--warm-white);
+  }
+
+  .track-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .track-header .section-sub {
+    margin: 0 auto;
+  }
+
+  .track-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .track-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .track-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .track-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .track-card.feeding::before { background: linear-gradient(90deg, #E8886A, #F2A98A); }
+  .track-card.sleep::before { background: linear-gradient(90deg, #1A2440, #2E3D5E); }
+  .track-card.diaper::before { background: linear-gradient(90deg, #8BAD8C, #B5D4B6); }
+  .track-card.growth::before { background: linear-gradient(90deg, #C9956A, #DEB68A); }
+
+  .track-icon {
+    width: 52px; height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .track-card.feeding .track-icon { background: rgba(232,136,106,0.12); }
+  .track-card.sleep .track-icon { background: rgba(26,36,64,0.08); }
+  .track-card.diaper .track-icon { background: rgba(139,173,140,0.15); }
+  .track-card.growth .track-icon { background: rgba(201,149,106,0.12); }
+
+  .track-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 10px;
+    letter-spacing: -0.2px;
+  }
+
+  .track-card p {
+    font-size: 15px;
+    color: var(--text-mid);
+    line-height: 1.6;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+
+  /* Mini viz in card */
+  .mini-viz {
+    height: 48px;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  .mini-viz-bar {
+    flex: 1;
+    border-radius: 4px 4px 0 0;
+    min-height: 4px;
+  }
+
+  .feeding .mini-viz-bar { background: linear-gradient(180deg, #E8886A, rgba(232,136,106,0.2)); }
+  .sleep .mini-viz-bar { background: linear-gradient(180deg, #2E3D5E, rgba(46,61,94,0.2)); }
+  .diaper .mini-viz-bar { background: linear-gradient(180deg, #8BAD8C, rgba(139,173,140,0.2)); }
+
+  /* Growth curve SVG */
+  .growth-curve {
+    width: 100%;
+    height: 48px;
+  }
+
+  /* ─── SLEEP VISUALIZATION ─────────────────────── */
+  .sleep-viz {
+    background: linear-gradient(160deg, var(--sand), var(--blush));
+    padding: 100px 24px;
+  }
+
+  .sleep-viz-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .sleep-chart-container {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+
+  .chart-sub {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 24px;
+  }
+
+  .sleep-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    height: 120px;
+    margin-bottom: 12px;
+  }
+
+  .sleep-bar-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .sleep-bar {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    position: relative;
+    transition: all 0.5s ease;
+    min-height: 4px;
+  }
+
+  .sleep-bar.night {
+    background: linear-gradient(180deg, #2E3D5E, #1A2440);
+  }
+
+  .sleep-bar.nap {
+    background: linear-gradient(180deg, #8BAD8C, #6A9E6B);
+  }
+
+  .sleep-bar.awake {
+    background: linear-gradient(180deg, rgba(232,136,106,0.5), rgba(232,136,106,0.2));
+  }
+
+  .sleep-bar-label {
+    font-size: 8px;
+    color: var(--text-light);
+    margin-top: 6px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .sleep-legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-mid);
+  }
+
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 3px;
+  }
+
+  .sleep-score {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+
+  .score-label { font-size: 13px; color: var(--text-mid); }
+  .score-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .score-badge {
+    background: rgba(139,173,140,0.15);
+    color: #4A8A4B;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+
+  @media (max-width: 760px) {
+    .sleep-viz-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  /* ─── DOCTOR TRUST ────────────────────────────── */
+  .doctor {
+    background: white;
+  }
+
+  .doctor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .doctor-feature-list {
+    list-style: none;
+    margin-top: 32px;
+  }
+
+  .doctor-feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: var(--text-mid);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .doctor-feature-list li strong { color: var(--navy); font-weight: 500; }
+
+  .feature-check {
+    width: 24px; height: 24px;
+    background: rgba(139,173,140,0.15);
+    color: #4A8A4B;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .report-preview {
+    background: var(--warm-white);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .report-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .report-badge {
+    background: rgba(26,36,64,0.07);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+  }
+
+  .report-share-btn {
+    background: var(--peach);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .report-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-size: 14px;
+  }
+
+  .report-row:last-child { border-bottom: none; }
+
+  .report-row-label { color: var(--text-mid); font-weight: 400; }
+
+  .report-row-val {
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .report-row-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 3px;
+    margin: 0 16px;
+    overflow: hidden;
+  }
+
+  .report-row-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--peach), var(--peach-light));
+  }
+
+  @media (max-width: 760px) {
+    .doctor-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  /* ─── PARTNER SYNC ────────────────────────────── */
+  .partner {
+    background: linear-gradient(160deg, var(--blush) 0%, var(--warm-white) 100%);
+  }
+
+  .partner-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .partner-phones {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .partner-phone {
+    width: 180px;
+    background: var(--navy);
+    border-radius: 28px;
+    padding: 8px;
+    box-shadow: var(--shadow-float);
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s;
+  }
+
+  .partner-phone:first-child {
+    transform: rotate(-5deg) translateX(16px);
+    z-index: 0;
+  }
+
+  .partner-phone:last-child {
+    transform: rotate(5deg) translateX(-16px);
+    z-index: 0;
+  }
+
+  .partner-phone:hover { transform: rotate(0) translateY(-8px) !important; z-index: 2 !important; }
+
+  .partner-phone-inner {
+    background: #0F1829;
+    border-radius: 22px;
+    padding: 14px 12px;
+  }
+
+  .partner-phone-name {
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .partner-notif {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 6px;
+  }
+
+  .partner-notif-title {
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 2px;
+  }
+
+  .partner-notif-body {
+    font-size: 8px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.4;
+  }
+
+  .sync-badge {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 50%;
+    width: 44px; height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    z-index: 3;
+  }
+
+  .partner-points {
+    list-style: none;
+    margin-top: 32px;
+  }
+
+  .partner-points li {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .point-icon {
+    width: 40px; height: 40px;
+    background: var(--blush-deep);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .point-text h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .point-text p {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  @media (max-width: 760px) {
+    .partner-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  /* ─── TESTIMONIALS ────────────────────────────── */
+  .testimonials {
+    background: white;
+    padding: 100px 24px;
+  }
+
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .testimonials-header .section-sub {
+    margin: 0 auto;
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .testi-card {
+    background: var(--warm-white);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: transform 0.3s;
+    position: relative;
+  }
+
+  .testi-card:hover { transform: translateY(-4px); }
+
+  .testi-stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 16px;
+    color: var(--gold);
+    font-size: 14px;
+  }
+
+  .testi-text {
+    font-size: 16px;
+    color: var(--text-dark);
+    line-height: 1.7;
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+
+  .testi-text strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .testi-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    background: var(--blush);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .testi-name { font-size: 14px; font-weight: 600; color: var(--navy); }
+  .testi-meta { font-size: 12px; color: var(--text-light); }
+
+  /* ─── PRICING ─────────────────────────────────── */
+  .pricing {
+    background: linear-gradient(160deg, var(--warm-white), var(--sand));
+  }
+
+  .pricing-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .pricing-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    border: 2px solid transparent;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .pricing-card:hover { transform: translateY(-4px); }
+
+  .pricing-card.featured {
+    border-color: var(--peach);
+    box-shadow: 0 12px 40px rgba(232,136,106,0.20);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -12px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--peach);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .pricing-name {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+
+  .pricing-price {
+    font-family: 'DM Serif Display', serif;
+    font-size: 52px;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+    letter-spacing: -1px;
+  }
+
+  .pricing-price span {
+    font-size: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    color: var(--text-light);
+  }
+
+  .pricing-period {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 28px;
+  }
+
+  .pricing-features {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+
+  .pricing-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--text-mid);
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    font-weight: 300;
+  }
+
+  .pricing-features li:last-child { border-bottom: none; }
+
+  .pricing-features li .check { color: #4A8A4B; font-size: 14px; }
+  .pricing-features li .dash { color: var(--text-light); }
+
+  .pricing-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 100px;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .pricing-btn.primary {
+    background: var(--navy);
+    color: white;
+  }
+
+  .pricing-btn.primary:hover {
+    background: var(--navy-light);
+    transform: translateY(-2px);
+  }
+
+  .pricing-btn.secondary {
+    background: transparent;
+    color: var(--navy);
+    border: 2px solid rgba(26,36,64,0.15);
+  }
+
+  .pricing-btn.secondary:hover {
+    border-color: var(--navy);
+    background: rgba(26,36,64,0.04);
+  }
+
+  @media (max-width: 580px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── FAQ ─────────────────────────────────────── */
+  .faq {
+    background: white;
+  }
+
+  .faq-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .faq-list {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    padding: 20px 0;
+  }
+
+  .faq-question {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--navy);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    line-height: 1.4;
+  }
+
+  .faq-arrow {
+    font-size: 20px;
+    color: var(--peach);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-arrow { transform: rotate(45deg); }
+
+  .faq-answer {
+    font-size: 15px;
+    color: var(--text-mid);
+    line-height: 1.7;
+    font-weight: 300;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 200px;
+    padding-top: 12px;
+  }
+
+  /* ─── FINAL CTA ───────────────────────────────── */
+  .final-cta {
+    background: var(--navy);
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(232,136,106,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .final-cta-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-emoji { font-size: 56px; margin-bottom: 24px; display: block; }
+
+  .final-cta .section-title {
+    color: white;
+    max-width: 600px;
+    margin: 0 auto 16px;
+  }
+
+  .final-cta .section-sub {
+    color: rgba(255,255,255,0.6);
+    margin: 0 auto 40px;
+  }
+
+  .final-cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    color: var(--navy);
+    text-decoration: none;
+    padding: 16px 28px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+
+  .btn-primary-light:hover { transform: translateY(-2px); }
+
+  .btn-ghost-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 16px 20px;
+    transition: color 0.2s;
+  }
+
+  .btn-ghost-light:hover { color: white; }
+
+  /* ─── FOOTER ──────────────────────────────────── */
+  footer {
+    background: #0D1628;
+    padding: 48px 24px;
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 13px;
+  }
+
+  .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+  /* ─── SCROLL PROGRESS ─────────────────────────── */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--peach), var(--peach-light));
+    z-index: 200;
+    transition: width 0.1s;
+    width: 0%;
+  }
+</style>
+<style id="gb-topbar-fix">
+/* Fix: push app nav below gb-topbar (48px) */
+body { padding-top: 48px !important; }
+nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
+.hero, [class*="hero"] { margin-top: 0 !important; }
+</style>
+</head>
+<body style="padding-top:48px">
+<div id="gb-topbar" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(10,14,26,0.97);backdrop-filter:blur(10px);padding:0 24px;height:48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.07);font-family:Inter,sans-serif;">
+  <a href="/" style="display:flex;align-items:center;gap:8px;color:#b8965a;text-decoration:none;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#b8965a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11L4 7l5-4"/></svg>
+    Goku Builds
+  </a>
+  <a href="/factory/" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;">Software Factory</a>
+</div>
+
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">🌙</div>
+    Nurture: Baby Tracker
+  </a>
+  <ul class="nav-links">
+    <li><a href="#track">Features</a></li>
+    <li><a href="#doctor">Pediatrician</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#download" class="nav-cta">Download Free</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-content fade-in">
+      <div class="hero-time-badge">
+        <span class="time-dot"></span>
+        It's 3:00 AM &mdash; we built this for right now
+      </div>
+      <h1 class="hero-headline">
+        Every feed.<br>Every dream.<br><em>Every parent.</em>
+      </h1>
+      <p class="hero-sub">
+        You're running on love and zero sleep. Nurture: Baby Tracker quietly tracks everything — so you can focus on what matters: being there.
+      </p>
+      <div class="hero-actions">
+        <a href="#download" class="btn-primary" id="download">
+          <span>🍎</span> Download Free — iPhone
+        </a>
+        <a href="#track" class="btn-ghost">
+          See how it works <span>↓</span>
+        </a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-avatars">
+          <span style="background:#F5E6E0;">👶</span>
+          <span style="background:#E0EFE0;">🍼</span>
+          <span style="background:#E6E8F0;">💙</span>
+          <span style="background:#F5E6E0;">🌸</span>
+        </div>
+        <p class="trust-text"><strong>127,000+</strong> parents tracking today</p>
+      </div>
+    </div>
+    <div class="hero-phone-wrap fade-in fade-in-delay-2">
+      <div class="phone-glow"></div>
+      <div class="phone-frame">
+        <div class="phone-inner">
+          <div class="phone-statusbar">
+            <span class="phone-time">3:00</span>
+            <div class="phone-icons">
+              <span>●●●</span>
+              <span>WiFi</span>
+              <span>100%</span>
+            </div>
+          </div>
+          <div class="phone-greeting">
+            <div class="phone-greeting-top">Good morning, Rishi</div>
+            <div class="phone-greeting-name">Baby <strong>Aria</strong> · Day 47 🌙</div>
+          </div>
+          <div class="dash-row">
+            <div class="dash-card">
+              <span class="dash-card-icon">🍼</span>
+              <div class="dash-card-label">Last Fed</div>
+              <div class="dash-card-value">2:30</div>
+              <div class="dash-card-sub">2.5 oz · Left</div>
+            </div>
+            <div class="dash-card">
+              <span class="dash-card-icon">💤</span>
+              <div class="dash-card-label">Sleep Today</div>
+              <div class="dash-card-value">9h</div>
+              <div class="dash-card-sub">3 naps + night</div>
+            </div>
+          </div>
+          <div class="dash-row">
+            <div class="dash-card">
+              <span class="dash-card-icon">🌱</span>
+              <div class="dash-card-label">Weight</div>
+              <div class="dash-card-value">9.2</div>
+              <div class="dash-card-sub">lbs · on track</div>
+            </div>
+            <div class="dash-card">
+              <span class="dash-card-icon">🩺</span>
+              <div class="dash-card-label">Diapers</div>
+              <div class="dash-card-value">6</div>
+              <div class="dash-card-sub">today · great</div>
+            </div>
+          </div>
+          <div class="dash-row" style="margin-top:8px;">
+            <div class="dash-card dash-wide">
+              <div class="dash-card-label" style="margin-bottom:6px;">Sleep last 24h</div>
+              <div class="mini-sleep-chart">
+                <div class="mini-bar" style="height:20%"></div>
+                <div class="mini-bar" style="height:30%"></div>
+                <div class="mini-bar active" style="height:90%"></div>
+                <div class="mini-bar active" style="height:80%"></div>
+                <div class="mini-bar" style="height:25%"></div>
+                <div class="mini-bar active" style="height:60%"></div>
+                <div class="mini-bar" style="height:15%"></div>
+                <div class="mini-bar active" style="height:40%"></div>
+                <div class="mini-bar active" style="height:70%"></div>
+                <div class="mini-bar" style="height:20%"></div>
+                <div class="mini-bar" style="height:35%"></div>
+                <div class="mini-bar active" style="height:85%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="next-feed" style="margin-top:8px;">
+            <div>
+              <div class="next-feed-label">Next feed est.</div>
+              <div class="next-feed-time">4:30 AM</div>
+            </div>
+            <div class="next-feed-badge">In 1h 30m</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMPATHY -->
+<section class="empathy">
+  <div class="section-inner">
+    <div class="empathy-grid">
+      <div class="fade-in">
+        <span class="section-label empathy-label">We see you</span>
+        <h2 class="section-title empathy-title">You're not just tired.<br>You're <em style="font-style:italic; color:#F2A98A;">heroic.</em></h2>
+        <p class="empathy-body">
+          The first weeks are a blur of love, worry, and <strong>desperate googling at 3am</strong>. You're trying to remember when Aria last fed, whether that was a wet or dry diaper, and if she slept enough — all while running on fragments of sleep.
+        </p>
+        <p class="empathy-body">
+          <strong>Nurture: Baby Tracker doesn't judge your chaos.</strong> It quietly holds every detail so your exhausted brain doesn't have to. Log a feed in under 5 seconds. Check yesterday's summary without squinting at notes.
+        </p>
+        <div class="empathy-stats">
+          <div class="stat-card fade-in fade-in-delay-1">
+            <div class="stat-number">800+</div>
+            <div class="stat-desc">feedings in baby's first year. We track every single one.</div>
+          </div>
+          <div class="stat-card fade-in fade-in-delay-2">
+            <div class="stat-number">4.9★</div>
+            <div class="stat-desc">Average App Store rating from exhausted, grateful parents.</div>
+          </div>
+        </div>
+      </div>
+      <div class="moon-art fade-in fade-in-delay-2">
+        <div class="clock-ring"></div>
+        <div class="moon-circle">
+          <span class="moon-quote">"The nights are long, but the years are <em>short.</em>"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACKING CARDS -->
+<section class="track" id="track">
+  <div class="section-inner">
+    <div class="track-header fade-in">
+      <span class="section-label">What you track</span>
+      <h2 class="section-title">Everything in one<br>beautiful place</h2>
+      <p class="section-sub">Log it once. Understand it always. Share it with anyone who needs to know.</p>
+    </div>
+    <div class="track-grid">
+      <div class="track-card feeding fade-in fade-in-delay-1">
+        <div class="track-icon">🍼</div>
+        <h3>Feeding</h3>
+        <p>Breast, bottle, or solids — track duration, volume, side, and latching. Know exactly when baby is due for the next feed before the crying starts.</p>
+        <div class="mini-viz" id="feedingViz">
+          <!-- bars filled by JS -->
+        </div>
+      </div>
+      <div class="track-card sleep fade-in fade-in-delay-2">
+        <div class="track-icon">💤</div>
+        <h3>Sleep</h3>
+        <p>Night sleep, naps, wake windows — see patterns emerge over days and weeks. Know when baby is about to overtire before it happens.</p>
+        <div class="mini-viz" id="sleepViz"></div>
+      </div>
+      <div class="track-card diaper fade-in fade-in-delay-3">
+        <div class="track-icon">🌿</div>
+        <h3>Diapers</h3>
+        <p>Wet, dirty, or both — quick log in two taps. Patterns here tell your pediatrician a lot. We surface them automatically in your weekly report.</p>
+        <div class="mini-viz" id="diaperViz"></div>
+      </div>
+      <div class="track-card growth fade-in fade-in-delay-4">
+        <div class="track-icon">📈</div>
+        <h3>Growth</h3>
+        <p>Weight, height, head circumference — plotted against WHO percentile curves. Watch your baby climb that growth curve with confidence.</p>
+        <svg class="growth-curve" viewBox="0 0 200 48" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="growthGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#C9956A;stop-opacity:0.3"/>
+              <stop offset="100%" style="stop-color:#C9956A;stop-opacity:0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,40 C20,38 40,32 60,28 C80,24 100,18 120,14 C140,10 160,8 200,4" fill="none" stroke="#C9956A" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M0,40 C20,38 40,32 60,28 C80,24 100,18 120,14 C140,10 160,8 200,4 L200,48 L0,48 Z" fill="url(#growthGrad)"/>
+          <circle cx="200" cy="4" r="4" fill="#C9956A"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLEEP VISUALIZATION -->
+<section class="sleep-viz">
+  <div class="section-inner">
+    <div class="sleep-viz-grid">
+      <div class="sleep-chart-container fade-in">
+        <div class="chart-title">Aria's Sleep — Last 7 Days</div>
+        <div class="chart-sub">Night sleep + naps combined • target: 14–17h</div>
+        <div class="sleep-bars" id="sleepBars">
+          <!-- bars by JS -->
+        </div>
+        <div style="display:flex; gap:4px; justify-content:space-between; padding:0 2px;">
+          <span style="font-size:9px;color:var(--text-light)">Mon</span>
+          <span style="font-size:9px;color:var(--text-light)">Tue</span>
+          <span style="font-size:9px;color:var(--text-light)">Wed</span>
+          <span style="font-size:9px;color:var(--text-light)">Thu</span>
+          <span style="font-size:9px;color:var(--text-light)">Fri</span>
+          <span style="font-size:9px;color:var(--text-light)">Sat</span>
+          <span style="font-size:9px;color:var(--text-light)">Today</span>
+        </div>
+        <div class="sleep-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#1A2440;"></div>Night
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#8BAD8C;"></div>Naps
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:rgba(232,136,106,0.5);"></div>Awake
+          </div>
+        </div>
+        <div class="sleep-score">
+          <div>
+            <div class="score-label">Weekly Sleep Score</div>
+          </div>
+          <div class="score-value">87</div>
+          <div class="score-badge">↑ Improving</div>
+        </div>
+      </div>
+      <div class="fade-in fade-in-delay-2">
+        <span class="section-label">Sleep intelligence</span>
+        <h2 class="section-title">See patterns<br>before you feel them</h2>
+        <p class="section-sub">Our sleep algorithm learns your baby's rhythms over time. It predicts optimal wake windows, spots overtiredness early, and gives you a simple sleep score each morning.</p>
+        <ul class="doctor-feature-list" style="margin-top:28px;">
+          <li>
+            <div class="feature-check">✓</div>
+            <div><strong>Wake window predictions</strong> — know when baby is ready to nap before the meltdown</div>
+          </li>
+          <li>
+            <div class="feature-check">✓</div>
+            <div><strong>Night vs day balance</strong> — spot day/night confusion early and course-correct fast</div>
+          </li>
+          <li>
+            <div class="feature-check">✓</div>
+            <div><strong>7-day trend view</strong> — see if sleep is improving week over week at a glance</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTOR TRUST -->
+<section class="doctor" id="doctor">
+  <div class="section-inner">
+    <div class="doctor-grid">
+      <div class="fade-in">
+        <span class="section-label">Medical trust</span>
+        <h2 class="section-title">Share with your<br>pediatrician in one tap</h2>
+        <p class="section-sub">Your doctor needs data, not guesses. One tap generates a beautiful PDF report — feeding history, growth curve, sleep patterns — ready for your next visit.</p>
+        <ul class="doctor-feature-list">
+          <li>
+            <div class="feature-check">✓</div>
+            <div><strong>Instant PDF export</strong> — 30-day summary formatted for clinical review</div>
+          </li>
+          <li>
+            <div class="feature-check">✓</div>
+            <div><strong>WHO growth percentiles</strong> — automatically plotted, no manual entry needed</div>
+          </li>
+          <li>
+            <div class="feature-check">✓</div>
+            <div><strong>Jaundice & weight tracking</strong> — critical in the first two weeks, logged precisely</div>
+          </li>
+          <li>
+            <div class="feature-check">✓</div>
+            <div><strong>Secure sharing</strong> — private link expires after 48 hours</div>
+          </li>
+        </ul>
+      </div>
+      <div class="fade-in fade-in-delay-2">
+        <div class="report-preview">
+          <div class="report-header">
+            <div class="report-badge">📋 PEDIATRIC REPORT</div>
+            <button class="report-share-btn">📤 Share</button>
+          </div>
+          <div style="font-size:13px; color:var(--text-light); margin-bottom:16px;">Aria Chen · 47 days old · Dr. Patel appt. today</div>
+          <div class="report-row">
+            <span class="report-row-label">Daily feeds (avg)</span>
+            <div class="report-row-bar"><div class="report-row-fill" style="width:72%;"></div></div>
+            <span class="report-row-val">8.2/day</span>
+          </div>
+          <div class="report-row">
+            <span class="report-row-label">Total volume (avg)</span>
+            <div class="report-row-bar"><div class="report-row-fill" style="width:85%; background: linear-gradient(90deg, #8BAD8C, #B5D4B6);"></div></div>
+            <span class="report-row-val">22.5 oz</span>
+          </div>
+          <div class="report-row">
+            <span class="report-row-label">Daily sleep (avg)</span>
+            <div class="report-row-bar"><div class="report-row-fill" style="width:63%; background: linear-gradient(90deg, #2E3D5E, #4A6A9E);"></div></div>
+            <span class="report-row-val">14.8h</span>
+          </div>
+          <div class="report-row">
+            <span class="report-row-label">Weight gain (30d)</span>
+            <div class="report-row-bar"><div class="report-row-fill" style="width:90%; background: linear-gradient(90deg, #C9956A, #DEB68A);"></div></div>
+            <span class="report-row-val">+1.8 lbs</span>
+          </div>
+          <div style="margin-top:16px; padding:12px; background:rgba(139,173,140,0.10); border-radius:10px; border:1px solid rgba(139,173,140,0.2);">
+            <div style="font-size:12px; color:#4A8A4B; font-weight:600; margin-bottom:4px;">✓ Growth: 68th percentile — on track</div>
+            <div style="font-size:11px; color:var(--text-mid);">All metrics within normal range for gestational age</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER SYNC -->
+<section class="partner">
+  <div class="section-inner">
+    <div class="partner-grid">
+      <div class="partner-phones fade-in">
+        <div class="partner-phone">
+          <div class="partner-phone-inner">
+            <div class="partner-phone-name">Mom 👩</div>
+            <div class="partner-notif">
+              <div class="partner-notif-title">🍼 Feed logged by Rishi</div>
+              <div class="partner-notif-body">3:00 AM · 2.5 oz · Left breast · 14 min</div>
+            </div>
+            <div class="partner-notif">
+              <div class="partner-notif-title">💤 Aria fell asleep</div>
+              <div class="partner-notif-body">3:22 AM · in crib</div>
+            </div>
+            <div class="partner-notif" style="border-color:rgba(242,169,138,0.25); background:rgba(232,136,106,0.08);">
+              <div class="partner-notif-title" style="color:#F2A98A;">⏰ Next feed: 6:00 AM</div>
+              <div class="partner-notif-body">Your turn 💛</div>
+            </div>
+          </div>
+        </div>
+        <div class="sync-badge">🔄</div>
+        <div class="partner-phone">
+          <div class="partner-phone-inner">
+            <div class="partner-phone-name">Dad 👨</div>
+            <div class="partner-notif">
+              <div class="partner-notif-title">✅ You logged: 3:00 AM feed</div>
+              <div class="partner-notif-body">2.5 oz added to today's total: 19 oz</div>
+            </div>
+            <div class="partner-notif">
+              <div class="partner-notif-title">📊 Daily update</div>
+              <div class="partner-notif-body">Aria: 6 feeds · 9h sleep · 6 diapers</div>
+            </div>
+            <div class="partner-notif" style="border-color:rgba(139,173,140,0.25); background:rgba(139,173,140,0.08);">
+              <div class="partner-notif-title" style="color:#8BAD8C;">💚 Maya saw your update</div>
+              <div class="partner-notif-body">She's sleeping — you've got it 🙌</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-in fade-in-delay-2">
+        <span class="section-label">Partner sync</span>
+        <h2 class="section-title">Two parents,<br>one team</h2>
+        <p class="section-sub">No more "did you feed her?" in the middle of the night. Real-time sync means both parents always know exactly what happened — and who's up next.</p>
+        <ul class="partner-points">
+          <li>
+            <div class="point-icon">📱</div>
+            <div class="point-text">
+              <h4>Live sync across devices</h4>
+              <p>Log a feed and your partner's app updates instantly. No lag, no missed entries, no confusion.</p>
+            </div>
+          </li>
+          <li>
+            <div class="point-icon">🔔</div>
+            <div class="point-text">
+              <h4>Smart feed reminders</h4>
+              <p>Set "your turn" notifications. Assign night shifts. Sleep when it's your turn to actually sleep.</p>
+            </div>
+          </li>
+          <li>
+            <div class="point-icon">👨‍👩‍👧</div>
+            <div class="point-text">
+              <h4>Grandparent access</h4>
+              <p>Share read-only access with grandparents or caregivers. They see everything without editing anything.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-inner">
+    <div class="testimonials-header fade-in">
+      <span class="section-label">Parent voices</span>
+      <h2 class="section-title">From parents who<br>made it through</h2>
+      <p class="section-sub">Real families. Real 3am moments. Real relief.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card fade-in fade-in-delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Woke up for the 5th time with Luca (11 weeks) and genuinely couldn't remember if I'd already fed him. <strong>Opened the app in 3 seconds and knew.</strong> My postpartum brain is a disaster — this app is my lifeline."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div>
+            <div class="testi-name">Sarah M.</div>
+            <div class="testi-meta">Mom to Luca, 11 weeks · Boston, MA</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fade-in fade-in-delay-2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"As the dad doing night shifts, I was nervous I'd miss something important. <strong>Nurture: Baby Tracker made me feel competent.</strong> My wife woke up and I could show her exactly what happened all night. She cried happy tears."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👨</div>
+          <div>
+            <div class="testi-name">James K.</div>
+            <div class="testi-meta">Dad to Zoe, 6 weeks · Austin, TX</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fade-in fade-in-delay-3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Our pediatrician literally said <strong>'this is the best-prepared parent I've seen in 20 years'</strong> when I showed her the report. She asked me to recommend the app to her other patients. I cried a little."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div>
+            <div class="testi-name">Priya R.</div>
+            <div class="testi-meta">Mom to twins Mia & Noah, 3 months · Seattle, WA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-inner">
+    <div class="pricing-header fade-in">
+      <span class="section-label">Simple pricing</span>
+      <h2 class="section-title">Less than a coffee.<br>For 30 free days.</h2>
+      <p class="section-sub" style="margin:0 auto;">Try everything free. No credit card. No pressure. Because you have enough to worry about.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card fade-in fade-in-delay-1">
+        <div class="pricing-name">Free</div>
+        <div class="pricing-price">$0</div>
+        <div class="pricing-period">forever, with limits</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> 30 days full access</li>
+          <li><span class="check">✓</span> Feed, sleep & diaper logs</li>
+          <li><span class="check">✓</span> Basic reminders</li>
+          <li><span class="dash">–</span> Partner sync</li>
+          <li><span class="dash">–</span> Pediatrician reports</li>
+          <li><span class="dash">–</span> Growth percentile curves</li>
+        </ul>
+        <button class="pricing-btn secondary" onclick="alert('Opening App Store...')">Start Free</button>
+      </div>
+      <div class="pricing-card featured fade-in fade-in-delay-2">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-name">Pro</div>
+        <div class="pricing-price">$2<span>.99/mo</span></div>
+        <div class="pricing-period">after 30-day free trial</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Everything in Free</li>
+          <li><span class="check">✓</span> Unlimited history</li>
+          <li><span class="check">✓</span> Partner sync (unlimited)</li>
+          <li><span class="check">✓</span> Pediatrician PDF reports</li>
+          <li><span class="check">✓</span> Growth percentile curves</li>
+          <li><span class="check">✓</span> Smart predictions & insights</li>
+        </ul>
+        <button class="pricing-btn primary" onclick="alert('Opening App Store...')">Try 30 Days Free</button>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:24px; font-size:13px; color:var(--text-light);">Cancel anytime. No contract. No hard feelings. 💛</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-inner">
+    <div class="faq-header fade-in">
+      <span class="section-label">Questions</span>
+      <h2 class="section-title">Real questions from<br>real tired parents</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item fade-in">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          How quickly can I log a feed at 3am when I can barely see?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-answer">Under 5 seconds. Open the app, tap the big 🍼 button, and you're done. The app timestamps it automatically. We designed every single interaction for sleep-deprived, one-handed, zero-brain-capacity moments.</div>
+      </div>
+      <div class="faq-item fade-in fade-in-delay-1">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Do both parents need a subscription?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-answer">Nope. One Pro subscription covers your entire family — up to 5 connected caregivers. Mom, Dad, and even Grandma can all log feeds and see the same live data. One price, the whole village.</div>
+      </div>
+      <div class="faq-item fade-in fade-in-delay-2">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Is this safe for tracking a newborn? How accurate are the insights?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-answer">Nurture: Baby Tracker is a logging and tracking tool, not a medical device. Our insights are based on AAP guidelines and reviewed by pediatric consultants. Always consult your pediatrician for medical decisions — we make that easy by generating reports you can share directly with them.</div>
+      </div>
+      <div class="faq-item fade-in fade-in-delay-3">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          What if I forget to log something?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-answer">You can backfill entries at any time. Tap the + button, set the time manually, and add it. Forgot this morning's 2am feed? No problem — add it now and everything recalculates correctly. We don't shame you for being human.</div>
+      </div>
+      <div class="faq-item fade-in fade-in-delay-4">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Does it work for formula, breastfeeding, and mixed feeding?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-answer">Yes — all three, and you can switch between them anytime. Log breast in ounces or minutes per side. Log formula by volume. Log combination feeding with separate entries. No judgment, no pressure, just tracking.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="section-inner final-cta-inner">
+    <span class="cta-emoji">💛</span>
+    <h2 class="section-title">You're doing amazing.<br>Let us help.</h2>
+    <p class="section-sub">Nurture: Baby Tracker is free to try. 30 days, no credit card, no catch. Download it tonight and wake up knowing exactly how Aria did.</p>
+    <div class="final-cta-actions">
+      <a href="#download" class="btn-primary-light">
+        <span>🍎</span> Download Free — iPhone
+      </a>
+      <a href="#pricing" class="btn-ghost-light">
+        See Pro features →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <span>🌙</span> Nurture: Baby Tracker
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Contact Us</a>
+      <a href="#">Support</a>
+    </div>
+    <div style="font-size:13px; color:rgba(255,255,255,0.3);">
+      © 2025 Websage Inc. Made with 💛 for new parents everywhere.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll progress
+  const scrollProgress = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    scrollProgress.style.width = (scrolled / maxScroll * 100) + '%';
+  });
+
+  // IntersectionObserver for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Build feeding viz bars
+  const feedData = [60, 90, 45, 100, 70, 55, 80, 95, 40, 85, 60, 75];
+  const feedingViz = document.getElementById('feedingViz');
+  if (feedingViz) {
+    feedData.forEach(v => {
+      const b = document.createElement('div');
+      b.className = 'mini-viz-bar';
+      b.style.height = v + '%';
+      feedingViz.appendChild(b);
+    });
+  }
+
+  // Sleep viz bars
+  const sleepData = [75, 85, 60, 90, 80, 70, 95, 65, 88, 55, 92, 78];
+  const sleepViz = document.getElementById('sleepViz');
+  if (sleepViz) {
+    sleepData.forEach(v => {
+      const b = document.createElement('div');
+      b.className = 'mini-viz-bar';
+      b.style.height = v + '%';
+      sleepViz.appendChild(b);
+    });
+  }
+
+  // Diaper viz
+  const diaperData = [80, 60, 90, 40, 70, 85, 55, 95, 65, 75, 50, 80];
+  const diaperViz = document.getElementById('diaperViz');
+  if (diaperViz) {
+    diaperData.forEach(v => {
+      const b = document.createElement('div');
+      b.className = 'mini-viz-bar';
+      b.style.height = v + '%';
+      diaperViz.appendChild(b);
+    });
+  }
+
+  // Sleep bars chart (bigger)
+  const weekSleepData = [
+    { night: 62, nap: 24, label: 'Mon' },
+    { night: 58, nap: 28, label: 'Tue' },
+    { night: 70, nap: 20, label: 'Wed' },
+    { night: 65, nap: 30, label: 'Thu' },
+    { night: 72, nap: 22, label: 'Fri' },
+    { night: 60, nap: 32, label: 'Sat' },
+    { night: 75, nap: 18, label: 'Today' }
+  ];
+
+  const sleepBars = document.getElementById('sleepBars');
+  if (sleepBars) {
+    weekSleepData.forEach((d, i) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'sleep-bar-wrap';
+
+      const nightBar = document.createElement('div');
+      nightBar.className = 'sleep-bar night';
+      nightBar.style.height = d.night + '%';
+
+      const napBar = document.createElement('div');
+      napBar.className = 'sleep-bar nap';
+      napBar.style.height = d.nap + '%';
+      napBar.style.marginTop = '2px';
+
+      wrap.appendChild(nightBar);
+      wrap.appendChild(napBar);
+      sleepBars.appendChild(wrap);
+    });
+  }
+
+  // FAQ accordion
+  function toggleFaq(questionEl) {
+    const item = questionEl.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // Auto-update hero time to current time
+  function updateHeroTime() {
+    const now = new Date();
+    let h = now.getHours();
+    const m = now.getMinutes().toString().padStart(2, '0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    if (h === 0) h = 12;
+    else if (h > 12) h -= 12;
+    const timeEl = document.querySelector('.phone-time');
+    if (timeEl) timeEl.textContent = h + ':' + m;
+
+    // Update the badge
+    const badge = document.querySelector('.hero-time-badge');
+    if (badge) {
+      const isNight = now.getHours() >= 22 || now.getHours() < 6;
+      const msg = isNight
+        ? `It's ${h}:${m} ${ampm} — we built this for right now`
+        : `Tracking 127,000+ babies today`;
+      badge.innerHTML = `<span class="time-dot"></span>${msg}`;
+    }
+  }
+  updateHeroTime();
+  setInterval(updateHeroTime, 30000);
+</script>
+</body>
+</html>
