@@ -18,16 +18,16 @@
     --text: #e6edf3;
     --text-muted: #8b949e;
     --text-faint: #484f58;
-    --accent: #3fb950;
-    --accent-dim: rgba(63, 185, 80, 0.15);
-    --accent-glow: rgba(63, 185, 80, 0.4);
+    --accent: #0A84FF;
+    --accent-dim: rgba(10, 132, 255, 0.15);
+    --accent-glow: rgba(10, 132, 255, 0.4);
     --blue: #58a6ff;
     --blue-dim: rgba(88, 166, 255, 0.12);
     --orange: #f0883e;
     --red: #ff7b72;
     --street: #1a2030;
     --block: #141920;
-    --pin: #3fb950;
+    --pin: #0A84FF;
     --road-line: rgba(255,255,255,0.04);
   }
 
@@ -121,9 +121,9 @@
   }
 
   .btn-nav:hover {
-    background: #4ac960;
+    background: #3395ff;
     transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(63, 185, 80, 0.3);
+    box-shadow: 0 4px 16px rgba(10, 132, 255, 0.3);
   }
 
   @media (max-width: 768px) {
@@ -203,7 +203,7 @@
     align-items: center;
     gap: 8px;
     background: var(--accent-dim);
-    border: 1px solid rgba(63, 185, 80, 0.3);
+    border: 1px solid rgba(10, 132, 255, 0.3);
     color: var(--accent);
     font-family: 'DM Mono', monospace;
     font-size: 11px;
@@ -303,9 +303,9 @@
   }
 
   .btn-primary:hover {
-    background: #4ac960;
+    background: #3395ff;
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(63, 185, 80, 0.35);
+    box-shadow: 0 8px 32px rgba(10, 132, 255, 0.35);
   }
 
   .btn-ghost {
@@ -380,7 +380,7 @@
     box-shadow:
       0 0 0 1px rgba(255,255,255,0.05),
       0 32px 80px rgba(0,0,0,0.6),
-      0 0 60px rgba(63, 185, 80, 0.08);
+      0 0 60px rgba(10, 132, 255, 0.08);
     position: relative;
   }
 
@@ -453,7 +453,7 @@
     background: var(--accent);
     border-radius: 50% 50% 50% 0;
     transform: rotate(-45deg);
-    box-shadow: 0 0 0 4px rgba(63, 185, 80, 0.25), 0 0 20px rgba(63, 185, 80, 0.5);
+    box-shadow: 0 0 0 4px rgba(10, 132, 255, 0.25), 0 0 20px rgba(10, 132, 255, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -462,8 +462,8 @@
   }
 
   @keyframes pinPulse {
-    0%, 100% { box-shadow: 0 0 0 4px rgba(63, 185, 80, 0.25), 0 0 20px rgba(63, 185, 80, 0.4); }
-    50% { box-shadow: 0 0 0 8px rgba(63, 185, 80, 0.1), 0 0 40px rgba(63, 185, 80, 0.6); }
+    0%, 100% { box-shadow: 0 0 0 4px rgba(10, 132, 255, 0.25), 0 0 20px rgba(10, 132, 255, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(10, 132, 255, 0.1), 0 0 40px rgba(10, 132, 255, 0.6); }
   }
 
   .pin-icon::after {
@@ -479,7 +479,7 @@
   .pin-shadow {
     width: 16px;
     height: 6px;
-    background: rgba(63, 185, 80, 0.3);
+    background: rgba(10, 132, 255, 0.3);
     border-radius: 50%;
     margin-top: 2px;
     filter: blur(3px);
@@ -492,7 +492,7 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 2px solid rgba(63, 185, 80, 0.5);
+    border: 2px solid rgba(10, 132, 255, 0.5);
     animation: ripple 2s ease-out 1.5s infinite;
   }
 
@@ -573,7 +573,7 @@
     position: absolute;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(63, 185, 80, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(10, 132, 255, 0.15) 0%, transparent 70%);
     border-radius: 50%;
     top: 50%;
     left: 50%;
@@ -693,7 +693,7 @@
   }
 
   .scenario-card:hover {
-    border-color: rgba(63, 185, 80, 0.3);
+    border-color: rgba(10, 132, 255, 0.3);
     transform: translateY(-3px);
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
   }
@@ -934,7 +934,7 @@
     background: var(--accent);
     border-radius: 50% 50% 50% 0;
     transform: rotate(-45deg);
-    box-shadow: 0 0 12px rgba(63, 185, 80, 0.5);
+    box-shadow: 0 0 12px rgba(10, 132, 255, 0.5);
     position: relative;
   }
 
@@ -1002,7 +1002,7 @@
     background: var(--accent);
     border-radius: 50% 50% 50% 0;
     transform: translate(-50%, -100%) rotate(-45deg);
-    box-shadow: 0 0 8px rgba(63, 185, 80, 0.6);
+    box-shadow: 0 0 8px rgba(10, 132, 255, 0.6);
   }
 
   .confirm-detail-row {
@@ -1050,8 +1050,8 @@
   .nav-screen-content {}
 
   .nav-route {
-    background: rgba(63, 185, 80, 0.1);
-    border: 1px solid rgba(63, 185, 80, 0.2);
+    background: rgba(10, 132, 255, 0.1);
+    border: 1px solid rgba(10, 132, 255, 0.2);
     border-radius: 8px;
     padding: 8px 10px;
     margin-bottom: 10px;
@@ -1161,7 +1161,7 @@
   }
 
   .legend-item:hover {
-    border-color: rgba(63, 185, 80, 0.25);
+    border-color: rgba(10, 132, 255, 0.25);
     background: var(--surface);
   }
 
@@ -1207,7 +1207,7 @@
     transform: translate(-50%, -50%);
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(63, 185, 80, 0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(10, 132, 255, 0.06) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
   }
@@ -1288,7 +1288,7 @@
 
   .pricing-card.featured {
     border-color: var(--accent);
-    box-shadow: 0 0 40px rgba(63, 185, 80, 0.1), inset 0 0 0 1px rgba(63, 185, 80, 0.1);
+    box-shadow: 0 0 40px rgba(10, 132, 255, 0.1), inset 0 0 0 1px rgba(10, 132, 255, 0.1);
   }
 
   .pricing-badge {
@@ -1401,8 +1401,8 @@
   }
 
   .pricing-cta-pro:hover {
-    background: #4ac960;
-    box-shadow: 0 4px 20px rgba(63, 185, 80, 0.3);
+    background: #3395ff;
+    box-shadow: 0 4px 20px rgba(10, 132, 255, 0.3);
     transform: translateY(-1px);
   }
 
@@ -1433,7 +1433,7 @@
   }
 
   .faq-item:hover {
-    border-color: rgba(63, 185, 80, 0.2);
+    border-color: rgba(10, 132, 255, 0.2);
   }
 
   .faq-q {
@@ -1497,7 +1497,7 @@
     transform: translate(-50%, -50%);
     width: 800px;
     height: 400px;
-    background: radial-gradient(ellipse, rgba(63, 185, 80, 0.08) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(10, 132, 255, 0.08) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -1751,16 +1751,16 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
       <!-- Hero location pin (large, animated via CSS below) -->
       <g id="hero-pin" style="animation: svgPinDrop 1.2s cubic-bezier(0.23,1,0.32,1) 0.3s both;">
         <!-- Pin shadow/ripple -->
-        <circle cx="1010" cy="348" r="20" fill="none" stroke="rgba(63,185,80,0.2)" stroke-width="1">
+        <circle cx="1010" cy="348" r="20" fill="none" stroke="rgba(10,132,255,0.2)" stroke-width="1">
           <animate attributeName="r" values="8;28;8" dur="3s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="1010" cy="348" r="12" fill="none" stroke="rgba(63,185,80,0.3)" stroke-width="1.5">
+        <circle cx="1010" cy="348" r="12" fill="none" stroke="rgba(10,132,255,0.3)" stroke-width="1.5">
           <animate attributeName="r" values="4;18;4" dur="3s" begin="0.5s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.8;0;0.8" dur="3s" begin="0.5s" repeatCount="indefinite"/>
         </circle>
         <!-- Pin body -->
-        <path d="M1010,310 C1001,310 994,317 994,326 C994,338 1010,350 1010,350 C1010,350 1026,338 1026,326 C1026,317 1019,310 1010,310 Z" fill="#3fb950" filter="url(#pinGlow)"/>
+        <path d="M1010,310 C1001,310 994,317 994,326 C994,338 1010,350 1010,350 C1010,350 1026,338 1026,326 C1026,317 1019,310 1010,310 Z" fill="#0A84FF" filter="url(#pinGlow)"/>
         <circle cx="1010" cy="326" r="5" fill="rgba(0,0,0,0.5)"/>
       </g>
 
@@ -1780,12 +1780,12 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
 
   <div class="hero-content">
     <div class="hero-left">
-      <div class="hero-badge animate-in">LIVE LOCATION ACTIVE</div>
+      <div class="hero-badge animate-in">NOW ON APP STORE</div>
       <p class="coord-display animate-in delay-1">41.8827° N, 87.6233° W · Chicago Loop · Floor 2</p>
-      <h1 class="hero-h1 animate-in delay-2">You're in <span class="highlight">P3.</span><br>Floor 2.<br>Blue Section.</h1>
+      <h1 class="hero-h1 animate-in delay-2">Never forget<br>where you <span class="highlight">parked.</span></h1>
       <div class="hero-location-tag">
         <span class="location-dot"></span>
-        PIN SAVED · 2 MIN AGO · MILLENNIUM GARAGE
+        SPOT SAVED · FREE · NO ACCOUNT NEEDED
       </div>
       <p class="hero-sub animate-in delay-3">Drop a pin the moment you park. Get walked back to your car — through any garage, any city, any night.</p>
       <div class="hero-ctas animate-in delay-4">
@@ -1798,16 +1798,16 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
       </div>
       <div class="hero-stats animate-in delay-5">
         <div class="stat">
-          <span class="stat-num">50K+</span>
-          <span class="stat-label">DRIVERS</span>
+          <span class="stat-num">Free</span>
+          <span class="stat-label">DOWNLOAD</span>
         </div>
         <div class="stat">
-          <span class="stat-num">4.8★</span>
-          <span class="stat-label">APP STORE</span>
+          <span class="stat-num">Offline</span>
+          <span class="stat-label">WORKS ALWAYS</span>
         </div>
         <div class="stat">
           <span class="stat-num">Free</span>
-          <span class="stat-label">TO START</span>
+          <span class="stat-label">NO ACCOUNT</span>
         </div>
       </div>
     </div>
@@ -1972,16 +1972,16 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
               </svg>
               <!-- Pin dropping via CSS -->
               <div style="position:absolute;top:90px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;animation:pinDrop 1s cubic-bezier(0.23,1,0.32,1) 0.8s both;">
-                <div style="width:20px;height:26px;background:#3fb950;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 0 12px rgba(63,185,80,0.6);position:relative;">
+                <div style="width:20px;height:26px;background:#0A84FF;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 0 12px rgba(10,132,255,0.6);position:relative;">
                   <div style="position:absolute;width:7px;height:7px;background:#000;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%) rotate(45deg);"></div>
                 </div>
-                <div style="width:10px;height:4px;background:rgba(63,185,80,0.3);border-radius:50%;filter:blur(2px);margin-top:1px;"></div>
+                <div style="width:10px;height:4px;background:rgba(10,132,255,0.3);border-radius:50%;filter:blur(2px);margin-top:1px;"></div>
               </div>
               <!-- Tap indicator -->
               <div class="tap-indicator" style="top:90px;left:50%;transform:translate(-50%,-50%);width:28px;height:28px;border:2px solid rgba(255,255,255,0.3);border-radius:50%;animation:tapRipple 2s ease-out 1.8s infinite;"></div>
               <!-- Status bar -->
               <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,rgba(10,14,20,0.95) 0%,transparent 100%);padding:10px 10px 8px;z-index:20;">
-                <div style="font-family:'DM Mono',monospace;font-size:8px;color:#3fb950;margin-bottom:3px;letter-spacing:1px;">TAP TO DROP PIN</div>
+                <div style="font-family:'DM Mono',monospace;font-size:8px;color:#0A84FF;margin-bottom:3px;letter-spacing:1px;">TAP TO DROP PIN</div>
                 <div style="font-size:9px;color:rgba(230,237,243,0.8);">P3 Garage · Floor 2</div>
               </div>
             </div>
@@ -2010,29 +2010,29 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
                   <line x1="0" y1="38" x2="136" y2="38" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="10 5"/>
                 </svg>
                 <div style="position:absolute;top:10px;left:62px;z-index:10;">
-                  <div style="width:14px;height:18px;background:#3fb950;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 0 8px rgba(63,185,80,0.7);"></div>
+                  <div style="width:14px;height:18px;background:#0A84FF;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 0 8px rgba(10,132,255,0.7);"></div>
                 </div>
-                <div style="position:absolute;top:12px;left:60px;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(63,185,80,0.4);animation:ripple 2s ease-out infinite;"></div>
+                <div style="position:absolute;top:12px;left:60px;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(10,132,255,0.4);animation:ripple 2s ease-out infinite;"></div>
               </div>
               <div style="background:rgba(22,27,34,0.8);border:1px solid rgba(48,54,61,0.6);border-radius:10px;padding:10px 12px;margin-bottom:8px;">
-                <div style="font-family:'DM Mono',monospace;font-size:8px;color:#3fb950;letter-spacing:1px;margin-bottom:4px;">📍 PIN CONFIRMED</div>
+                <div style="font-family:'DM Mono',monospace;font-size:8px;color:#0A84FF;letter-spacing:1px;margin-bottom:4px;">📍 PIN CONFIRMED</div>
                 <div style="font-size:11px;font-weight:600;color:#e6edf3;margin-bottom:2px;">Millennium Parking · P3</div>
                 <div style="display:flex;gap:6px;align-items:center;margin-top:4px;">
-                  <div style="background:#3fb950;color:#000;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;font-family:'DM Mono',monospace;">FLOOR 2</div>
+                  <div style="background:#0A84FF;color:#000;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;font-family:'DM Mono',monospace;">FLOOR 2</div>
                   <div style="background:rgba(88,166,255,0.1);color:#58a6ff;border:1px solid rgba(88,166,255,0.3);font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;font-family:'DM Mono',monospace;">BLUE ZONE</div>
                 </div>
               </div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:9px;color:#8b949e;margin-bottom:8px;font-family:'DM Mono',monospace;">
                 <div style="background:#161b22;border:1px solid #30363d;border-radius:7px;padding:7px 8px;">
-                  <div style="color:#3fb950;margin-bottom:2px;">TIME</div>
+                  <div style="color:#0A84FF;margin-bottom:2px;">TIME</div>
                   <div style="color:#e6edf3;font-size:11px;font-weight:600;">2:34 PM</div>
                 </div>
                 <div style="background:#161b22;border:1px solid #30363d;border-radius:7px;padding:7px 8px;">
-                  <div style="color:#3fb950;margin-bottom:2px;">DIST</div>
+                  <div style="color:#0A84FF;margin-bottom:2px;">DIST</div>
                   <div style="color:#e6edf3;font-size:11px;font-weight:600;">0 ft</div>
                 </div>
               </div>
-              <button style="width:100%;background:#3fb950;color:#000;border:none;border-radius:8px;padding:9px;font-size:11px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;">✓ Save This Pin</button>
+              <button style="width:100%;background:#0A84FF;color:#000;border:none;border-radius:8px;padding:9px;font-size:11px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;">✓ Save This Pin</button>
             </div>
           </div>
         </div>
@@ -2048,8 +2048,8 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
             <div class="flow-phone-notch"></div>
             <div class="flow-phone-screen" style="min-height:260px; background:#0d1117; padding:10px; overflow:hidden;">
               <!-- Nav route card -->
-              <div style="background:rgba(63,185,80,0.1);border:1px solid rgba(63,185,80,0.25);border-radius:10px;padding:9px 11px;margin-bottom:8px;">
-                <div style="font-family:'DM Mono',monospace;font-size:8px;color:#3fb950;letter-spacing:1px;margin-bottom:3px;">↑ HEADING TO YOUR CAR</div>
+              <div style="background:rgba(10,132,255,0.1);border:1px solid rgba(10,132,255,0.25);border-radius:10px;padding:9px 11px;margin-bottom:8px;">
+                <div style="font-family:'DM Mono',monospace;font-size:8px;color:#0A84FF;letter-spacing:1px;margin-bottom:3px;">↑ HEADING TO YOUR CAR</div>
                 <div style="font-size:20px;font-weight:700;color:#e6edf3;letter-spacing:-0.5px;">340 ft</div>
                 <div style="font-size:9px;color:#8b949e;font-family:'DM Mono',monospace;">~4 min walk · P3 Garage</div>
               </div>
@@ -2079,7 +2079,7 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
                     <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite"/>
                   </circle>
                   <!-- PIN marker -->
-                  <path d="M30,72 C26,72 22,76 22,80 C22,86 30,92 30,92 C30,92 38,86 38,80 C38,76 34,72 30,72 Z" fill="#3fb950"/>
+                  <path d="M30,72 C26,72 22,76 22,80 C22,86 30,92 30,92 C30,92 38,86 38,80 C38,76 34,72 30,72 Z" fill="#0A84FF"/>
                   <circle cx="30" cy="80" r="3" fill="rgba(0,0,0,0.5)"/>
                 </svg>
               </div>
@@ -2114,7 +2114,7 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
 
     <div class="legend-grid">
       <div class="legend-item" data-animate>
-        <div class="legend-symbol" style="background:rgba(63,185,80,0.1);border:1px solid rgba(63,185,80,0.2);">📍</div>
+        <div class="legend-symbol" style="background:rgba(10,132,255,0.1);border:1px solid rgba(10,132,255,0.2);">📍</div>
         <div class="legend-text">
           <div class="legend-title">Multi-level Pin Accuracy</div>
           <div class="legend-desc">Saves your floor number, zone, and GPS. Works in underground garages where most apps fail completely.</div>
@@ -2142,7 +2142,7 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
         </div>
       </div>
       <div class="legend-item" data-animate>
-        <div class="legend-symbol" style="background:rgba(63,185,80,0.1);border:1px solid rgba(63,185,80,0.2);">👥</div>
+        <div class="legend-symbol" style="background:rgba(10,132,255,0.1);border:1px solid rgba(10,132,255,0.2);">👥</div>
         <div class="legend-text">
           <div class="legend-title">Share Your Spot</div>
           <div class="legend-desc">Send your pin to anyone — even if they don't have the app. They get a link that opens your exact location.</div>
@@ -2166,18 +2166,18 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
 
   <div class="proof-numbers">
     <div class="proof-item">
-      <div class="proof-num">50<span>K+</span></div>
-      <div class="proof-label">ACTIVE DRIVERS</div>
+      <div class="proof-num"><span>$</span>0</div>
+      <div class="proof-label">TO DOWNLOAD</div>
     </div>
     <div class="proof-divider"></div>
     <div class="proof-item">
-      <div class="proof-num">4<span>.8★</span></div>
-      <div class="proof-label">APP STORE RATING</div>
+      <div class="proof-num">100<span>%</span></div>
+      <div class="proof-label">WORKS OFFLINE</div>
     </div>
     <div class="proof-divider"></div>
     <div class="proof-item">
-      <div class="proof-num">2<span>M+</span></div>
-      <div class="proof-label">PINS DROPPED</div>
+      <div class="proof-num">0<span>%</span></div>
+      <div class="proof-label">DATA COLLECTED</div>
     </div>
     <div class="proof-divider"></div>
     <div class="proof-item">
@@ -2321,7 +2321,7 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
       <div class="footer-logo-icon">📍</div>
       <div>
         <div class="footer-logo-text">SpotSave</div>
-        <div class="footer-copy">© 2025 Websage Inc.</div>
+        <div class="footer-copy">© 2026 Websage Inc.</div>
       </div>
     </div>
     <ul class="footer-links">
