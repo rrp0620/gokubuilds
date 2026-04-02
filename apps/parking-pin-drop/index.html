@@ -6,55 +6,84 @@
 <title>SpotSave: Car Locator — Never Lose Your Car Again</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #0d1117;
-    --surface: #161b22;
-    --surface2: #1c2330;
-    --border: #30363d;
-    --text: #e6edf3;
-    --text-muted: #8b949e;
-    --text-faint: #484f58;
-    --accent: #0A84FF;
-    --accent-dim: rgba(10, 132, 255, 0.15);
-    --accent-glow: rgba(10, 132, 255, 0.4);
-    --blue: #58a6ff;
-    --blue-dim: rgba(88, 166, 255, 0.12);
-    --orange: #f0883e;
-    --red: #ff7b72;
-    --street: #1a2030;
-    --block: #141920;
-    --pin: #0A84FF;
-    --road-line: rgba(255,255,255,0.04);
+    --bg:        #0f1923;
+    --surface:   #1a2836;
+    --surface2:  #223040;
+    --border:    #2e4055;
+    --navy:      #2c3e50;
+    --accent:    #4a90d9;
+    --accent2:   #5ba0e8;
+    --text:      #f0f4f8;
+    --text-muted:#8fa8be;
+    --text-faint:#4a6580;
+    --white:     #ffffff;
   }
 
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--text);
     overflow-x: hidden;
     line-height: 1.6;
   }
 
+  /* ─── TOP BAR (gokubuilds) ─── */
+  #gb-topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9999;
+    background: rgba(10,14,20,0.97);
+    backdrop-filter: blur(10px);
+    padding: 0 24px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  #gb-topbar a {
+    color: #b8965a;
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #gb-topbar .gb-right {
+    color: rgba(255,255,255,0.35);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
   /* ─── NAV ─── */
   nav {
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 48px; left: 0; right: 0;
     z-index: 100;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 32px;
     height: 60px;
-    background: rgba(13, 17, 23, 0.85);
+    background: rgba(15, 25, 35, 0.92);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+    border-bottom: 1px solid rgba(46, 64, 85, 0.6);
   }
 
   .nav-logo {
@@ -64,20 +93,16 @@
     text-decoration: none;
   }
 
-  .nav-logo-icon {
+  .nav-logo-img {
     width: 32px;
     height: 32px;
-    background: var(--accent);
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
+    object-fit: cover;
   }
 
   .nav-logo-text {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text);
     letter-spacing: -0.3px;
   }
@@ -99,31 +124,22 @@
 
   .nav-links a:hover { color: var(--text); }
 
-  .nav-cta {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
   .btn-nav {
     background: var(--accent);
-    color: #000;
-    font-family: 'Space Grotesk', sans-serif;
+    color: #fff;
     font-size: 14px;
     font-weight: 600;
     padding: 8px 20px;
     border-radius: 8px;
     text-decoration: none;
-    border: none;
-    cursor: pointer;
     transition: all 0.2s;
     white-space: nowrap;
   }
 
   .btn-nav:hover {
-    background: #3395ff;
+    background: var(--accent2);
     transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(10, 132, 255, 0.3);
+    box-shadow: 0 4px 16px rgba(74, 144, 217, 0.35);
   }
 
   @media (max-width: 768px) {
@@ -133,60 +149,27 @@
 
   /* ─── HERO ─── */
   .hero {
-    position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
-    overflow: hidden;
-    padding-top: 60px;
-  }
-
-  /* CSS MAP BACKGROUND */
-  .map-bg {
-    position: absolute;
-    inset: 0;
-    background-color: #0d1117;
+    padding-top: 108px;
+    padding-bottom: 80px;
+    position: relative;
     overflow: hidden;
   }
 
-  .map-bg::before {
+  .hero::before {
     content: '';
     position: absolute;
-    inset: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background:
-      linear-gradient(90deg, var(--street) 1px, transparent 1px),
-      linear-gradient(0deg, var(--street) 1px, transparent 1px);
-    background-size: 80px 80px;
-    opacity: 0.8;
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(44, 62, 80, 0.5) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(74, 144, 217, 0.06) 0%, transparent 60%);
+    pointer-events: none;
   }
 
-  .map-svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  /* Map gradient overlays */
-  .map-fade-left {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, #0d1117 0%, #0d1117 30%, transparent 60%);
-    z-index: 2;
-  }
-
-  .map-fade-bottom {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 200px;
-    background: linear-gradient(0deg, #0d1117 0%, transparent 100%);
-    z-index: 2;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 10;
-    max-width: 1200px;
+  .hero-inner {
+    max-width: 1140px;
     margin: 0 auto;
     padding: 0 32px;
     width: 100%;
@@ -194,95 +177,63 @@
     grid-template-columns: 1fr 1fr;
     gap: 60px;
     align-items: center;
+    position: relative;
+    z-index: 1;
   }
-
-  .hero-left {}
 
   .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--accent-dim);
-    border: 1px solid rgba(10, 132, 255, 0.3);
-    color: var(--accent);
-    font-family: 'DM Mono', monospace;
+    background: rgba(74, 144, 217, 0.12);
+    border: 1px solid rgba(74, 144, 217, 0.3);
+    color: var(--accent2);
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 600;
     padding: 5px 12px;
     border-radius: 20px;
-    margin-bottom: 24px;
-    letter-spacing: 0.5px;
+    margin-bottom: 22px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
   }
 
   .hero-badge::before {
     content: '';
-    width: 6px;
-    height: 6px;
+    width: 6px; height: 6px;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--accent2);
     animation: pulse-dot 2s infinite;
   }
 
   @keyframes pulse-dot {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.7); }
+    50% { opacity: 0.4; transform: scale(0.7); }
   }
 
   .hero-h1 {
-    font-size: clamp(38px, 5.5vw, 64px);
-    font-weight: 700;
-    line-height: 1.05;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 800;
+    line-height: 1.08;
     letter-spacing: -2px;
     margin-bottom: 20px;
-    color: var(--text);
+    color: var(--white);
   }
 
-  .hero-h1 .highlight {
-    color: var(--accent);
-    position: relative;
-  }
-
-  .hero-location-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(88, 166, 255, 0.1);
-    border: 1px solid rgba(88, 166, 255, 0.25);
-    border-radius: 8px;
-    padding: 10px 16px;
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    color: var(--blue);
-    margin-bottom: 24px;
-    animation: fadeInUp 0.5s ease 1.2s both;
-  }
-
-  .location-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--blue);
-    animation: pulse-blue 2s infinite;
-  }
-
-  @keyframes pulse-blue {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.5); }
-    50% { box-shadow: 0 0 0 6px rgba(88, 166, 255, 0); }
-  }
+  .hero-h1 .highlight { color: var(--accent2); }
 
   .hero-sub {
-    font-size: 18px;
+    font-size: 17px;
     color: var(--text-muted);
     margin-bottom: 36px;
-    max-width: 440px;
-    line-height: 1.7;
+    max-width: 420px;
+    line-height: 1.75;
   }
 
   .hero-ctas {
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
-    margin-bottom: 48px;
+    margin-bottom: 44px;
   }
 
   .btn-primary {
@@ -290,22 +241,19 @@
     align-items: center;
     gap: 10px;
     background: var(--accent);
-    color: #000;
-    font-family: 'Space Grotesk', sans-serif;
+    color: #fff;
     font-size: 16px;
     font-weight: 700;
     padding: 14px 28px;
     border-radius: 12px;
     text-decoration: none;
-    border: none;
-    cursor: pointer;
     transition: all 0.2s;
   }
 
   .btn-primary:hover {
-    background: #3395ff;
+    background: var(--accent2);
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(10, 132, 255, 0.35);
+    box-shadow: 0 8px 28px rgba(74, 144, 217, 0.4);
   }
 
   .btn-ghost {
@@ -314,14 +262,12 @@
     gap: 8px;
     background: transparent;
     color: var(--text);
-    font-family: 'Space Grotesk', sans-serif;
     font-size: 15px;
     font-weight: 500;
     padding: 14px 24px;
     border-radius: 12px;
     text-decoration: none;
     border: 1px solid var(--border);
-    cursor: pointer;
     transition: all 0.2s;
   }
 
@@ -330,30 +276,32 @@
     background: rgba(255,255,255,0.04);
   }
 
-  .hero-stats {
+  .hero-pills {
     display: flex;
-    gap: 32px;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 
-  .stat {
+  .pill {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .stat-num {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .stat-label {
+    align-items: center;
+    gap: 6px;
     font-size: 12px;
+    font-weight: 500;
     color: var(--text-muted);
-    font-family: 'DM Mono', monospace;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px;
   }
 
-  /* ─── PHONE MOCKUP ─── */
+  .pill-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* ─── HERO PHONE MOCKUP ─── */
   .hero-right {
     display: flex;
     justify-content: center;
@@ -361,280 +309,83 @@
     position: relative;
   }
 
-  .phone-wrap {
+  .phone-glow {
+    position: absolute;
+    width: 340px; height: 340px;
+    background: radial-gradient(circle, rgba(74, 144, 217, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+
+  @keyframes glowPulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .phone-float {
+    animation: phoneFloat 5s ease-in-out infinite;
     position: relative;
-    animation: phoneFloat 6s ease-in-out infinite;
+    z-index: 1;
   }
 
   @keyframes phoneFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
   }
 
-  .phone {
+  .phone-frame {
     width: 260px;
-    background: #0a0e14;
-    border-radius: 40px;
-    border: 2px solid rgba(255,255,255,0.1);
+    background: #0a0f14;
+    border-radius: 44px;
+    border: 2px solid rgba(255,255,255,0.12);
     overflow: hidden;
     box-shadow:
-      0 0 0 1px rgba(255,255,255,0.05),
-      0 32px 80px rgba(0,0,0,0.6),
-      0 0 60px rgba(10, 132, 255, 0.08);
-    position: relative;
+      0 0 0 1px rgba(255,255,255,0.04),
+      0 40px 80px rgba(0,0,0,0.7);
   }
 
   .phone-notch {
-    width: 100px;
-    height: 24px;
-    background: #0a0e14;
-    border-radius: 0 0 16px 16px;
+    width: 90px; height: 22px;
+    background: #0a0f14;
+    border-radius: 0 0 14px 14px;
     margin: 0 auto;
     position: relative;
     z-index: 5;
   }
 
-  .phone-screen {
-    background: #0d1117;
-    padding: 0;
-    min-height: 460px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* App map inside phone */
-  .phone-map {
-    position: absolute;
-    inset: 0;
-    background: #0f1620;
-    overflow: hidden;
-  }
-
-  .phone-map::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(0deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-
-  .phone-map-roads {
-    position: absolute;
-    inset: 0;
+  .phone-screen-img {
     width: 100%;
-    height: 100%;
-  }
-
-  /* Pin in phone */
-  .phone-pin {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    animation: pinDrop 1s cubic-bezier(0.23, 1, 0.32, 1) 0.5s both;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  @keyframes pinDrop {
-    0% { transform: translateX(-50%) translateY(-80px); opacity: 0; }
-    60% { transform: translateX(-50%) translateY(6px); opacity: 1; }
-    80% { transform: translateX(-50%) translateY(-3px); }
-    100% { transform: translateX(-50%) translateY(0); opacity: 1; }
-  }
-
-  .pin-icon {
-    width: 32px;
-    height: 40px;
-    background: var(--accent);
-    border-radius: 50% 50% 50% 0;
-    transform: rotate(-45deg);
-    box-shadow: 0 0 0 4px rgba(10, 132, 255, 0.25), 0 0 20px rgba(10, 132, 255, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    animation: pinPulse 2s ease-in-out 1.5s infinite;
-  }
-
-  @keyframes pinPulse {
-    0%, 100% { box-shadow: 0 0 0 4px rgba(10, 132, 255, 0.25), 0 0 20px rgba(10, 132, 255, 0.4); }
-    50% { box-shadow: 0 0 0 8px rgba(10, 132, 255, 0.1), 0 0 40px rgba(10, 132, 255, 0.6); }
-  }
-
-  .pin-icon::after {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: #000;
-    border-radius: 50%;
-    transform: rotate(45deg);
-  }
-
-  .pin-shadow {
-    width: 16px;
-    height: 6px;
-    background: rgba(10, 132, 255, 0.3);
-    border-radius: 50%;
-    margin-top: 2px;
-    filter: blur(3px);
-  }
-
-  .pin-ripple {
-    position: absolute;
-    top: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 2px solid rgba(10, 132, 255, 0.5);
-    animation: ripple 2s ease-out 1.5s infinite;
-  }
-
-  @keyframes ripple {
-    0% { transform: translateX(-50%) scale(1); opacity: 0.8; }
-    100% { transform: translateX(-50%) scale(3); opacity: 0; }
-  }
-
-  /* Phone UI Overlay */
-  .phone-ui {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    background: linear-gradient(0deg, rgba(10,14,20,0.97) 0%, rgba(10,14,20,0.9) 60%, transparent 100%);
-    padding: 16px;
-    z-index: 20;
-  }
-
-  .phone-confirmation {
-    background: rgba(22, 27, 34, 0.95);
-    border: 1px solid rgba(48, 54, 61, 0.8);
-    border-radius: 14px;
-    padding: 12px 14px;
-    margin-bottom: 10px;
-  }
-
-  .phone-conf-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    color: var(--accent);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .phone-conf-location {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
-
-  .phone-conf-detail {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-family: 'DM Mono', monospace;
-  }
-
-  .phone-btn-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .phone-btn {
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 600;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    font-family: 'Space Grotesk', sans-serif;
-  }
-
-  .phone-btn-main {
-    background: var(--accent);
-    color: #000;
-  }
-
-  .phone-btn-sec {
-    background: rgba(255,255,255,0.07);
-    color: var(--text);
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-
-  /* Glow behind phone */
-  .phone-glow {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(10, 132, 255, 0.15) 0%, transparent 70%);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    animation: glowPulse 3s ease-in-out infinite;
-  }
-
-  @keyframes glowPulse {
-    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    display: block;
+    object-fit: cover;
   }
 
   @media (max-width: 900px) {
-    .hero-content {
-      grid-template-columns: 1fr;
-      gap: 40px;
-      padding-top: 40px;
-    }
-    .hero-right {
-      order: -1;
-    }
-    .phone { width: 220px; }
-    .phone-screen { min-height: 380px; }
-    .map-fade-left {
-      background: linear-gradient(180deg, transparent 0%, #0d1117 70%);
-    }
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-right { order: -1; }
+    .phone-frame { width: 220px; }
   }
 
   @media (max-width: 480px) {
     .hero-h1 { letter-spacing: -1px; }
-    .hero-stats { gap: 20px; }
     .hero-ctas { flex-direction: column; }
     .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
   }
 
-  /* ─── SCENARIO SECTION ─── */
+  /* ─── SECTION SHARED ─── */
   .section {
-    padding: 100px 32px;
-    max-width: 1200px;
+    padding: 90px 32px;
+    max-width: 1140px;
     margin: 0 auto;
-  }
-
-  .section-full {
-    padding: 100px 0;
-    overflow: hidden;
-  }
-
-  .section-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 32px;
   }
 
   .section-label {
-    font-family: 'DM Mono', monospace;
     font-size: 11px;
+    font-weight: 700;
     color: var(--accent);
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -643,506 +394,181 @@
   .section-label::before {
     content: '';
     display: block;
-    width: 20px;
-    height: 1px;
+    width: 18px; height: 2px;
     background: var(--accent);
+    border-radius: 2px;
   }
 
   .section-title {
-    font-size: clamp(28px, 4vw, 44px);
-    font-weight: 700;
+    font-size: clamp(26px, 3.5vw, 40px);
+    font-weight: 800;
     letter-spacing: -1px;
     line-height: 1.15;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
+    color: var(--white);
   }
 
   .section-sub {
-    font-size: 17px;
+    font-size: 16px;
     color: var(--text-muted);
-    max-width: 560px;
-    line-height: 1.7;
+    max-width: 540px;
+    line-height: 1.75;
   }
 
-  /* Scenarios */
-  .scenarios-grid {
+  /* ─── SCREENSHOTS STRIP ─── */
+  .screenshots-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 70px 0;
+    overflow: hidden;
+  }
+
+  .screenshots-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .screenshots-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 56px;
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  @media (max-width: 768px) {
+    .screenshots-grid { grid-template-columns: 1fr; gap: 16px; }
+  }
+
+  .screenshot-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .screenshot-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .screenshot-card:hover {
+    border-color: rgba(74, 144, 217, 0.4);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    transform: translateY(-4px);
+  }
+
+  .screenshot-card img {
+    width: 100%;
+    display: block;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .screenshot-caption {
+    padding: 14px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .steps-section {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 90px 32px;
+  }
+
+  .steps-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 52px;
   }
 
   @media (max-width: 900px) {
-    .scenarios-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
   }
 
-  .scenario-card {
+  .step-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 28px;
     position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(20px);
+    transition: all 0.4s;
   }
 
-  .scenario-card.visible {
+  .step-card.visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .scenario-card:hover {
-    border-color: rgba(10, 132, 255, 0.3);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  .step-card:hover {
+    border-color: rgba(74, 144, 217, 0.3);
   }
 
-  .scenario-city {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--text-faint);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .city-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
+  .step-num {
+    width: 36px; height: 36px;
     background: var(--accent);
-  }
-
-  .scenario-moment {
-    font-size: 13px;
-    font-family: 'DM Mono', monospace;
-    color: var(--blue);
-    background: var(--blue-dim);
-    border: 1px solid rgba(88, 166, 255, 0.2);
-    border-radius: 8px;
-    padding: 10px 12px;
-    margin-bottom: 18px;
-    line-height: 1.5;
-  }
-
-  .scenario-story {
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.7;
-    margin-bottom: 20px;
-  }
-
-  .scenario-author {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-top: 1px solid var(--border);
-    padding-top: 16px;
-  }
-
-  .author-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--surface2);
-    border: 2px solid var(--border);
+    color: #fff;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 18px;
+  }
+
+  .step-title {
+    font-size: 18px;
     font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .step-desc {
+    font-size: 14px;
     color: var(--text-muted);
+    line-height: 1.7;
   }
 
-  .author-info {}
-
-  .author-name {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .author-detail {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-family: 'DM Mono', monospace;
-  }
-
-  .stars {
-    margin-left: auto;
-    color: #f0c040;
-    font-size: 12px;
-    letter-spacing: 1px;
-  }
-
-  /* ─── 3-TAP FLOW ─── */
-  .flow-section {
+  /* ─── FEATURES ─── */
+  .features-section {
     background: var(--surface);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-  }
-
-  .flow-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    margin-top: 56px;
-    position: relative;
-  }
-
-  .flow-grid::before {
-    content: '';
-    position: absolute;
-    top: 90px;
-    left: calc(16.66% + 32px);
-    right: calc(16.66% + 32px);
-    height: 2px;
-    background: linear-gradient(90deg, var(--border) 0%, var(--accent) 50%, var(--border) 100%);
-    z-index: 0;
-  }
-
-  @media (max-width: 900px) {
-    .flow-grid { grid-template-columns: 1fr; gap: 24px; }
-    .flow-grid::before { display: none; }
-  }
-
-  .flow-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s;
-  }
-
-  .flow-step.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .flow-phone {
-    width: 160px;
-    background: #0a0e14;
-    border-radius: 28px;
-    border: 2px solid rgba(255,255,255,0.08);
-    overflow: hidden;
-    box-shadow: 0 16px 48px rgba(0,0,0,0.5);
-    margin-bottom: 24px;
-  }
-
-  .flow-phone-notch {
-    width: 60px;
-    height: 18px;
-    background: #0a0e14;
-    border-radius: 0 0 12px 12px;
-    margin: 0 auto;
-  }
-
-  .flow-phone-screen {
-    padding: 12px;
-    min-height: 260px;
-    background: #0d1117;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .flow-step-number {
-    position: absolute;
-    top: -16px;
-    right: -16px;
-    width: 32px;
-    height: 32px;
-    background: var(--accent);
-    color: #000;
-    border-radius: 50%;
-    font-size: 13px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 5;
-  }
-
-  .flow-label {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-
-  .flow-sublabel {
-    font-size: 13px;
-    color: var(--text-muted);
-  }
-
-  /* Screen 1: Park */
-  .screen-park {
-    background: #0d1117;
-    position: relative;
-  }
-
-  .screen-park::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(0deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 16px 16px;
-  }
-
-  .screen-top-bar {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-
-  .screen-time {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--text-muted);
-  }
-
-  .screen-signal {
-    font-size: 9px;
-    color: var(--text-faint);
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* Small pin for screen */
-  .small-pin {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -70%) rotate(0deg);
-    z-index: 10;
-  }
-
-  .small-pin-icon {
-    width: 20px;
-    height: 25px;
-    background: var(--accent);
-    border-radius: 50% 50% 50% 0;
-    transform: rotate(-45deg);
-    box-shadow: 0 0 12px rgba(10, 132, 255, 0.5);
-    position: relative;
-  }
-
-  .small-pin-icon::after {
-    content: '';
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    background: #000;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  .tap-indicator {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-10px, -10px);
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255,255,255,0.4);
-    border-radius: 50%;
-    animation: tapRipple 2s ease-out infinite;
-  }
-
-  @keyframes tapRipple {
-    0% { transform: translate(-10px, -10px) scale(1); opacity: 1; }
-    100% { transform: translate(-10px, -10px) scale(2); opacity: 0; }
-  }
-
-  /* Screen 2: Confirm */
-  .confirm-screen-content {
-    padding: 8px;
-  }
-
-  .confirm-map-mini {
-    width: 100%;
-    height: 100px;
-    background: #0f1620;
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 10px;
-  }
-
-  .confirm-map-mini::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(0deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 14px 14px;
-  }
-
-  .confirm-mini-pin {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    width: 14px;
-    height: 18px;
-    background: var(--accent);
-    border-radius: 50% 50% 50% 0;
-    transform: translate(-50%, -100%) rotate(-45deg);
-    box-shadow: 0 0 8px rgba(10, 132, 255, 0.6);
-  }
-
-  .confirm-detail-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 6px;
-  }
-
-  .confirm-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-
-  .confirm-text {
-    font-size: 10px;
-    font-family: 'DM Mono', monospace;
-    color: var(--text);
-  }
-
-  .confirm-sub-text {
-    font-size: 9px;
-    color: var(--text-muted);
-    font-family: 'DM Mono', monospace;
-  }
-
-  .confirm-btn {
-    width: 100%;
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    padding: 8px;
-    font-size: 11px;
-    font-weight: 700;
-    font-family: 'Space Grotesk', sans-serif;
-    cursor: pointer;
-    margin-top: 8px;
-  }
-
-  /* Screen 3: Navigate back */
-  .nav-screen-content {}
-
-  .nav-route {
-    background: rgba(10, 132, 255, 0.1);
-    border: 1px solid rgba(10, 132, 255, 0.2);
-    border-radius: 8px;
-    padding: 8px 10px;
-    margin-bottom: 10px;
-  }
-
-  .nav-route-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 8px;
-    color: var(--accent);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .nav-route-dist {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .nav-route-addr {
-    font-size: 9px;
-    color: var(--text-muted);
-    font-family: 'DM Mono', monospace;
-  }
-
-  .nav-map-route {
-    width: 100%;
-    height: 110px;
-    background: #0f1620;
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 10px;
-  }
-
-  .nav-map-route::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(0deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 14px 14px;
-  }
-
-  .nav-map-route svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .nav-walk-btn {
-    width: 100%;
-    background: var(--blue);
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    padding: 8px;
-    font-size: 11px;
-    font-weight: 700;
-    font-family: 'Space Grotesk', sans-serif;
-    cursor: pointer;
-  }
-
-  /* ─── FEATURES / MAP LEGEND ─── */
-  .features-section {
-    background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 50%, var(--bg) 100%);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 100px 32px;
+    padding: 90px 32px;
   }
 
   .features-inner {
-    max-width: 1200px;
+    max-width: 1140px;
     margin: 0 auto;
   }
 
-  .legend-grid {
+  .features-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-    margin-top: 56px;
+    margin-top: 52px;
   }
 
   @media (max-width: 768px) {
-    .legend-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
   }
 
-  .legend-item {
+  .feature-item {
     display: flex;
     align-items: flex-start;
     gap: 16px;
@@ -1152,116 +578,56 @@
     padding: 20px;
     transition: all 0.2s;
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(14px);
   }
 
-  .legend-item.visible {
+  .feature-item.visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .legend-item:hover {
-    border-color: rgba(10, 132, 255, 0.25);
-    background: var(--surface);
+  .feature-item:hover {
+    border-color: rgba(74, 144, 217, 0.3);
+    background: var(--surface2);
   }
 
-  .legend-symbol {
-    width: 44px;
-    height: 44px;
+  .feature-icon {
+    width: 42px; height: 42px;
     border-radius: 10px;
+    background: rgba(74, 144, 217, 0.12);
+    border: 1px solid rgba(74, 144, 217, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
     flex-shrink: 0;
   }
 
-  .legend-text {}
+  .feature-icon svg {
+    width: 20px; height: 20px;
+    stroke: var(--accent2);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
 
-  .legend-title {
+  .feature-title {
     font-size: 15px;
     font-weight: 600;
-    color: var(--text);
+    color: var(--white);
     margin-bottom: 4px;
   }
 
-  .legend-desc {
+  .feature-desc {
     font-size: 13px;
     color: var(--text-muted);
-    line-height: 1.5;
-  }
-
-  /* ─── PROOF SECTION ─── */
-  .proof-section {
-    text-align: center;
-    padding: 100px 32px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .proof-section::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(10, 132, 255, 0.06) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .proof-numbers {
-    display: flex;
-    justify-content: center;
-    gap: 60px;
-    max-width: 800px;
-    margin: 60px auto 0;
-    flex-wrap: wrap;
-  }
-
-  .proof-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .proof-num {
-    font-size: clamp(36px, 6vw, 60px);
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: -2px;
-    line-height: 1;
-  }
-
-  .proof-num span {
-    color: var(--accent);
-  }
-
-  .proof-label {
-    font-size: 14px;
-    color: var(--text-muted);
-    font-family: 'DM Mono', monospace;
-  }
-
-  .proof-divider {
-    width: 1px;
-    height: 60px;
-    background: var(--border);
-    align-self: center;
-  }
-
-  @media (max-width: 600px) {
-    .proof-divider { display: none; }
-    .proof-numbers { gap: 32px; }
+    line-height: 1.6;
   }
 
   /* ─── PRICING ─── */
   .pricing-section {
-    padding: 100px 32px;
-    max-width: 1200px;
+    padding: 90px 32px;
+    max-width: 1140px;
     margin: 0 auto;
   }
 
@@ -1269,8 +635,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
-    max-width: 760px;
-    margin: 56px auto 0;
+    max-width: 740px;
+    margin: 52px auto 0;
   }
 
   @media (max-width: 640px) {
@@ -1281,47 +647,47 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 20px;
-    padding: 36px 32px;
+    padding: 32px 28px;
     position: relative;
     transition: all 0.2s;
   }
 
   .pricing-card.featured {
     border-color: var(--accent);
-    box-shadow: 0 0 40px rgba(10, 132, 255, 0.1), inset 0 0 0 1px rgba(10, 132, 255, 0.1);
+    box-shadow: 0 0 0 1px rgba(74, 144, 217, 0.2), 0 0 40px rgba(74, 144, 217, 0.08);
   }
 
   .pricing-badge {
     position: absolute;
-    top: -12px;
-    left: 50%;
+    top: -12px; left: 50%;
     transform: translateX(-50%);
     background: var(--accent);
-    color: #000;
-    font-size: 11px;
+    color: #fff;
+    font-size: 10px;
     font-weight: 700;
-    padding: 3px 16px;
+    padding: 3px 14px;
     border-radius: 20px;
     white-space: nowrap;
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
   }
 
   .pricing-tier {
-    font-family: 'DM Mono', monospace;
     font-size: 11px;
+    font-weight: 700;
     color: var(--text-muted);
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   .pricing-price {
-    font-size: 42px;
-    font-weight: 700;
+    font-size: 44px;
+    font-weight: 800;
     letter-spacing: -2px;
-    color: var(--text);
+    color: var(--white);
     margin-bottom: 4px;
+    line-height: 1;
   }
 
   .pricing-price sup {
@@ -1333,41 +699,29 @@
   }
 
   .pricing-cadence {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-muted);
-    margin-bottom: 28px;
-    font-family: 'DM Mono', monospace;
+    margin-bottom: 26px;
   }
 
   .pricing-features {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 32px;
+    gap: 10px;
+    margin-bottom: 28px;
   }
 
   .pricing-features li {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-muted);
   }
 
-  .feat-check {
-    color: var(--accent);
-    font-size: 14px;
-    margin-top: 1px;
-    flex-shrink: 0;
-  }
-
-  .feat-check-dim {
-    color: var(--text-faint);
-    font-size: 14px;
-    margin-top: 1px;
-    flex-shrink: 0;
-  }
+  .feat-check { color: var(--accent); flex-shrink: 0; }
+  .feat-dim { color: var(--text-faint); flex-shrink: 0; }
 
   .pricing-cta {
     display: block;
@@ -1375,12 +729,11 @@
     text-align: center;
     padding: 13px;
     border-radius: 12px;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
     text-decoration: none;
     border: none;
     cursor: pointer;
-    font-family: 'Space Grotesk', sans-serif;
     transition: all 0.2s;
   }
 
@@ -1397,12 +750,12 @@
 
   .pricing-cta-pro {
     background: var(--accent);
-    color: #000;
+    color: #fff;
   }
 
   .pricing-cta-pro:hover {
-    background: #3395ff;
-    box-shadow: 0 4px 20px rgba(10, 132, 255, 0.3);
+    background: var(--accent2);
+    box-shadow: 0 4px 20px rgba(74, 144, 217, 0.35);
     transform: translateY(-1px);
   }
 
@@ -1410,61 +763,41 @@
   .faq-section {
     background: var(--surface);
     border-top: 1px solid var(--border);
-    padding: 100px 32px;
+    padding: 90px 32px;
   }
 
-  .faq-inner {
-    max-width: 680px;
-    margin: 0 auto;
-  }
+  .faq-inner { max-width: 660px; margin: 0 auto; }
 
-  .faq-list {
-    margin-top: 48px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
+  .faq-list { margin-top: 44px; display: flex; flex-direction: column; gap: 2px; }
 
   .faq-item {
     border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
-    transition: all 0.2s;
+    transition: border-color 0.2s;
   }
 
-  .faq-item:hover {
-    border-color: rgba(10, 132, 255, 0.2);
-  }
+  .faq-item:hover { border-color: rgba(74, 144, 217, 0.25); }
 
   .faq-q {
     width: 100%;
     background: none;
     border: none;
     text-align: left;
-    padding: 20px 22px;
+    padding: 18px 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
     color: var(--text);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
     font-weight: 500;
   }
 
-  .faq-icon {
-    color: var(--text-muted);
-    font-size: 20px;
-    flex-shrink: 0;
-    transition: transform 0.2s;
-    font-weight: 300;
-    line-height: 1;
-  }
-
-  .faq-item.open .faq-icon {
-    transform: rotate(45deg);
-  }
+  .faq-icon { color: var(--text-muted); font-size: 20px; transition: transform 0.2s; flex-shrink: 0; line-height: 1; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
 
   .faq-a {
     max-height: 0;
@@ -1473,17 +806,14 @@
     font-size: 14px;
     color: var(--text-muted);
     line-height: 1.7;
-    padding: 0 22px;
+    padding: 0 20px;
   }
 
-  .faq-item.open .faq-a {
-    max-height: 200px;
-    padding: 0 22px 20px;
-  }
+  .faq-item.open .faq-a { max-height: 200px; padding: 0 20px 18px; }
 
   /* ─── FINAL CTA ─── */
   .final-cta {
-    padding: 120px 32px;
+    padding: 110px 32px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -1492,133 +822,95 @@
   .final-cta::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 800px;
-    height: 400px;
-    background: radial-gradient(ellipse, rgba(10, 132, 255, 0.08) 0%, transparent 70%);
+    width: 700px; height: 400px;
+    background: radial-gradient(ellipse, rgba(74, 144, 217, 0.07) 0%, transparent 70%);
     pointer-events: none;
   }
 
-  .final-cta-inner {
-    position: relative;
-    z-index: 1;
-  }
+  .final-cta-inner { position: relative; z-index: 1; }
 
   .final-cta h2 {
-    font-size: clamp(32px, 5vw, 56px);
-    font-weight: 700;
+    font-size: clamp(30px, 5vw, 52px);
+    font-weight: 800;
     letter-spacing: -1.5px;
     line-height: 1.1;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    color: var(--white);
   }
 
   .final-cta p {
-    font-size: 18px;
+    font-size: 17px;
     color: var(--text-muted);
-    margin-bottom: 44px;
-    max-width: 480px;
+    margin-bottom: 40px;
+    max-width: 440px;
     margin-left: auto;
     margin-right: auto;
   }
 
-  .final-cta-btns {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
-
-  .app-badge {
+  .app-store-btn {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 22px;
+    gap: 12px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px 32px;
+    border-radius: 14px;
     text-decoration: none;
-    color: var(--text);
     transition: all 0.2s;
-    min-width: 150px;
   }
 
-  .app-badge:hover {
-    border-color: var(--text-muted);
-    background: var(--surface2);
+  .app-store-btn:hover {
+    background: var(--accent2);
     transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(74, 144, 217, 0.4);
   }
 
-  .app-badge-icon {
-    font-size: 24px;
+  .app-store-btn svg {
+    width: 22px; height: 22px;
+    fill: #fff;
   }
 
-  .app-badge-text {}
-
-  .app-badge-sub {
-    font-size: 10px;
-    color: var(--text-muted);
-    font-family: 'DM Mono', monospace;
+  .final-note {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--text-faint);
     letter-spacing: 0.5px;
-  }
-
-  .app-badge-name {
-    font-size: 14px;
-    font-weight: 600;
-    margin-top: 1px;
   }
 
   /* ─── FOOTER ─── */
   footer {
     border-top: 1px solid var(--border);
-    padding: 40px 32px;
+    padding: 36px 32px;
   }
 
   .footer-inner {
-    max-width: 1200px;
+    max-width: 1140px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
+    gap: 20px;
     flex-wrap: wrap;
   }
 
-  .footer-left {
+  .footer-logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    text-decoration: none;
   }
 
-  .footer-logo-icon {
-    width: 28px;
-    height: 28px;
-    background: var(--accent);
-    border-radius: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-  }
+  .footer-logo img { width: 28px; height: 28px; border-radius: 7px; }
 
-  .footer-logo-text {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-  }
+  .footer-logo-text { font-size: 14px; font-weight: 700; color: var(--text); }
 
-  .footer-copy {
-    font-size: 13px;
-    color: var(--text-muted);
-    font-family: 'DM Mono', monospace;
-  }
+  .footer-copy { font-size: 12px; color: var(--text-faint); margin-top: 2px; }
 
-  .footer-links {
-    display: flex;
-    gap: 24px;
-    list-style: none;
-  }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
 
   .footer-links a {
     font-size: 13px;
@@ -1627,579 +919,212 @@
     transition: color 0.2s;
   }
 
-  .footer-links a:hover {
-    color: var(--text);
-  }
+  .footer-links a:hover { color: var(--text); }
 
-  /* Fade in animation util */
+  /* ─── ANIMATIONS ─── */
   @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .animate-in {
-    animation: fadeInUp 0.6s ease both;
-  }
-
+  .animate-in { animation: fadeInUp 0.6s ease both; }
   .delay-1 { animation-delay: 0.1s; }
   .delay-2 { animation-delay: 0.2s; }
   .delay-3 { animation-delay: 0.3s; }
   .delay-4 { animation-delay: 0.4s; }
   .delay-5 { animation-delay: 0.5s; }
-
-  /* Breadcrumb / coordinate display */
-  .coord-display {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--text-faint);
-    letter-spacing: 0.5px;
-    margin-bottom: 16px;
-  }
-</style>
-<style id="gb-topbar-fix">
-/* Fix: push app nav below gb-topbar (48px) */
-body { padding-top: 48px !important; }
-nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
-.hero, [class*="hero"] { margin-top: 0 !important; }
 </style>
 </head>
-<body style="padding-top:48px">
-<div id="gb-topbar" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(10,14,26,0.97);backdrop-filter:blur(10px);padding:0 24px;height:48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.07);font-family:Inter,sans-serif;">
-  <a href="/" style="display:flex;align-items:center;gap:8px;color:#b8965a;text-decoration:none;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">
+<body>
+
+<!-- TOP BAR -->
+<div id="gb-topbar">
+  <a href="/">
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#b8965a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11L4 7l5-4"/></svg>
     Goku Builds
   </a>
-  <a href="/factory/" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;">Software Factory</a>
+  <a href="/factory/" class="gb-right">Software Factory</a>
 </div>
 
-
-<!-- ─── NAV ─── -->
+<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    <div class="nav-logo-icon">📍</div>
+    <img src="icon.png" alt="SpotSave icon" class="nav-logo-img">
     <span class="nav-logo-text">SpotSave</span>
   </a>
   <ul class="nav-links">
+    <li><a href="#screenshots">Screenshots</a></li>
     <li><a href="#how-it-works">How It Works</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#faq">FAQ</a></li>
   </ul>
-  <div class="nav-cta">
-    <a href="#download" class="btn-nav">Download — Free</a>
-  </div>
+  <a href="#download" class="btn-nav">Download Free</a>
 </nav>
 
-<!-- ─── HERO ─── -->
+<!-- HERO -->
 <section class="hero">
-  <div class="map-bg">
-    <!-- CSS Grid map base via ::before -->
-    <svg class="map-svg" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <!-- City blocks -->
-      <rect x="80" y="80" width="180" height="120" fill="#141920" rx="4"/>
-      <rect x="280" y="80" width="120" height="120" fill="#141920" rx="4"/>
-      <rect x="420" y="80" width="200" height="120" fill="#141920" rx="4"/>
-      <rect x="640" y="80" width="160" height="120" fill="#141920" rx="4"/>
-      <rect x="820" y="80" width="200" height="120" fill="#141920" rx="4"/>
-      <rect x="1040" y="80" width="140" height="120" fill="#141920" rx="4"/>
-      <rect x="1200" y="80" width="200" height="120" fill="#141920" rx="4"/>
-
-      <rect x="80" y="240" width="100" height="200" fill="#141920" rx="4"/>
-      <rect x="200" y="240" width="200" height="200" fill="#141920" rx="4"/>
-      <rect x="420" y="240" width="140" height="200" fill="#141920" rx="4"/>
-      <rect x="580" y="240" width="200" height="200" fill="#141920" rx="4"/>
-      <rect x="800" y="240" width="100" height="200" fill="#141920" rx="4"/>
-      <rect x="920" y="240" width="180" height="200" fill="#141920" rx="4"/>
-      <rect x="1120" y="240" width="140" height="200" fill="#141920" rx="4"/>
-      <rect x="1280" y="240" width="120" height="200" fill="#141920" rx="4"/>
-
-      <rect x="80" y="480" width="200" height="160" fill="#141920" rx="4"/>
-      <rect x="300" y="480" width="160" height="160" fill="#141920" rx="4"/>
-      <rect x="480" y="480" width="200" height="160" fill="#141920" rx="4"/>
-      <rect x="700" y="480" width="140" height="160" fill="#141920" rx="4"/>
-      <rect x="860" y="480" width="200" height="160" fill="#141920" rx="4"/>
-      <rect x="1080" y="480" width="120" height="160" fill="#141920" rx="4"/>
-      <rect x="1220" y="480" width="180" height="160" fill="#141920" rx="4"/>
-
-      <rect x="80" y="680" width="160" height="180" fill="#141920" rx="4"/>
-      <rect x="260" y="680" width="200" height="180" fill="#141920" rx="4"/>
-      <rect x="480" y="680" width="120" height="180" fill="#141920" rx="4"/>
-      <rect x="620" y="680" width="200" height="180" fill="#141920" rx="4"/>
-      <rect x="840" y="680" width="160" height="180" fill="#141920" rx="4"/>
-      <rect x="1020" y="680" width="200" height="180" fill="#141920" rx="4"/>
-      <rect x="1240" y="680" width="160" height="180" fill="#141920" rx="4"/>
-
-      <!-- Roads (main arteries, slightly brighter) -->
-      <rect x="0" y="200" width="1440" height="36" fill="#1a2030" rx="0"/>
-      <rect x="0" y="440" width="1440" height="36" fill="#1a2030" rx="0"/>
-      <rect x="0" y="640" width="1440" height="36" fill="#1a2030" rx="0"/>
-      <rect x="380" y="0" width="36" height="900" fill="#1a2030" rx="0"/>
-      <rect x="760" y="0" width="36" height="900" fill="#1a2030" rx="0"/>
-      <rect x="1100" y="0" width="36" height="900" fill="#1a2030" rx="0"/>
-
-      <!-- Road center lines (dashes) -->
-      <line x1="0" y1="218" x2="1440" y2="218" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="40 20"/>
-      <line x1="0" y1="458" x2="1440" y2="458" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="40 20"/>
-      <line x1="398" y1="0" x2="398" y2="900" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="40 20"/>
-      <line x1="778" y1="0" x2="778" y2="900" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="40 20"/>
-
-      <!-- Parking garage highlight (P3 building) -->
-      <rect x="920" y="240" width="180" height="200" fill="#1e2840" rx="4"/>
-      <text x="1010" y="346" font-family="DM Mono, monospace" font-size="11" fill="rgba(88,166,255,0.5)" text-anchor="middle">P3</text>
-      <rect x="920" y="240" width="180" height="200" fill="none" stroke="rgba(88,166,255,0.15)" stroke-width="1.5" rx="4"/>
-
-      <!-- Hero location pin (large, animated via CSS below) -->
-      <g id="hero-pin" style="animation: svgPinDrop 1.2s cubic-bezier(0.23,1,0.32,1) 0.3s both;">
-        <!-- Pin shadow/ripple -->
-        <circle cx="1010" cy="348" r="20" fill="none" stroke="rgba(10,132,255,0.2)" stroke-width="1">
-          <animate attributeName="r" values="8;28;8" dur="3s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="1010" cy="348" r="12" fill="none" stroke="rgba(10,132,255,0.3)" stroke-width="1.5">
-          <animate attributeName="r" values="4;18;4" dur="3s" begin="0.5s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.8;0;0.8" dur="3s" begin="0.5s" repeatCount="indefinite"/>
-        </circle>
-        <!-- Pin body -->
-        <path d="M1010,310 C1001,310 994,317 994,326 C994,338 1010,350 1010,350 C1010,350 1026,338 1026,326 C1026,317 1019,310 1010,310 Z" fill="#0A84FF" filter="url(#pinGlow)"/>
-        <circle cx="1010" cy="326" r="5" fill="rgba(0,0,0,0.5)"/>
-      </g>
-
-      <defs>
-        <filter id="pinGlow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
-          <feMerge>
-            <feMergeNode in="blur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-      </defs>
-    </svg>
-    <div class="map-fade-left"></div>
-    <div class="map-fade-bottom"></div>
-  </div>
-
-  <div class="hero-content">
+  <div class="hero-inner">
     <div class="hero-left">
-      <div class="hero-badge animate-in">NOW ON APP STORE</div>
-      <p class="coord-display animate-in delay-1">41.8827° N, 87.6233° W · Chicago Loop · Floor 2</p>
-      <h1 class="hero-h1 animate-in delay-2">Never forget<br>where you <span class="highlight">parked.</span></h1>
-      <div class="hero-location-tag">
-        <span class="location-dot"></span>
-        SPOT SAVED · FREE · NO ACCOUNT NEEDED
-      </div>
-      <p class="hero-sub animate-in delay-3">Drop a pin the moment you park. Get walked back to your car — through any garage, any city, any night.</p>
-      <div class="hero-ctas animate-in delay-4">
+      <div class="hero-badge animate-in">Now on App Store</div>
+      <h1 class="hero-h1 animate-in delay-1">Never forget<br>where you <span class="highlight">parked.</span></h1>
+      <p class="hero-sub animate-in delay-2">Drop a pin the moment you park. SpotSave remembers your exact spot — even in underground garages with no signal.</p>
+      <div class="hero-ctas animate-in delay-3">
         <a href="#download" class="btn-primary">
-          📍 Download Free
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Download Free
         </a>
-        <a href="#how-it-works" class="btn-ghost">
-          See How It Works →
-        </a>
+        <a href="#how-it-works" class="btn-ghost">See How It Works →</a>
       </div>
-      <div class="hero-stats animate-in delay-5">
-        <div class="stat">
-          <span class="stat-num">Free</span>
-          <span class="stat-label">DOWNLOAD</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">Offline</span>
-          <span class="stat-label">WORKS ALWAYS</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">Free</span>
-          <span class="stat-label">NO ACCOUNT</span>
-        </div>
+      <div class="hero-pills animate-in delay-4">
+        <div class="pill"><span class="pill-dot"></span>Free Download</div>
+        <div class="pill"><span class="pill-dot"></span>Works Offline</div>
+        <div class="pill"><span class="pill-dot"></span>No Account Needed</div>
+        <div class="pill"><span class="pill-dot"></span>iOS 15+</div>
       </div>
     </div>
 
-    <div class="hero-right">
+    <div class="hero-right animate-in delay-3">
       <div class="phone-glow"></div>
-      <div class="phone-wrap">
-        <div class="phone" style="position:relative">
+      <div class="phone-float">
+        <div class="phone-frame">
           <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <div class="phone-map">
-              <svg width="100%" height="100%" viewBox="0 0 260 460" xmlns="http://www.w3.org/2000/svg">
-                <!-- Map grid blocks -->
-                <rect x="0" y="0" width="260" height="460" fill="#0f1620"/>
-                <rect x="10" y="20" width="70" height="60" fill="#141a25" rx="3"/>
-                <rect x="90" y="20" width="50" height="60" fill="#141a25" rx="3"/>
-                <rect x="150" y="20" width="100" height="60" fill="#141a25" rx="3"/>
-                <rect x="10" y="100" width="50" height="80" fill="#141a25" rx="3"/>
-                <rect x="70" y="100" width="80" height="80" fill="#141a25" rx="3"/>
-                <rect x="160" y="100" width="90" height="80" fill="#141a25" rx="3"/>
-                <!-- Garage P3 highlight -->
-                <rect x="70" y="100" width="80" height="80" fill="#1e2840" rx="3"/>
-                <rect x="70" y="100" width="80" height="80" fill="none" stroke="rgba(88,166,255,0.2)" stroke-width="1" rx="3"/>
-                <text x="110" y="145" font-family="DM Mono, monospace" font-size="9" fill="rgba(88,166,255,0.6)" text-anchor="middle">P3</text>
-                <rect x="10" y="200" width="100" height="70" fill="#141a25" rx="3"/>
-                <rect x="120" y="200" width="130" height="70" fill="#141a25" rx="3"/>
-                <rect x="10" y="300" width="70" height="80" fill="#141a25" rx="3"/>
-                <rect x="90" y="300" width="60" height="80" fill="#141a25" rx="3"/>
-                <rect x="160" y="300" width="90" height="80" fill="#141a25" rx="3"/>
-                <!-- Roads -->
-                <rect x="0" y="90" width="260" height="8" fill="#1a2030"/>
-                <rect x="0" y="188" width="260" height="8" fill="#1a2030"/>
-                <rect x="0" y="285" width="260" height="8" fill="#1a2030"/>
-                <rect x="0" y="390" width="260" height="8" fill="#1a2030"/>
-                <rect x="148" y="0" width="8" height="460" fill="#1a2030"/>
-                <!-- Road dashes -->
-                <line x1="0" y1="94" x2="260" y2="94" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="16 8"/>
-                <line x1="152" y1="0" x2="152" y2="460" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="16 8"/>
-              </svg>
-            </div>
-
-            <!-- Animated pin -->
-            <div class="phone-pin">
-              <div class="pin-ripple"></div>
-              <div class="pin-icon"></div>
-              <div class="pin-shadow"></div>
-            </div>
-
-            <!-- App UI overlay -->
-            <div class="phone-ui">
-              <div class="phone-confirmation">
-                <div class="phone-conf-label">📍 PIN SAVED</div>
-                <div class="phone-conf-location">Millennium Garage · P3</div>
-                <div class="phone-conf-detail">Floor 2 · Blue Section · 2:34 PM</div>
-              </div>
-              <div class="phone-btn-row">
-                <button class="phone-btn phone-btn-main">Navigate Back</button>
-                <button class="phone-btn phone-btn-sec">Share Pin</button>
-              </div>
-            </div>
-          </div>
+          <img src="screen1.png" alt="SpotSave app screenshot" class="phone-screen-img">
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── SCENARIO STORIES ─── -->
-<section class="section-full" id="stories">
-  <div class="section-inner">
-    <div class="section-label">SAVED BY SPOTSAVE</div>
-    <h2 class="section-title">The moment it clicked<br>for 50,000 drivers.</h2>
-    <p class="section-sub">Real situations. Real cities. The exact reason we built this.</p>
+<!-- SCREENSHOTS -->
+<section class="screenshots-section" id="screenshots">
+  <div class="screenshots-inner">
+    <div class="section-label">THE APP</div>
+    <h2 class="section-title">Clean. Simple. Works.</h2>
+    <p class="section-sub">Built for the one moment that matters — when you need to find your car.</p>
 
-    <div class="scenarios-grid">
-      <div class="scenario-card" data-animate>
-        <div class="scenario-city"><span class="city-dot"></span>CHICAGO, IL · UNITED CENTER</div>
-        <div class="scenario-moment">
-          "You're on Level 4, Red Zone, near elevator B.
-          Walk toward the orange pillar."
-        </div>
-        <p class="scenario-story">Marcus left the Bulls game and couldn't remember which ramp he took. It was 11pm, raining, and every level looked identical. He'd dropped a pin on the way in. Twenty seconds later he was at his car, dry.</p>
-        <div class="scenario-author">
-          <div class="author-avatar">M</div>
-          <div class="author-info">
-            <div class="author-name">Marcus T.</div>
-            <div class="author-detail">Chicago · daily commuter</div>
-          </div>
-          <div class="stars">★★★★★</div>
-        </div>
+    <div class="screenshots-grid">
+      <div class="screenshot-card" data-animate>
+        <img src="screen1.png" alt="Save your parking spot">
+        <div class="screenshot-caption">📍 Save your spot in one tap</div>
       </div>
-
-      <div class="scenario-card" data-animate>
-        <div class="scenario-city"><span class="city-dot"></span>NEW YORK CITY · MIDTOWN MANHATTAN</div>
-        <div class="scenario-moment">
-          "P7 garage, 47th &amp; 8th.
-          First open spot right of the entrance ramp."
-        </div>
-        <p class="scenario-story">Sara had a 9am meeting in Midtown. Squeezed into the first spot she found, sprinted to the office. 7 hours later she stood on 8th Ave with zero idea which of 12 garages she'd used. The app had her exact spot. Walk time: 4 minutes.</p>
-        <div class="scenario-author">
-          <div class="author-avatar">S</div>
-          <div class="author-info">
-            <div class="author-name">Sara K.</div>
-            <div class="author-detail">NYC · works in finance</div>
-          </div>
-          <div class="stars">★★★★★</div>
-        </div>
+      <div class="screenshot-card" data-animate>
+        <img src="screen2.png" alt="Navigate back to your car">
+        <div class="screenshot-caption">🧭 Navigate back to your car</div>
       </div>
-
-      <div class="scenario-card" data-animate>
-        <div class="scenario-city"><span class="city-dot"></span>LOS ANGELES · WESTWOOD / UCLA</div>
-        <div class="scenario-moment">
-          "Structure 8, Floor 3B.
-          Pin is 180ft west of the stairwell."
-        </div>
-        <p class="scenario-story">Dev circled UCLA's Westwood Village for 25 minutes, finally found a spot in Structure 8, three levels down. After a 3-hour dinner, the pin walked him straight back — even through the garage's dead cell zone.</p>
-        <div class="scenario-author">
-          <div class="author-avatar">D</div>
-          <div class="author-info">
-            <div class="author-name">Dev P.</div>
-            <div class="author-detail">Los Angeles · UCLA alum</div>
-          </div>
-          <div class="stars">★★★★★</div>
-        </div>
+      <div class="screenshot-card" data-animate>
+        <img src="screen3.png" alt="Parking history">
+        <div class="screenshot-caption">🕐 Full parking history</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── 3-TAP FLOW ─── -->
-<section class="section-full flow-section" id="how-it-works">
-  <div class="section-inner" style="padding-top: 100px; padding-bottom: 100px;">
-    <div class="section-label">THE 3-TAP FLOW</div>
+<!-- HOW IT WORKS -->
+<section class="steps-section" id="how-it-works">
+  <div class="steps-inner">
+    <div class="section-label">3 Steps</div>
     <h2 class="section-title">Park. Pin. Go.</h2>
-    <p class="section-sub">The entire flow takes under 3 seconds. We timed it.</p>
+    <p class="section-sub">The entire flow takes under 3 seconds.</p>
 
-    <div class="flow-grid">
-      <!-- Step 1: Open app, tap to drop pin -->
-      <div class="flow-step" data-animate>
-        <div style="position:relative">
-          <div class="flow-step-number">1</div>
-          <div class="flow-phone">
-            <div class="flow-phone-notch"></div>
-            <div class="flow-phone-screen screen-park" style="min-height:260px; position:relative; overflow:hidden;">
-              <!-- map bg -->
-              <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 160 260" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0" y="0" width="160" height="260" fill="#0f1620"/>
-                <rect x="5" y="10" width="45" height="40" fill="#141a25" rx="2"/>
-                <rect x="58" y="10" width="35" height="40" fill="#141a25" rx="2"/>
-                <rect x="101" y="10" width="54" height="40" fill="#141a25" rx="2"/>
-                <rect x="5" y="65" width="30" height="55" fill="#141a25" rx="2"/>
-                <rect x="43" y="65" width="55" height="55" fill="#1e2840" rx="2"/>
-                <rect x="43" y="65" width="55" height="55" fill="none" stroke="rgba(88,166,255,0.25)" stroke-width="1" rx="2"/>
-                <text x="70" y="96" font-family="monospace" font-size="8" fill="rgba(88,166,255,0.7)" text-anchor="middle">P3</text>
-                <rect x="106" y="65" width="49" height="55" fill="#141a25" rx="2"/>
-                <rect x="0" y="57" width="160" height="6" fill="#1a2030"/>
-                <rect x="0" y="128" width="160" height="6" fill="#1a2030"/>
-                <rect x="0" y="195" width="160" height="6" fill="#1a2030"/>
-                <rect x="97" y="0" width="6" height="260" fill="#1a2030"/>
-                <line x1="0" y1="60" x2="160" y2="60" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="12 6"/>
-                <line x1="100" y1="0" x2="100" y2="260" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="12 6"/>
-              </svg>
-              <!-- Pin dropping via CSS -->
-              <div style="position:absolute;top:90px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;animation:pinDrop 1s cubic-bezier(0.23,1,0.32,1) 0.8s both;">
-                <div style="width:20px;height:26px;background:#0A84FF;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 0 12px rgba(10,132,255,0.6);position:relative;">
-                  <div style="position:absolute;width:7px;height:7px;background:#000;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%) rotate(45deg);"></div>
-                </div>
-                <div style="width:10px;height:4px;background:rgba(10,132,255,0.3);border-radius:50%;filter:blur(2px);margin-top:1px;"></div>
-              </div>
-              <!-- Tap indicator -->
-              <div class="tap-indicator" style="top:90px;left:50%;transform:translate(-50%,-50%);width:28px;height:28px;border:2px solid rgba(255,255,255,0.3);border-radius:50%;animation:tapRipple 2s ease-out 1.8s infinite;"></div>
-              <!-- Status bar -->
-              <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,rgba(10,14,20,0.95) 0%,transparent 100%);padding:10px 10px 8px;z-index:20;">
-                <div style="font-family:'DM Mono',monospace;font-size:8px;color:#0A84FF;margin-bottom:3px;letter-spacing:1px;">TAP TO DROP PIN</div>
-                <div style="font-size:9px;color:rgba(230,237,243,0.8);">P3 Garage · Floor 2</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flow-label">Open &amp; Tap</div>
-        <div class="flow-sublabel">One tap drops your pin at your exact GPS location</div>
+    <div class="steps-grid">
+      <div class="step-card" data-animate>
+        <div class="step-num">1</div>
+        <div class="step-title">Open &amp; Tap "Park Here"</div>
+        <div class="step-desc">One tap drops your pin at your exact GPS location. Works the second you step out of your car.</div>
       </div>
-
-      <!-- Step 2: Confirm details -->
-      <div class="flow-step" data-animate style="transition-delay:0.15s">
-        <div style="position:relative">
-          <div class="flow-step-number">2</div>
-          <div class="flow-phone">
-            <div class="flow-phone-notch"></div>
-            <div class="flow-phone-screen" style="min-height:260px; background:#0d1117; padding:10px; overflow:hidden;">
-              <div class="confirm-map-mini" style="position:relative;overflow:hidden;">
-                <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 136 100" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="0" y="0" width="136" height="100" fill="#0f1620"/>
-                  <rect x="5" y="5" width="35" height="25" fill="#141a25" rx="2"/>
-                  <rect x="48" y="5" width="40" height="25" fill="#1e2840" rx="2"/>
-                  <rect x="96" y="5" width="35" height="25" fill="#141a25" rx="2"/>
-                  <rect x="0" y="36" width="136" height="5" fill="#1a2030"/>
-                  <rect x="5" y="48" width="50" height="40" fill="#141a25" rx="2"/>
-                  <rect x="63" y="48" width="68" height="40" fill="#141a25" rx="2"/>
-                  <line x1="0" y1="38" x2="136" y2="38" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="10 5"/>
-                </svg>
-                <div style="position:absolute;top:10px;left:62px;z-index:10;">
-                  <div style="width:14px;height:18px;background:#0A84FF;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 0 8px rgba(10,132,255,0.7);"></div>
-                </div>
-                <div style="position:absolute;top:12px;left:60px;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(10,132,255,0.4);animation:ripple 2s ease-out infinite;"></div>
-              </div>
-              <div style="background:rgba(22,27,34,0.8);border:1px solid rgba(48,54,61,0.6);border-radius:10px;padding:10px 12px;margin-bottom:8px;">
-                <div style="font-family:'DM Mono',monospace;font-size:8px;color:#0A84FF;letter-spacing:1px;margin-bottom:4px;">📍 PIN CONFIRMED</div>
-                <div style="font-size:11px;font-weight:600;color:#e6edf3;margin-bottom:2px;">Millennium Parking · P3</div>
-                <div style="display:flex;gap:6px;align-items:center;margin-top:4px;">
-                  <div style="background:#0A84FF;color:#000;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;font-family:'DM Mono',monospace;">FLOOR 2</div>
-                  <div style="background:rgba(88,166,255,0.1);color:#58a6ff;border:1px solid rgba(88,166,255,0.3);font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;font-family:'DM Mono',monospace;">BLUE ZONE</div>
-                </div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:9px;color:#8b949e;margin-bottom:8px;font-family:'DM Mono',monospace;">
-                <div style="background:#161b22;border:1px solid #30363d;border-radius:7px;padding:7px 8px;">
-                  <div style="color:#0A84FF;margin-bottom:2px;">TIME</div>
-                  <div style="color:#e6edf3;font-size:11px;font-weight:600;">2:34 PM</div>
-                </div>
-                <div style="background:#161b22;border:1px solid #30363d;border-radius:7px;padding:7px 8px;">
-                  <div style="color:#0A84FF;margin-bottom:2px;">DIST</div>
-                  <div style="color:#e6edf3;font-size:11px;font-weight:600;">0 ft</div>
-                </div>
-              </div>
-              <button style="width:100%;background:#0A84FF;color:#000;border:none;border-radius:8px;padding:9px;font-size:11px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;">✓ Save This Pin</button>
-            </div>
-          </div>
-        </div>
-        <div class="flow-label">Confirm Details</div>
-        <div class="flow-sublabel">Add notes: floor, zone, photo — saved instantly</div>
+      <div class="step-card" data-animate>
+        <div class="step-num">2</div>
+        <div class="step-title">Go Do Your Thing</div>
+        <div class="step-desc">Shop, eat, work, explore. SpotSave holds your spot in memory — no signal required once saved.</div>
       </div>
-
-      <!-- Step 3: Navigate back -->
-      <div class="flow-step" data-animate style="transition-delay:0.3s">
-        <div style="position:relative">
-          <div class="flow-step-number">3</div>
-          <div class="flow-phone">
-            <div class="flow-phone-notch"></div>
-            <div class="flow-phone-screen" style="min-height:260px; background:#0d1117; padding:10px; overflow:hidden;">
-              <!-- Nav route card -->
-              <div style="background:rgba(10,132,255,0.1);border:1px solid rgba(10,132,255,0.25);border-radius:10px;padding:9px 11px;margin-bottom:8px;">
-                <div style="font-family:'DM Mono',monospace;font-size:8px;color:#0A84FF;letter-spacing:1px;margin-bottom:3px;">↑ HEADING TO YOUR CAR</div>
-                <div style="font-size:20px;font-weight:700;color:#e6edf3;letter-spacing:-0.5px;">340 ft</div>
-                <div style="font-size:9px;color:#8b949e;font-family:'DM Mono',monospace;">~4 min walk · P3 Garage</div>
-              </div>
-              <!-- Mini route map -->
-              <div style="width:100%;height:110px;background:#0f1620;border-radius:8px;position:relative;overflow:hidden;margin-bottom:8px;">
-                <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 136 110" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="0" y="0" width="136" height="110" fill="#0f1620"/>
-                  <!-- grid -->
-                  <rect x="5" y="5" width="30" height="30" fill="#141a25" rx="2"/>
-                  <rect x="43" y="5" width="50" height="30" fill="#141a25" rx="2"/>
-                  <rect x="101" y="5" width="30" height="30" fill="#141a25" rx="2"/>
-                  <rect x="5" y="60" width="50" height="40" fill="#1e2840" rx="2"/>
-                  <rect x="5" y="60" width="50" height="40" fill="none" stroke="rgba(88,166,255,0.2)" stroke-width="1" rx="2"/>
-                  <text x="30" y="84" font-family="monospace" font-size="7" fill="rgba(88,166,255,0.7)" text-anchor="middle">P3</text>
-                  <rect x="63" y="60" width="68" height="40" fill="#141a25" rx="2"/>
-                  <!-- roads -->
-                  <rect x="0" y="42" width="136" height="5" fill="#1a2030"/>
-                  <rect x="60" y="0" width="5" height="110" fill="#1a2030"/>
-                  <!-- Route line -->
-                  <path d="M 100 80 L 62 80 L 62 44 L 100 44" stroke="#58a6ff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" stroke-dasharray="6 3">
-                    <animate attributeName="stroke-dashoffset" values="0;-18" dur="1.5s" repeatCount="indefinite"/>
-                  </path>
-                  <!-- YOU marker -->
-                  <circle cx="100" cy="44" r="5" fill="#58a6ff" opacity="0.9"/>
-                  <circle cx="100" cy="44" r="9" fill="none" stroke="#58a6ff" stroke-width="1.5" opacity="0.5">
-                    <animate attributeName="r" values="5;12;5" dur="2s" repeatCount="indefinite"/>
-                    <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite"/>
-                  </circle>
-                  <!-- PIN marker -->
-                  <path d="M30,72 C26,72 22,76 22,80 C22,86 30,92 30,92 C30,92 38,86 38,80 C38,76 34,72 30,72 Z" fill="#0A84FF"/>
-                  <circle cx="30" cy="80" r="3" fill="rgba(0,0,0,0.5)"/>
-                </svg>
-              </div>
-              <!-- Direction steps -->
-              <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px;">
-                <div style="display:flex;align-items:center;gap:7px;font-size:9px;color:#8b949e;font-family:'DM Mono',monospace;">
-                  <div style="width:16px;height:16px;background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.3);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#58a6ff;font-size:8px;flex-shrink:0;">↑</div>
-                  Head south on 8th Ave
-                </div>
-                <div style="display:flex;align-items:center;gap:7px;font-size:9px;color:#8b949e;font-family:'DM Mono',monospace;">
-                  <div style="width:16px;height:16px;background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.3);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#58a6ff;font-size:8px;flex-shrink:0;">←</div>
-                  Turn left — P3 entrance
-                </div>
-              </div>
-              <button style="width:100%;background:#58a6ff;color:#000;border:none;border-radius:8px;padding:9px;font-size:11px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;">Start Walking</button>
-            </div>
-          </div>
-        </div>
-        <div class="flow-label">Navigate Back</div>
-        <div class="flow-sublabel">Turn-by-turn walking directions right to your car</div>
+      <div class="step-card" data-animate>
+        <div class="step-num">3</div>
+        <div class="step-title">Tap "Find My Car"</div>
+        <div class="step-desc">Get walking directions back to your exact spot. Even through underground garages with zero cell signal.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── FEATURES / MAP LEGEND ─── -->
+<!-- FEATURES -->
 <section class="features-section" id="features">
   <div class="features-inner">
-    <div class="section-label">FEATURE LEGEND</div>
-    <h2 class="section-title">Built for garages,<br>not parking lots.</h2>
+    <div class="section-label">Features</div>
+    <h2 class="section-title">Built for garages,<br>not just parking lots.</h2>
     <p class="section-sub">Most apps assume you parked outside. We built this for P3, Floor 2, Blue Section.</p>
 
-    <div class="legend-grid">
-      <div class="legend-item" data-animate>
-        <div class="legend-symbol" style="background:rgba(10,132,255,0.1);border:1px solid rgba(10,132,255,0.2);">📍</div>
-        <div class="legend-text">
-          <div class="legend-title">Multi-level Pin Accuracy</div>
-          <div class="legend-desc">Saves your floor number, zone, and GPS. Works in underground garages where most apps fail completely.</div>
+    <div class="features-grid">
+      <div class="feature-item" data-animate>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="feature-title">Multi-level Pin Accuracy</div>
+          <div class="feature-desc">Saves your floor, zone, and GPS. Works in underground garages where other apps fail completely.</div>
         </div>
       </div>
-      <div class="legend-item" data-animate>
-        <div class="legend-symbol" style="background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.2);">🧭</div>
-        <div class="legend-text">
-          <div class="legend-title">Dead Zone Navigation</div>
-          <div class="legend-desc">Uses cached GPS + compass + step counter to guide you back even without cell signal. Because garages never have signal.</div>
+      <div class="feature-item" data-animate>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div>
+          <div class="feature-title">Offline Navigation</div>
+          <div class="feature-desc">Uses cached GPS + compass to guide you back even without cell signal. Because garages never have signal.</div>
         </div>
       </div>
-      <div class="legend-item" data-animate>
-        <div class="legend-symbol" style="background:rgba(240,136,62,0.1);border:1px solid rgba(240,136,62,0.2);">⏱</div>
-        <div class="legend-text">
-          <div class="legend-title">Parking Timer</div>
-          <div class="legend-desc">Set a meter timer the moment you park. Get notified before you're fined. Runs in the background automatically.</div>
+      <div class="feature-item" data-animate>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="feature-title">Parking Timer</div>
+          <div class="feature-desc">Set a meter timer the moment you park. Get notified before you're fined. Runs in the background.</div>
         </div>
       </div>
-      <div class="legend-item" data-animate>
-        <div class="legend-symbol" style="background:rgba(188,140,255,0.1);border:1px solid rgba(188,140,255,0.2);">📸</div>
-        <div class="legend-text">
-          <div class="legend-title">Photo Notes</div>
-          <div class="legend-desc">Snap the section sign, your spot number, or any landmark. Your pin becomes a complete memory of where you parked.</div>
+      <div class="feature-item" data-animate>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div>
+          <div class="feature-title">Photo Notes</div>
+          <div class="feature-desc">Snap the section sign, your spot number, or any landmark. Your pin becomes a complete memory of where you parked.</div>
         </div>
       </div>
-      <div class="legend-item" data-animate>
-        <div class="legend-symbol" style="background:rgba(10,132,255,0.1);border:1px solid rgba(10,132,255,0.2);">👥</div>
-        <div class="legend-text">
-          <div class="legend-title">Share Your Spot</div>
-          <div class="legend-desc">Send your pin to anyone — even if they don't have the app. They get a link that opens your exact location.</div>
+      <div class="feature-item" data-animate>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <div class="feature-title">Share Your Spot</div>
+          <div class="feature-desc">Send your pin to anyone. They get a link that opens your exact location — even if they don't have the app.</div>
         </div>
       </div>
-      <div class="legend-item" data-animate>
-        <div class="legend-symbol" style="background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.2);">📅</div>
-        <div class="legend-text">
-          <div class="legend-title">Parking History</div>
-          <div class="legend-desc">Every place you've parked, logged automatically. Find that garage you used last month in a new city with one tap.</div>
+      <div class="feature-item" data-animate>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        </div>
+        <div>
+          <div class="feature-title">Parking History</div>
+          <div class="feature-desc">Every place you've parked, logged automatically. Find that garage you used last month with one tap.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── PROOF ─── -->
-<section class="proof-section" id="proof">
-  <div class="section-label" style="justify-content:center;">THE NUMBERS</div>
-  <h2 class="section-title">Trusted in every<br>city with a parking problem.</h2>
-
-  <div class="proof-numbers">
-    <div class="proof-item">
-      <div class="proof-num"><span>$</span>0</div>
-      <div class="proof-label">TO DOWNLOAD</div>
-    </div>
-    <div class="proof-divider"></div>
-    <div class="proof-item">
-      <div class="proof-num">100<span>%</span></div>
-      <div class="proof-label">WORKS OFFLINE</div>
-    </div>
-    <div class="proof-divider"></div>
-    <div class="proof-item">
-      <div class="proof-num">0<span>%</span></div>
-      <div class="proof-label">DATA COLLECTED</div>
-    </div>
-    <div class="proof-divider"></div>
-    <div class="proof-item">
-      <div class="proof-num">3<span>s</span></div>
-      <div class="proof-label">TO SAVE YOUR SPOT</div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── PRICING ─── -->
+<!-- PRICING -->
 <section class="pricing-section" id="pricing">
   <div style="text-align:center;">
-    <div class="section-label" style="justify-content:center;">PRICING</div>
-    <h2 class="section-title">Start free.<br>Go pro if you park a lot.</h2>
-    <p class="section-sub" style="margin: 0 auto;">Most people never need to upgrade. Pro is for the daily commuters and frequent travelers.</p>
+    <div class="section-label" style="justify-content:center;">Pricing</div>
+    <h2 class="section-title">Start free. Upgrade if you park a lot.</h2>
+    <p class="section-sub" style="margin:0 auto;">Most people never need to upgrade. Free is fully functional.</p>
   </div>
 
   <div class="pricing-grid">
     <div class="pricing-card">
       <div class="pricing-tier">Free</div>
       <div class="pricing-price">$0</div>
-      <div class="pricing-cadence">forever, no card needed</div>
+      <div class="pricing-cadence">forever · no card needed</div>
       <ul class="pricing-features">
         <li><span class="feat-check">✓</span> Drop unlimited pins</li>
         <li><span class="feat-check">✓</span> Multi-level floor tracking</li>
@@ -2207,14 +1132,13 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
         <li><span class="feat-check">✓</span> Parking timer</li>
         <li><span class="feat-check">✓</span> Photo notes</li>
         <li><span class="feat-check">✓</span> Works without cell signal</li>
-        <li><span class="feat-check-dim">—</span> <span style="color:var(--text-faint)">Parking history (last 7 days)</span></li>
-        <li><span class="feat-check-dim">—</span> <span style="color:var(--text-faint)">Pin sharing</span></li>
+        <li><span class="feat-dim">—</span> <span style="color:var(--text-faint)">History beyond 7 days</span></li>
+        <li><span class="feat-dim">—</span> <span style="color:var(--text-faint)">Pin sharing</span></li>
       </ul>
       <a href="#download" class="pricing-cta pricing-cta-free">Download Free</a>
     </div>
-
     <div class="pricing-card featured">
-      <div class="pricing-badge">MOST POPULAR</div>
+      <div class="pricing-badge">Most Popular</div>
       <div class="pricing-tier">Pro</div>
       <div class="pricing-price"><sup>$</sup>1.99</div>
       <div class="pricing-cadence">per month · cancel anytime</div>
@@ -2222,10 +1146,10 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
         <li><span class="feat-check">✓</span> Everything in Free</li>
         <li><span class="feat-check">✓</span> Unlimited parking history</li>
         <li><span class="feat-check">✓</span> Share pins with anyone</li>
-        <li><span class="feat-check">✓</span> Smart reminders (meter alerts)</li>
-        <li><span class="feat-check">✓</span> iCloud / Google Drive sync</li>
-        <li><span class="feat-check">✓</span> Priority offline maps</li>
+        <li><span class="feat-check">✓</span> Smart meter reminders</li>
+        <li><span class="feat-check">✓</span> iCloud sync</li>
         <li><span class="feat-check">✓</span> Apple Watch app</li>
+        <li><span class="feat-check">✓</span> Priority offline maps</li>
         <li><span class="feat-check">✓</span> No ads, ever</li>
       </ul>
       <a href="#download" class="pricing-cta pricing-cta-pro">Start Pro — $1.99/mo</a>
@@ -2233,108 +1157,69 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
   </div>
 </section>
 
-<!-- ─── FAQ ─── -->
+<!-- FAQ -->
 <section class="faq-section" id="faq">
   <div class="faq-inner">
     <div class="section-label">FAQ</div>
     <h2 class="section-title">Quick answers.</h2>
-
     <div class="faq-list">
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Does it work in underground parking garages?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Yes — that's specifically why we built it. SpotSave caches your GPS location at the garage entrance and uses a combination of your last known position, compass heading, and step count to navigate you back even when you have zero signal underground.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Does it work in underground garages?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes — that's specifically why we built it. SpotSave caches your GPS at the garage entrance and uses compass + step count to navigate you back even with zero signal underground.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          How is this different from just dropping a pin in Google Maps?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Google Maps doesn't track floors, doesn't remember your zone or section, doesn't let you add photo notes of the parking sign, and doesn't work without signal. We're built specifically for the multi-level garage problem — not as a general maps tool.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">How is this different from dropping a pin in Google Maps?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Google Maps doesn't track floors, doesn't save your zone or section, doesn't let you add photo notes of the parking sign, and doesn't work without signal. We're built specifically for the multi-level garage problem.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Does the free version actually work, or is it crippled?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">The free version is fully functional. You get unlimited pin drops, floor tracking, navigation back to your car, timer, and photo notes. Pro adds history beyond 7 days, pin sharing, sync, and Watch app. We don't believe in fake free tiers.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Is the free version actually useful?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes — fully functional. You get unlimited pins, floor tracking, navigation, timer, and photo notes. Pro adds history beyond 7 days, pin sharing, sync, and Watch app. No fake free tier.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          What cities does it work in?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Any city, anywhere in the world. SpotSave doesn't rely on a database of parking structures — it works from your GPS location, so it works in NYC, Chicago, LA, London, Tokyo, and every city in between.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Is my location data private?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Your pins are stored only on your device. We don't run tracking servers. We don't collect or sell your location data. Pro users get optional iCloud sync — your data, your cloud.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Is my location data private?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Your pins are stored only on your device and optionally synced to your own iCloud or Google Drive (Pro). We don't run any tracking servers. We don't sell your location data. We never will — it's in our founding documents.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Does it drain my battery?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">No. GPS is only active while you're actively using the app. Once you've dropped your pin, GPS turns off completely. The timer runs in the background but uses almost no battery. We've been obsessive about this.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Does it drain battery?<span class="faq-icon">+</span></button>
+        <div class="faq-a">No. GPS is only active while you're using the app. Once your pin is saved, GPS turns off. The timer runs in the background with negligible battery usage.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── FINAL CTA ─── -->
+<!-- FINAL CTA -->
 <section class="final-cta" id="download">
   <div class="final-cta-inner">
-    <div class="section-label" style="justify-content:center;">GET THE APP</div>
-    <h2>Stop circling.<br><span style="color:var(--accent)">Start pinning.</span></h2>
+    <div class="section-label" style="justify-content:center;">Get The App</div>
+    <h2>Stop circling.<br><span style="color:var(--accent2)">Start pinning.</span></h2>
     <p>Free download. No account required. Works in 3 seconds.</p>
-    <div class="final-cta-btns">
-      <a href="#" class="app-badge">
-        <span class="app-badge-icon">🍎</span>
-        <div class="app-badge-text">
-          <div class="app-badge-sub">DOWNLOAD ON THE</div>
-          <div class="app-badge-name">App Store</div>
-        </div>
-      </a>
-      <a href="#" class="app-badge">
-        <span class="app-badge-icon">▶</span>
-        <div class="app-badge-text">
-          <div class="app-badge-sub">GET IT ON</div>
-          <div class="app-badge-name">Google Play</div>
-        </div>
-      </a>
-    </div>
-    <p style="margin-top:28px;font-size:13px;color:var(--text-faint);font-family:'DM Mono',monospace;">
-      iOS 15+ · Android 8+ · Free · Pro from $1.99/mo
-    </p>
+    <a href="#" class="app-store-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download on the App Store
+    </a>
+    <div class="final-note">iOS 15+ · Free · Pro from $1.99/mo</div>
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-left">
-      <div class="footer-logo-icon">📍</div>
+    <a href="#" class="footer-logo">
+      <img src="icon.png" alt="SpotSave">
       <div>
-        <div class="footer-logo-text">SpotSave</div>
+        <div class="footer-logo-text">SpotSave: Car Locator</div>
         <div class="footer-copy">© 2026 Websage Inc.</div>
       </div>
-    </div>
+    </a>
     <ul class="footer-links">
       <li><a href="/apps/parking-pin-drop/privacy">Privacy</a></li>
       <li><a href="#">Terms</a></li>
       <li><a href="#">Support</a></li>
-      <li><a href="#">Press</a></li>
     </ul>
   </div>
 </footer>
 
 <script>
-  // ─── FAQ TOGGLE ───
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item');
     const isOpen = item.classList.contains('open');
@@ -2342,49 +1227,26 @@ nav, header, [class*="nav"], [class*="header"] { top: 48px !important; }
     if (!isOpen) item.classList.add('open');
   }
 
-  // ─── INTERSECTION OBSERVER ───
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
         const el = entry.target;
-        const delay = el.dataset.delay || 0;
-        setTimeout(() => {
-          el.classList.add('visible');
-        }, delay);
+        const siblings = Array.from(el.parentElement.children).filter(c => c.hasAttribute('data-animate'));
+        const delay = siblings.indexOf(el) * 100;
+        setTimeout(() => el.classList.add('visible'), delay);
         observer.unobserve(el);
       }
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll('[data-animate]').forEach((el, i) => {
-    // Stagger siblings
-    const siblings = Array.from(el.parentElement.children).filter(c => c.hasAttribute('data-animate'));
-    const idx = siblings.indexOf(el);
-    el.dataset.delay = idx * 120;
-    observer.observe(el);
-  });
+  document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 
-  // ─── SMOOTH SCROLL FOR ANCHOR LINKS ───
   document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', (e) => {
+    link.addEventListener('click', e => {
       const target = document.querySelector(link.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
-
-  // ─── NAV SCROLL EFFECT ───
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 40) {
-      nav.style.borderBottomColor = 'rgba(48,54,61,0.8)';
-    } else {
-      nav.style.borderBottomColor = 'rgba(48,54,61,0.6)';
-    }
-  }, { passive: true });
 </script>
-
 </body>
 </html>
